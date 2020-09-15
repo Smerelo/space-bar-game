@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4674718457654491403}
   - component: {fileID: 4674718457654491405}
   - component: {fileID: 4674718457654491404}
+  - component: {fileID: -7404873292046749790}
   m_Layer: 0
   m_Name: Cook
   m_TagString: Untagged
@@ -96,3 +97,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7404873292046749790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674718457654491402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d5b8dd20910f34ea8469d771cf435d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 10

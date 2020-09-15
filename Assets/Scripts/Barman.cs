@@ -83,6 +83,7 @@ public class Barman : MonoBehaviour
         if (currentDestIndex >= destinations.Count)
         {
             employeeBehaviour.TaskAccomplished();
+            currentDestIndex = 0;
         }
     }
 

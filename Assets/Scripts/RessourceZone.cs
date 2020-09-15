@@ -19,6 +19,7 @@ public class RessourceZone : MonoBehaviour
     [Header("Sprites By Quantity")]
     [Space]
     [SerializeField] private Sprite empty;
+    [SerializeField] private Sprite smallRessources;
     [SerializeField] private Sprite mediumRessources;
     [SerializeField] private Sprite lotsOfRessources;
     public TextMeshProUGUI textGUI;
@@ -33,7 +34,6 @@ public class RessourceZone : MonoBehaviour
         if (RessourceQuantity - quantity >= 0)
         {
             RessourceQuantity -= quantity;
-            CheckForSpriteUpdate();
             return (true);
         }
         else
@@ -45,7 +45,6 @@ public class RessourceZone : MonoBehaviour
     public void AddRessources(int quantity)
     {
         RessourceQuantity += quantity;
-        CheckForSpriteUpdate();
     }
 
     private void CheckForSpriteUpdate()
@@ -56,9 +55,9 @@ public class RessourceZone : MonoBehaviour
         }
         if (RessourceQuantity > 0 && RessourceQuantity <= littleRessourceQuantity)
         {
-            spriteRenderer.sprite = mediumRessources;
+            spriteRenderer.sprite = smallRessources;
         }
-        if (RessourceQuantity > littleRessourceQuantity && RessourceQuantity < mediumRessourceQuantity)
+        if (RessourceQuantity > littleRessourceQuantity && RessourceQuantity <= mediumRessourceQuantity)
         {
             spriteRenderer.sprite = mediumRessources;
         }
@@ -71,6 +70,7 @@ public class RessourceZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForSpriteUpdate();
         textGUI.text = RessourceQuantity.ToString();
     }
 }
