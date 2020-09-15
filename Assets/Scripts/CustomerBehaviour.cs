@@ -6,9 +6,7 @@ using UnityEngine;
 public class CustomerBehaviour : MonoBehaviour
 {
     private Table assignedTable;
-    public bool IsSitting { get; private set; }
     public bool IsEating { get; private set; }
-    public bool IsWating { get; private set; }
     public bool IsWatingForTable { get;  set; }
 
 
@@ -18,6 +16,7 @@ public class CustomerBehaviour : MonoBehaviour
 
     private CustomerManager manager;
     [SerializeField] private float movementSpeed;
+    private bool isSitting;
 
     void Start()
     {
@@ -38,9 +37,10 @@ public class CustomerBehaviour : MonoBehaviour
         if (assignedTable != null)
         {
 
-            if (MoveToTable())
-            { 
-                IsWating = true;
+            if (MoveToTableAndCheck() && !isSitting)
+            {
+                isSitting = true;
+                SendOrder();
             }
         }   
     }
@@ -50,7 +50,7 @@ public class CustomerBehaviour : MonoBehaviour
         manager.SendOrder(order);
     }
 
-    private bool MoveToTable()
+    private bool MoveToTableAndCheck()
     {
         if (!(Vector3.Distance(assignedTable.GetSittingZone(), transform.position) < 0.1f))
         {
