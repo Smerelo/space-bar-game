@@ -12,10 +12,12 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private Transform stationsTrasform;
 
     private List<GameObject> employees;
+
     private List<EmployeeBehaviour> employeesScripts;
     [SerializeField] private Transform waitingZone;
     [SerializeField] private bool test;
     [SerializeField] List<float> waitTimes;
+    [SerializeField] GameObject workerPrefab;
 
     void Start()
     {
@@ -44,6 +46,7 @@ public class ZoneManagment : MonoBehaviour
     {
         if (test)
         {
+            print("adasda");
             BeginTask(FindUnoccupiedStation(), FindFreeEmployee());
         }
     }
@@ -54,7 +57,7 @@ public class ZoneManagment : MonoBehaviour
     }
     public void BeginTask(Workstation station, EmployeeBehaviour employee)
     {
-        employee.BeginTask(station.GetWorkerPlacement(), waitTimes);
+        employee.BeginTask(station, waitTimes);
         test = false;
     }
     private EmployeeBehaviour FindFreeEmployee()
@@ -82,7 +85,9 @@ public class ZoneManagment : MonoBehaviour
     }
     public void HireEmployee()
     {
-
+        GameObject newEmployee = Instantiate(workerPrefab, waitingZone.position, Quaternion.identity, transform);
+        employees.Add(newEmployee);
+        employeesScripts.Add(newEmployee.GetComponent<EmployeeBehaviour>());
     }
 
     public Transform GetInputPos()
@@ -103,5 +108,9 @@ public class ZoneManagment : MonoBehaviour
     internal Transform GetWaitingZone()
     {
         return waitingZone;
+    }
+    internal string GetName()
+    {
+        return zoneName;
     }
 }

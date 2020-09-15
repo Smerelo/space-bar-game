@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Workstation : MonoBehaviour
 {
-    public bool InUse { get; private set; }
+    public bool InUse { get; set; }
     private Transform workerPlacement;
     void Start()
     {
