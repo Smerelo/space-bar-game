@@ -16,7 +16,7 @@ public class EmployeeBehaviour : MonoBehaviour
     private int currentWaitTimeIndex;
     private List<Transform> destinations;
     private List<float> waitTimes;
-
+    private Order currentOrder;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float speedBoostMultiplier;
     private ZoneManagment parentZone;
@@ -78,14 +78,21 @@ public class EmployeeBehaviour : MonoBehaviour
         }
         if (currentDestIndex >= destinations.Count)
         {
-            IsBusy = false;
-            destinations = null;
-            currentDestIndex = 0;
+            TaskAccomplished();
         }
 
     }
 
-    public void BeginTask(Workstation station, List<float> waitTimesList)
+    private void TaskAccomplished()
+    {
+        currentOrder.IsBeingPrepared = false;
+        IsBusy = false;
+        destinations = null;
+        currentDestIndex = 0;
+        parentZone.TaskAccomplished(currentOrder);
+    }
+
+    public void BeginTask(Workstation station, List<float> waitTimesList, Order order)
     {
         IsBusy = true;
         workstation = station;
@@ -96,5 +103,6 @@ public class EmployeeBehaviour : MonoBehaviour
         freeStationIndex = 2;
         destinations.Add(parentZone.GetOutputPos());
         waitTimes = waitTimesList;
+        currentOrder = order;
     }
 }

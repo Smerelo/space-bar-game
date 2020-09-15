@@ -17,6 +17,7 @@ public class CustomerBehaviour : MonoBehaviour
     private float eatingTime;
 
     private CustomerManager manager;
+    [SerializeField] private float movementSpeed;
 
     void Start()
     {
@@ -28,17 +29,39 @@ public class CustomerBehaviour : MonoBehaviour
     public void AssignTable(Table table)
     {
         assignedTable = table;
-        
+        assignedTable.InUse = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (assignedTable != null)
+        {
+
+            if (MoveToTable())
+            { 
+                IsWating = true;
+            }
+        }   
+    }
+
+    private void SendOrder() {
+        Order order = new Order(foodPreference, assignedTable);
+        manager.SendOrder(order);
+    }
+
+    private bool MoveToTable()
+    {
+        if (!(Vector3.Distance(assignedTable.GetSittingZone(), transform.position) < 0.1f))
+        {
+            transform.position = Vector3.MoveTowards(transform.position, assignedTable.GetSittingZone(), movementSpeed * Time.deltaTime);
+            return false;
+        }
+        return true; 
     }
 
     internal void WaitForTable()
     {
-        throw new NotImplementedException();
+
     }
 }

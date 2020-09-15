@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class RessourceZone : MonoBehaviour
 {
-    public int RessourceQuantity { get; private set; }
+    public int RessourceQuantity { get; set; }
 
     [Header("Quantity Thresholds")]
     [Space]
     [SerializeField] private int littleRessourceQuantity = 3;
     [SerializeField] private int mediumRessourceQuantity = 5;
+    [SerializeField] private int startingRessources;
 
     private SpriteRenderer spriteRenderer;
     

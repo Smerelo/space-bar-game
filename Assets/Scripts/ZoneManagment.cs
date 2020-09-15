@@ -5,22 +5,23 @@ using UnityEngine;
 
 public class ZoneManagment : MonoBehaviour
 {
-    [SerializeField] private GameObject input;
+    [SerializeField] private RessourceZone input;
     [SerializeField] private GameObject output;
     [SerializeField] private string zoneName;
-    private List<Workstation> stations;
     [SerializeField] private Transform stationsTrasform;
-
-    private List<GameObject> employees;
-
-    private List<EmployeeBehaviour> employeesScripts;
     [SerializeField] private Transform waitingZone;
     [SerializeField] private bool test;
     [SerializeField] List<float> waitTimes;
     [SerializeField] GameObject workerPrefab;
-
+    private List<GameObject> employees;
+    private List<Workstation> stations;
+    private List<EmployeeBehaviour> employeesScripts;
+    private List<Order> orders;
+    private CentralTransactionLogic zoneManager;
     void Start()
     {
+        zoneManager = GetComponentInParent<CentralTransactionLogic>();
+        orders = new List<Order>();
         employees = new List<GameObject>();
         employeesScripts = new List<EmployeeBehaviour>();
 
@@ -44,30 +45,47 @@ public class ZoneManagment : MonoBehaviour
 
     void Update()
     {
-        if (test)
+        if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
         {
-            BeginTask(FindUnoccupiedStation(), FindFreeEmployee());
+            BeginTask(workstation, employee, order);
         }
     }
 
-    public bool ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee)
+    public bool ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order)
     {
         workstation = FindUnoccupiedStation();
         employee = FindFreeEmployee();
-        if (workstation == null || employee == null)
+        order = CheckForOrders();
+        if (workstation == null || employee == null || order == null || input.RessourceQuantity > 0)
         {
             return false;
         }
         return true;
     }
 
-    public void TaskAccomplished()
+    private Order CheckForOrders()
     {
-
+        foreach (Order order in orders)
+        {
+            if (!order.IsBeingPrepared)
+            {
+                return order;
+            }
+        }
+        return null;
     }
-    public void BeginTask(Workstation station, EmployeeBehaviour employee)
+
+    public void TaskAccomplished(Order order)
     {
-        employee.BeginTask(station, waitTimes);
+        orders.Remove(order);
+        zoneManager.SendToNextZone(order, zoneName);
+    }
+
+    public void BeginTask(Workstation station, EmployeeBehaviour employee, Order order)
+    {
+        
+        order.IsBeingPrepared = true;
+        employee.BeginTask(station, waitTimes, order);
         test = false;
     }
     private EmployeeBehaviour FindFreeEmployee()
@@ -122,5 +140,13 @@ public class ZoneManagment : MonoBehaviour
     internal string GetName()
     {
         return zoneName;
+    }
+    public void AddOrder(Order order)
+    {
+        orders.Add(order);
+    }
+    public void TurnInOrder(Order order)
+    {
+
     }
 }

@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class TableManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    List<Table> tables;
     void Start()
     {
-        
+        tables = new List<Table>();
+        foreach(Transform child in transform)
+        {
+            if (child.TryGetComponent(out Table table))
+            {
+                tables.Add(table);
+            }
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -19,7 +25,16 @@ public class TableManager : MonoBehaviour
 
     internal bool TryAvailableTable(out Table table)
     {
+
+        foreach (Table t in tables)
+        {
+            if (!t.InUse)
+            {
+                table = t;
+                return true;
+            }
+        }
         table = null;
-        return true;
+        return false;
     }
 }

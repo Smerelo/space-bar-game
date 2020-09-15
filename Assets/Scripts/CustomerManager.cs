@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,12 +16,14 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private GameObject customerPrefab;
     private float clientFrequency;
     private float timer = 0f;
+    private CentralTransactionLogic spaceCantina;
 
     // Start is called before the first frame update
     void Start()
     {
+        spaceCantina = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         queue = new List<CustomerBehaviour>();
-        clientFrequency = Random.Range(minClientDelay, maxClientDelay);
+        clientFrequency = UnityEngine.Random.Range(minClientDelay, maxClientDelay);
         customers = new List<CustomerBehaviour>();
         tables = new List<Table>();
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
@@ -32,12 +35,18 @@ public class CustomerManager : MonoBehaviour
         SpawnerLogic();   
     }
 
+    internal void SendOrder(Order order)
+    {
+        spaceCantina.AddOrder(order);
+    }
+
     private void SpawnerLogic()
     {
+
         timer += Time.deltaTime;
         if (timer >= clientFrequency)
         {
-            clientFrequency = Random.Range(minClientDelay, maxClientDelay);
+            clientFrequency = UnityEngine.Random.Range(minClientDelay, maxClientDelay);
             timer = 0f;
             if (tableManager.TryAvailableTable(out Table table))
             {
@@ -57,6 +66,6 @@ public class CustomerManager : MonoBehaviour
 
     internal float GetEatingTime()
     {
-        return Random.Range(minEatingTime, maxEatingTime);
+        return UnityEngine.Random.Range(minEatingTime, maxEatingTime);
     }
 }
