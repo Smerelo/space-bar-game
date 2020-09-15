@@ -46,9 +46,19 @@ public class ZoneManagment : MonoBehaviour
     {
         if (test)
         {
-            print("adasda");
             BeginTask(FindUnoccupiedStation(), FindFreeEmployee());
         }
+    }
+
+    public bool ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee)
+    {
+        workstation = FindUnoccupiedStation();
+        employee = FindFreeEmployee();
+        if (workstation == null || employee == null)
+        {
+            return false;
+        }
+        return true;
     }
 
     public void TaskAccomplished()
