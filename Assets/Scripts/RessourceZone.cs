@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RessourceZone : MonoBehaviour
 {
@@ -20,15 +21,16 @@ public class RessourceZone : MonoBehaviour
     [SerializeField] private Sprite empty;
     [SerializeField] private Sprite mediumRessources;
     [SerializeField] private Sprite lotsOfRessources;
-
+    public TextMeshProUGUI textGUI;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        RessourceQuantity = startingRessources;
     }
 
     public bool RemoveRessources(int quantity)
     {
-        if (RessourceQuantity - quantity > 0)
+        if (RessourceQuantity - quantity >= 0)
         {
             RessourceQuantity -= quantity;
             CheckForSpriteUpdate();
@@ -69,6 +71,6 @@ public class RessourceZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        textGUI.text = RessourceQuantity.ToString();
     }
 }

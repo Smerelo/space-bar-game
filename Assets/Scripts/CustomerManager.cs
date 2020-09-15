@@ -9,10 +9,10 @@ public class CustomerManager : MonoBehaviour
     private List<Table> tables;
     private List<CustomerBehaviour> queue;
     private TableManager tableManager;
-    [SerializeField] private float minEatingTime;
-    [SerializeField] private float maxEatingTime;
-    [SerializeField] private float minClientDelay;
-    [SerializeField] private float maxClientDelay;
+    [SerializeField] private float minEatingTime = 5;
+    [SerializeField] private float maxEatingTime = 10;
+    [SerializeField] private float minClientDelay = 7;
+    [SerializeField] private float maxClientDelay = 15;
     [SerializeField] private GameObject customerPrefab;
     private float clientFrequency;
     private float timer = 0f;

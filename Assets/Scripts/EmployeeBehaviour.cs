@@ -7,6 +7,7 @@ public class EmployeeBehaviour : MonoBehaviour
 {
     public bool IsBusy { get; private set; }
 
+    private bool shouldBeginTask;
     private Workstation workstation;
     private bool shouldWait;
     private bool platePickup;
@@ -19,90 +20,56 @@ public class EmployeeBehaviour : MonoBehaviour
     private Order currentOrder;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float speedBoostMultiplier;
-    private ZoneManagment parentZone;
+    public ZoneManagment ParentZone { get; private set; }
     private bool hasPlate;
     private float timer;
     private float platePickupTimer;
     private int freeStationIndex;
     private bool hasFreedStation;
 
-    void Start()
+    void Awake()
     {
-        parentZone = transform.GetComponentInParent<ZoneManagment>();
+        ParentZone = transform.GetComponentInParent<ZoneManagment>();
     }
 
     void Update()
     {
-        if (IsBusy)
-        {
-            MoveToNextPoint();
-        }
-        else
-        {
-            MoveToWaitPoint();
-        }
-    }
-
-    private void MoveToWaitPoint()
-    {
-        if (!(Vector3.Distance(parentZone.GetWaitingZone().position, transform.position) < 0.1f))
-        {
-            transform.position = Vector3.MoveTowards(transform.position, parentZone.GetWaitingZone().position, movementSpeed * Time.deltaTime);
-        }
-    }
-
-    private void MoveToNextPoint()
-    {
-        if (Vector3.Distance(destinations[currentDestIndex].position, transform.position) < 0.1f)
-        {
-            shouldWait = true;
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime);
-        }
-        if (shouldWait)
-        {
-            timer += Time.deltaTime;
-            if (timer >= waitTimes[currentDestIndex])
-            {
-                shouldWait = false;
-                timer = 0;
-                currentDestIndex++;
-                if (!hasFreedStation && currentDestIndex == freeStationIndex)
-                {
-                    hasFreedStation = true;
-                    workstation.InUse = false;
-                }
-            }
-        }
-        if (currentDestIndex >= destinations.Count)
-        {
-            TaskAccomplished();
-        }
 
     }
 
-    private void TaskAccomplished()
+    public void TaskAccomplished()
     {
         currentOrder.IsBeingPrepared = false;
         IsBusy = false;
         destinations = null;
         currentDestIndex = 0;
-        parentZone.TaskAccomplished(currentOrder);
+        ParentZone.TaskAccomplished(currentOrder);
+    }
+
+    public void DrawResource()
+    {
+        ParentZone.DrawResource();
     }
 
     public void BeginTask(Workstation station, List<float> waitTimesList, Order order)
     {
         IsBusy = true;
-        workstation = station;
-        workstation.InUse = true;
-        destinations = new List<Transform>();
-        destinations.Add(parentZone.GetInputPos());
-        destinations.Add(station.GetWorkerPlacement());
-        freeStationIndex = 2;
-        destinations.Add(parentZone.GetOutputPos());
-        waitTimes = waitTimesList;
+        shouldBeginTask = true;
         currentOrder = order;
+        workstation = station;
+        waitTimes = waitTimesList;
+    }
+    public bool ShouldBeginTask(out Workstation station, out List<float> waitTimesList, out Order order)
+    {
+        order = currentOrder;
+        waitTimesList = waitTimes;
+        station = workstation;
+
+        if (shouldBeginTask)
+        {
+            shouldBeginTask = false;
+            return true;
+        }
+        return false;
     }
 }

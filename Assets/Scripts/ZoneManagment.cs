@@ -6,7 +6,7 @@ using UnityEngine;
 public class ZoneManagment : MonoBehaviour
 {
     [SerializeField] private RessourceZone input;
-    [SerializeField] private GameObject output;
+    [SerializeField] private RessourceZone output;
     [SerializeField] private string zoneName;
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
@@ -43,6 +43,8 @@ public class ZoneManagment : MonoBehaviour
         }
     }
 
+
+
     void Update()
     {
         if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
@@ -56,7 +58,7 @@ public class ZoneManagment : MonoBehaviour
         workstation = FindUnoccupiedStation();
         employee = FindFreeEmployee();
         order = CheckForOrders();
-        if (workstation == null || employee == null || order == null || input.RessourceQuantity > 0)
+        if (workstation == null || employee == null || order == null || input.RessourceQuantity <= 0)
         {
             return false;
         }
@@ -78,7 +80,12 @@ public class ZoneManagment : MonoBehaviour
     public void TaskAccomplished(Order order)
     {
         orders.Remove(order);
+        output.AddRessources(1);
         zoneManager.SendToNextZone(order, zoneName);
+    }
+    internal void DrawResource()
+    {
+        input.RemoveRessources(1);
     }
 
     public void BeginTask(Workstation station, EmployeeBehaviour employee, Order order)
