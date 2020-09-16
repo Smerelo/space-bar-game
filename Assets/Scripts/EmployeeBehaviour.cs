@@ -16,7 +16,6 @@ public class EmployeeBehaviour : MonoBehaviour
     private int currentDestIndex;
     private int currentWaitTimeIndex;
     private List<Transform> destinations;
-    private List<float> waitTimes;
     private Order currentOrder;
     public ZoneManagment ParentZone { get; private set; }
     private bool hasPlate;
@@ -49,18 +48,16 @@ public class EmployeeBehaviour : MonoBehaviour
         ParentZone.DrawResource();
     }
 
-    public void BeginTask(Workstation station, List<float> waitTimesList, Order order)
+    public void BeginTask(Workstation station, Order order)
     {
         IsBusy = true;
         shouldBeginTask = true;
         currentOrder = order;
         workstation = station;
-        waitTimes = waitTimesList;
     }
-    public bool ShouldBeginTask(out Workstation station, out List<float> waitTimesList, out Order order)
+    public bool ShouldBeginTask(out Workstation station, out Order order)
     {
         order = currentOrder;
-        waitTimesList = waitTimes;
         station = workstation;
 
         if (shouldBeginTask)

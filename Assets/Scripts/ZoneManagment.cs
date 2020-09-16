@@ -11,7 +11,6 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
     [SerializeField] private bool test;
-    [SerializeField] List<float> waitTimes;
     [SerializeField] GameObject workerPrefab;
     private List<GameObject> employees;
     private List<Workstation> stations;
@@ -119,7 +118,7 @@ public class ZoneManagment : MonoBehaviour
     public void BeginTask(Workstation station, EmployeeBehaviour employee, Order order)
     {
         order.IsBeingPrepared = true;
-        employee.BeginTask(station, waitTimes, order);
+        employee.BeginTask(station, order);
         test = false;
     }
 

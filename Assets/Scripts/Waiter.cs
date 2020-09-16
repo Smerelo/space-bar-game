@@ -31,9 +31,9 @@ public class Waiter : MonoBehaviour
 
     void Update()
     {
-        if (employeeBehaviour.ShouldBeginTask(out Workstation station, out List<float> waitTimesList, out Order order))
+        if (employeeBehaviour.ShouldBeginTask(out Workstation station, out Order order))
         {
-            BringFood(station, waitTimesList, order);
+            BringFood(station, order);
         }
         if (employeeBehaviour.IsBusy)
         {
@@ -144,7 +144,7 @@ public class Waiter : MonoBehaviour
         currentOrder.Customer.StartEating();
     }
 
-    private void BringFood(Workstation station, List<float> waitTimesList, Order order)
+    private void BringFood(Workstation station, Order order)
     {
         task = 1;
         hasDrawnResource = false;

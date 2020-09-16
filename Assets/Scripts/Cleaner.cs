@@ -35,7 +35,7 @@ public class Cleaner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (employeeBehaviour.ShouldBeginTask(out Workstation station, out List<float> waitTimesList, out Order order))
+        if (employeeBehaviour.ShouldBeginTask(out Workstation station, out Order order))
         {
             BeginTask(station);
         }

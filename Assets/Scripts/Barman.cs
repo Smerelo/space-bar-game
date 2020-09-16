@@ -10,7 +10,7 @@ public class Barman : MonoBehaviour
     private List<Transform> destinations;
     private int freeStationIndex;
     private Transform waitingZone;
-    private List<float> waitTimes;
+    [SerializeField] private List<float> waitTimes;
     private Order currentOrder;
     [SerializeField] private float movementSpeed = 1f;
     private int currentDestIndex;
@@ -28,9 +28,9 @@ public class Barman : MonoBehaviour
 
     void Update()
     {
-        if (employeeBehaviour.ShouldBeginTask(out Workstation station, out List<float> waitTimesList, out Order order))
+        if (employeeBehaviour.ShouldBeginTask(out Workstation station, out Order order))
         {
-            BeginTask(station , waitTimesList, order);
+            BeginTask(station, order);
         }
         if (employeeBehaviour.IsBusy)
         {
@@ -87,7 +87,7 @@ public class Barman : MonoBehaviour
         }
     }
 
-    public void BeginTask(Workstation station, List<float> waitTimesList, Order order)
+    public void BeginTask(Workstation station, Order order)
     {
         hasFreedStation = false;
         hasDrawnResource = false;
@@ -101,7 +101,6 @@ public class Barman : MonoBehaviour
         };
         freeStationIndex = 2;
         drawResourceIndex = 1;
-        waitTimes = waitTimesList;
         currentOrder = order;
     }
 }
