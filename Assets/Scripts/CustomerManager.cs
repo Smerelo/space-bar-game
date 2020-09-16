@@ -17,6 +17,7 @@ public class CustomerManager : MonoBehaviour
     private float clientFrequency;
     private float timer = 0f;
     private CentralTransactionLogic spaceCantina;
+    public Transform waitZone;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +43,14 @@ public class CustomerManager : MonoBehaviour
 
     private void SpawnerLogic()
     {
-
         timer += Time.deltaTime;
+        if (queue.Count > 0 && tableManager.TryAvailableTable(out Table queueTable))
+        {
+            queue[0].AssignTable(queueTable);
+            queue[0].IsWatingForTable = false;
+            customers.Add(queue[0]);
+            queue.RemoveAt(0);
+        }
         if (timer >= clientFrequency)
         {
             clientFrequency = UnityEngine.Random.Range(minClientDelay, maxClientDelay);
@@ -57,10 +64,11 @@ public class CustomerManager : MonoBehaviour
             else
             {
                 CustomerBehaviour customer = Instantiate(customerPrefab, transform.position, Quaternion.identity, transform).GetComponent<CustomerBehaviour>();
-                customer.WaitForTable();
                 customer.IsWatingForTable = true;
+                customer.numberInQueue = queue.Count;
                 queue.Add(customer);
-             }
+                customer.WaitForTable();
+            }
         }
     }
 
