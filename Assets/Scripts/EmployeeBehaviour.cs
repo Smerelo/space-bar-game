@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EmployeeBehaviour : MonoBehaviour
 {
-    public bool IsBusy { get; private set; }
+    public bool IsBusy { get; set; }
 
     private bool shouldBeginTask;
     private Workstation workstation;
@@ -18,8 +18,6 @@ public class EmployeeBehaviour : MonoBehaviour
     private List<Transform> destinations;
     private List<float> waitTimes;
     private Order currentOrder;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float speedBoostMultiplier;
     public ZoneManagment ParentZone { get; private set; }
     private bool hasPlate;
     private float timer;

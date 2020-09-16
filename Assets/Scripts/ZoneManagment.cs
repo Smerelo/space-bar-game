@@ -51,8 +51,35 @@ public class ZoneManagment : MonoBehaviour
         {
             BeginTask(workstation, employee, order);
         }
+        if (ShouldBringDirtyPlates(out Order o, out Waiter waiter))
+        {
+            waiter.BringDirtyPlates(o);
+        }
     }
+    public bool ShouldBringDirtyPlates(out Order order, out Waiter waiter)
+    {
+        order = null;
+        waiter = null;
+        EmployeeBehaviour employee = FindFreeEmployee();
 
+        foreach (Order o in orders)
+        {
+            if (o.Customer.HasFinishedEating)
+            {
+                order = o;
+            }
+        }
+        if (employee == null || order == null)
+        {
+            return false;
+        }
+        if (employee.TryGetComponent(out Waiter w))
+        {
+            waiter = w;
+            return true;
+        }
+        return false;
+    }
     public bool ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order)
     {
         workstation = FindUnoccupiedStation();

@@ -537,8 +537,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minEatingTime: 1
   maxEatingTime: 3
-  minClientDelay: 7
-  maxClientDelay: 15
+  minClientDelay: 1
+  maxClientDelay: 2
   customerPrefab: {fileID: 3374125952783045046, guid: 190658e47fe7ba1438381ea23da40f07,
     type: 3}
 --- !u!4 &884628023
