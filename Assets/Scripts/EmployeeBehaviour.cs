@@ -36,7 +36,6 @@ public class EmployeeBehaviour : MonoBehaviour
 
     public void TaskAccomplished()
     {
-        currentOrder.IsBeingPrepared = false;
         IsBusy = false;
         destinations = null;
         currentDestIndex = 0;

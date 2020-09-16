@@ -68,6 +68,7 @@ public class ZoneManagment : MonoBehaviour
             o.IsBeingTakenToClean = true;
             waiter.BringDirtyPlates(o);
         }
+        //print($"{zoneName}: {orders.Count} orders here");
     }
     public bool ShouldBringDirtyPlates(out Order order, out Waiter waiter)
     {

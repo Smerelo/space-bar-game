@@ -24,6 +24,7 @@ public class CustomerBehaviour : MonoBehaviour
     private Vector3 waitPosition;
     private float timer;
     private Animator animator;
+    private bool sentOrder;
 
     void Start()
     {
@@ -51,7 +52,7 @@ public class CustomerBehaviour : MonoBehaviour
         isSitting = false;
         animator.SetBool("isSitting", false);
         isLeaving = true;
-        Destroy(this.gameObject, 2);
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame
@@ -71,8 +72,9 @@ public class CustomerBehaviour : MonoBehaviour
 
                 }
             }
-            if (MoveToTableAndCheck() && !isSitting)
+            if (MoveToTableAndCheck() && !sentOrder)
             {
+                sentOrder = true;
                 isSitting = true;
                 transform.position += new Vector3(0,0,-3);
                 animator.SetBool("isSitting", true);

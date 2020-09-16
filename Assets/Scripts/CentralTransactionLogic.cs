@@ -35,7 +35,7 @@ public class CentralTransactionLogic : MonoBehaviour
     {
         if (moneyBalance <= 0)
         {
-            print("u loose bish");
+            
         }
         foreach (ZoneManagment zone in zones.Values)
         {
@@ -94,6 +94,7 @@ public class CentralTransactionLogic : MonoBehaviour
 
     internal void SendToNextZone(Order order, string zoneName)
     {
+        order.ResetBools();
         switch (zoneName)
         {
             case Constants.preparing:
