@@ -134,7 +134,6 @@ public class Waiter : MonoBehaviour
     }
     private void OnDirtyPlateGrab()
     {
-        print("moni moni");
         currentOrder.Customer.PayAndLeave();
         currentTable.InUse = false;
     }

@@ -46,6 +46,7 @@ public class CustomerManager : MonoBehaviour
         timer += Time.deltaTime;
         if (queue.Count > 0 && tableManager.TryAvailableTable(out Table queueTable))
         {
+
             queue[0].AssignTable(queueTable);
             queue[0].IsWatingForTable = false;
             customers.Add(queue[0]);

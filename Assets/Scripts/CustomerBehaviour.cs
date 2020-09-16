@@ -22,12 +22,10 @@ public class CustomerBehaviour : MonoBehaviour
     private bool isSitting;
     private Vector3 waitZone;
     private Vector3 waitPosition;
-    private Vector3 newQueuePosition;
     private float timer;
 
     void Start()
     {
-        Debug.Log(waitZone);
         manager = GetComponentInParent<CustomerManager>();
         foodPreference = UnityEngine.Random.Range(0, 2);
         eatingTime = manager.GetEatingTime();
@@ -76,22 +74,10 @@ public class CustomerBehaviour : MonoBehaviour
         {
             if (!(Vector3.Distance(waitPosition, transform.position) < 0.1f))
             {
-                transform.position = Vector3.MoveTowards(transform.position,waitPosition, movementSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position,  waitPosition, movementSpeed * Time.deltaTime);
             }
         }
-        if (movingUp)
-        {
-            if (!(Vector3.Distance(newQueuePosition, transform.position) < 0.1f))
-            {
-                transform.position = Vector3.MoveTowards(transform.position, newQueuePosition, movementSpeed * Time.deltaTime);
-
-            }
-            else
-            {
-                movingUp = false;
-            }
-
-        }
+        
     }
 
     private void SendOrder() {
@@ -118,6 +104,6 @@ public class CustomerBehaviour : MonoBehaviour
     internal void MoveUp()
     {
         movingUp = true;
-        newQueuePosition = waitPosition + new Vector3(0, 2);
+        waitPosition = waitPosition + new Vector3(0, 2);
     }
 }
