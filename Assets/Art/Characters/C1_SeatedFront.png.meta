@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: -3481912408973257993
     second: C1_SeatedFront_3
+  - first:
+      213: -1591044490425082348
+    second: C1_SeatedFront_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,8 +109,8 @@ TextureImporter:
         y: 1
         width: 16
         height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.17}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -127,8 +130,8 @@ TextureImporter:
         y: 1
         width: 16
         height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.17}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -148,8 +151,8 @@ TextureImporter:
         y: 1
         width: 16
         height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.17}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -169,8 +172,8 @@ TextureImporter:
         y: 1
         width: 16
         height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.17}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
