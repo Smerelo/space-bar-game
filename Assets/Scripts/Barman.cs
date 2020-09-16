@@ -90,6 +90,7 @@ public class Barman : MonoBehaviour
     public void BeginTask(Workstation station, List<float> waitTimesList, Order order)
     {
         hasFreedStation = false;
+        hasDrawnResource = false;
         workstation = station;
         workstation.InUse = true;
         destinations = new List<Transform>

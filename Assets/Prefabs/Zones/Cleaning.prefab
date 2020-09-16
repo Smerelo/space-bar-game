@@ -111,7 +111,8 @@ MonoBehaviour:
   waitingZone: {fileID: 5955141721592744818}
   test: 0
   waitTimes: []
-  workerPrefab: {fileID: 0}
+  workerPrefab: {fileID: 7834328758869819682, guid: 279e7bfa54e738d41a58721802e484bf,
+    type: 3}
 --- !u!1 &5955141722381671340
 GameObject:
   m_ObjectHideFlags: 0

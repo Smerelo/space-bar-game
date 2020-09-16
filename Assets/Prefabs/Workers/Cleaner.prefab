@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b17d7dd3f20fe42bf9a798cf2cabab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
-  speedBoostMultiplier: 0
 --- !u!212 &7834328758869819680
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -109,5 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b88c80afc76014fadc0388d71dbff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 3
+  waitTimes:
+  - 1
+  - 3
+  - 1
   movementSpeed: 1

@@ -94,10 +94,7 @@ public class Waiter : MonoBehaviour
         }
     }
 
-    private void OnDrawRessource()
-    {
-        employeeBehaviour.DrawResource();
-    }
+
 
     private void MoveToNextPoint2()
     {
@@ -131,7 +128,10 @@ public class Waiter : MonoBehaviour
             currentDestIndex = 0;
         }
     }
-
+    private void OnDrawRessource()
+    {
+        employeeBehaviour.DrawResource();
+    }
     private void OnDirtyPlateGrab()
     {
         print("moni moni");

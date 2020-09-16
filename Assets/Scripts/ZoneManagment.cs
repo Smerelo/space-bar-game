@@ -85,6 +85,7 @@ public class ZoneManagment : MonoBehaviour
         workstation = FindUnoccupiedStation();
         employee = FindFreeEmployee();
         order = CheckForOrders();
+
         if (workstation == null || employee == null || order == null || input.RessourceQuantity <= 0)
         {
             return false;
