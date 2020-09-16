@@ -139,8 +139,6 @@ public class Waiter : MonoBehaviour
         currentTable.InUse = false;
     }
 
-
-
     private void OnLeavingFoodPlate()
     {
         currentOrder.Customer.StartEating();

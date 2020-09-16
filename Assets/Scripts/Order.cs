@@ -8,6 +8,7 @@ public class Order
     public Table Table { get; private set; }
     public CustomerBehaviour Customer {get; private set;}
     public bool IsBeingPrepared { get; set;}
+    public bool IsBeingTakenToClean { get; set; }
     public bool IsReady { get; set; }
 
     public Order(int foodType, Table table, CustomerBehaviour customer)
