@@ -10,6 +10,4 @@ public static class Constants
     public const string preparing = "Preparing";
     public const string cleaning = "Cleaning";
     public const string serving = "Serving";
-
-
 }

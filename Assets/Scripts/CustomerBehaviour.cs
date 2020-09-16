@@ -6,12 +6,15 @@ using UnityEngine;
 public class CustomerBehaviour : MonoBehaviour
 {
     private Table assignedTable;
-    public bool IsEating { get; private set; }
     public bool IsWatingForTable { get;  set; }
     public bool movingUp { get; private set; }
 
-    private TableManager tableManager;
     public int numberInQueue;
+    
+    public bool HasFinishedEating { get; private set; }
+
+    private bool isLeaving;
+    private bool isEating;
     private int foodPreference;
     private float eatingTime;
     private CustomerManager manager;
@@ -20,6 +23,7 @@ public class CustomerBehaviour : MonoBehaviour
     private Vector3 waitZone;
     private Vector3 waitPosition;
     private Vector3 newQueuePosition;
+    private float timer;
 
     void Start()
     {
@@ -35,12 +39,33 @@ public class CustomerBehaviour : MonoBehaviour
         assignedTable.InUse = true;
     }
 
+    public void StartEating()
+    {
+        isEating = true;
+        //maybe animate or smth
+    }
+    public void PayAndLeave()
+    {
+        HasFinishedEating = false;
+        isLeaving = true;
+        Destroy(this.gameObject, 2);
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (assignedTable != null)
         {
-
+            if (isEating)
+            {
+                timer += Time.deltaTime;
+                if (timer >= eatingTime)
+                {
+                    HasFinishedEating = true;
+                    timer = 0;
+                    isEating = false;
+                }
+            }
             if (MoveToTableAndCheck() && !isSitting)
             {
                 isSitting = true;
@@ -70,7 +95,7 @@ public class CustomerBehaviour : MonoBehaviour
     }
 
     private void SendOrder() {
-        Order order = new Order(foodPreference, assignedTable);
+        Order order = new Order(foodPreference, assignedTable, this);
         manager.SendOrder(order);
     }
 

@@ -50,6 +50,7 @@ public class CustomerManager : MonoBehaviour
             queue[0].IsWatingForTable = false;
             customers.Add(queue[0]);
             queue.RemoveAt(0);
+            UpdateQueuePositions();
         }
         if (timer >= clientFrequency)
         {
@@ -69,6 +70,14 @@ public class CustomerManager : MonoBehaviour
                 queue.Add(customer);
                 customer.WaitForTable();
             }
+        }
+    }
+
+    private void UpdateQueuePositions()
+    {
+        foreach (CustomerBehaviour customer in queue)
+        {
+            customer.MoveUp();
         }
     }
 

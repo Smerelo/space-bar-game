@@ -11,7 +11,6 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
     [SerializeField] private bool test;
-    [SerializeField] List<float> waitTimes;
     [SerializeField] GameObject workerPrefab;
     private List<GameObject> employees;
     private List<Workstation> stations;
@@ -51,13 +50,41 @@ public class ZoneManagment : MonoBehaviour
         {
             BeginTask(workstation, employee, order);
         }
+        if (ShouldBringDirtyPlates(out Order o, out Waiter waiter))
+        {
+            waiter.BringDirtyPlates(o);
+        }
     }
+    public bool ShouldBringDirtyPlates(out Order order, out Waiter waiter)
+    {
+        order = null;
+        waiter = null;
+        EmployeeBehaviour employee = FindFreeEmployee();
 
+        foreach (Order o in orders)
+        {
+            if (o.Customer.HasFinishedEating)
+            {
+                order = o;
+            }
+        }
+        if (employee == null || order == null)
+        {
+            return false;
+        }
+        if (employee.TryGetComponent(out Waiter w))
+        {
+            waiter = w;
+            return true;
+        }
+        return false;
+    }
     public bool ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order)
     {
         workstation = FindUnoccupiedStation();
         employee = FindFreeEmployee();
         order = CheckForOrders();
+
         if (workstation == null || employee == null || order == null || input.RessourceQuantity <= 0)
         {
             return false;
@@ -90,11 +117,11 @@ public class ZoneManagment : MonoBehaviour
 
     public void BeginTask(Workstation station, EmployeeBehaviour employee, Order order)
     {
-        
         order.IsBeingPrepared = true;
-        employee.BeginTask(station, waitTimes, order);
+        employee.BeginTask(station, order);
         test = false;
     }
+
     private EmployeeBehaviour FindFreeEmployee()
     {
         foreach (EmployeeBehaviour employee in employeesScripts)    

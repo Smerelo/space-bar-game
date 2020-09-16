@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EmployeeBehaviour : MonoBehaviour
 {
-    public bool IsBusy { get; private set; }
+    public bool IsBusy { get; set; }
 
     private bool shouldBeginTask;
     private Workstation workstation;
@@ -16,10 +16,7 @@ public class EmployeeBehaviour : MonoBehaviour
     private int currentDestIndex;
     private int currentWaitTimeIndex;
     private List<Transform> destinations;
-    private List<float> waitTimes;
     private Order currentOrder;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float speedBoostMultiplier;
     public ZoneManagment ParentZone { get; private set; }
     private bool hasPlate;
     private float timer;
@@ -51,18 +48,16 @@ public class EmployeeBehaviour : MonoBehaviour
         ParentZone.DrawResource();
     }
 
-    public void BeginTask(Workstation station, List<float> waitTimesList, Order order)
+    public void BeginTask(Workstation station, Order order)
     {
         IsBusy = true;
         shouldBeginTask = true;
         currentOrder = order;
         workstation = station;
-        waitTimes = waitTimesList;
     }
-    public bool ShouldBeginTask(out Workstation station, out List<float> waitTimesList, out Order order)
+    public bool ShouldBeginTask(out Workstation station, out Order order)
     {
         order = currentOrder;
-        waitTimesList = waitTimes;
         station = workstation;
 
         if (shouldBeginTask)
