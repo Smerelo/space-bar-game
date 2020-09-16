@@ -74,6 +74,7 @@ public class CustomerBehaviour : MonoBehaviour
             if (MoveToTableAndCheck() && !isSitting)
             {
                 isSitting = true;
+                transform.position += new Vector3(0,0,-3);
                 animator.SetBool("isSitting", true);
 
                 SendOrder();

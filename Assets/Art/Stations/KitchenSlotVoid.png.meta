@@ -1,16 +1,7 @@
 fileFormatVersion: 2
-guid: 49f1eb29f44748a4abd73d70214dae4c
+guid: 0f0f2962108619d469dc3f236b1b3757
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -2988142916272118256
-    second: KitchenPileofDirtyDishes_0
-  - first:
-      213: -3960568936657833466
-    second: KitchenPileofDirtyDishes_1
-  - first:
-      213: -8485909783410295912
-    second: KitchenPileofDirtyDishes_2
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -49,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -73,7 +64,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,7 +76,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,70 +85,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: KitchenPileofDirtyDishes_0
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 0
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 016208979dbf786d0800000000000000
-      internalID: -2988142916272118256
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KitchenPileofDirtyDishes_1
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 0
-        width: 14
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 602301e398b3909c0800000000000000
-      internalID: -3960568936657833466
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KitchenPileofDirtyDishes_2
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 0
-        width: 14
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89b31d3230efb3a80800000000000000
-      internalID: -8485909783410295912
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
