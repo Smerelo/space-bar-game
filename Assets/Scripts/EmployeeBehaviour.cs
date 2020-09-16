@@ -31,11 +31,12 @@ public class EmployeeBehaviour : MonoBehaviour
 
     void Update()
     {
-
     }
 
     public void TaskAccomplished()
     {
+        if (currentOrder == null)
+            print("popis");
         currentOrder.IsBeingPrepared = false;
         IsBusy = false;
         destinations = null;
@@ -52,6 +53,8 @@ public class EmployeeBehaviour : MonoBehaviour
     {
         IsBusy = true;
         shouldBeginTask = true;
+        if (order == null)
+            print("null bish");
         currentOrder = order;
         workstation = station;
     }
@@ -66,5 +69,10 @@ public class EmployeeBehaviour : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    internal void SetCurrentOrder(Order order)
+    {
+        currentOrder = order;
     }
 }

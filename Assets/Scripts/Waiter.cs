@@ -124,6 +124,7 @@ public class Waiter : MonoBehaviour
         if (currentDestIndex >= destinations.Count)
         {
             employeeBehaviour.IsBusy = false;
+            currentOrder.IsBeingPrepared = false;
             employeeBehaviour.TaskAccomplished();
             currentDestIndex = 0;
         }
@@ -165,6 +166,7 @@ public class Waiter : MonoBehaviour
     public void BringDirtyPlates(Order order)
     {
         task = 2;
+        employeeBehaviour.SetCurrentOrder(order);
         employeeBehaviour.IsBusy = true;
         hasGrabbedDirtyPlates = false;
         currentTable = order.Table;
