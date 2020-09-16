@@ -58,17 +58,39 @@ public class ZoneManagment : MonoBehaviour
 
     void Update()
     {
-        if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
+        TaskVarietyShuffle(UnityEngine.Random.Range(0, 2));
+    }
+
+    private void TaskVarietyShuffle(int rnd)
+    {
+        if (rnd == 0)
         {
-            order.IsBeingPrepared = true;
-            BeginTask(workstation, employee, order);
+            if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
+            {
+                order.IsBeingPrepared = true;
+                BeginTask(workstation, employee, order);
+            }
+            if (ShouldBringDirtyPlates(out Order o, out Waiter waiter))
+            {
+                o.IsBeingTakenToClean = true;
+                waiter.BringDirtyPlates(o);
+            }
         }
-        if (ShouldBringDirtyPlates(out Order o, out Waiter waiter))
+        else
         {
-            o.IsBeingTakenToClean = true;
-            waiter.BringDirtyPlates(o);
+            if (ShouldBringDirtyPlates(out Order o, out Waiter waiter))
+            {
+                o.IsBeingTakenToClean = true;
+                waiter.BringDirtyPlates(o);
+            }
+            if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
+            {
+                order.IsBeingPrepared = true;
+                BeginTask(workstation, employee, order);
+            }
         }
     }
+
     public bool ShouldBringDirtyPlates(out Order order, out Waiter waiter)
     {
         order = null;
@@ -107,17 +129,7 @@ public class ZoneManagment : MonoBehaviour
         return true;
     }
 
-    private Order CheckForOrders()
-    {
-        foreach (Order order in orders)
-        {
-            if (!order.IsBeingPrepared)
-            {
-                return order;
-            }
-        }
-        return null;
-    }
+
 
     public void TaskAccomplished(Order order)
     {
@@ -138,27 +150,40 @@ public class ZoneManagment : MonoBehaviour
 
     private EmployeeBehaviour FindFreeEmployee()
     {
-        foreach (EmployeeBehaviour employee in employeesScripts)    
-        {
-            if (!employee.IsBusy)
-            {
-                return employee;
-            }
-        }
-        return null;
+        return DrawRandomAvailable<EmployeeBehaviour>(employeesScripts, (EmployeeBehaviour e) => !e.IsBusy);
     }
 
     private Workstation FindUnoccupiedStation()
     {
-        foreach (Workstation station in stations)
+        return DrawRandomAvailable<Workstation>(stations, (Workstation station) => !station.InUse);
+    }
+    private Order CheckForOrders()
+    {
+        return DrawRandomAvailable<Order>(orders, (Order order) => !order.IsBeingPrepared);
+    }
+
+    private T DrawRandomAvailable<T>(List<T> list, Func<T, bool> check)
+    {
+        List<int> indexes = new List<int>(list.Count);
+        for (int i = 0; i < list.Count; i++)
         {
-            if (!station.InUse)
+            int rnd = UnityEngine.Random.Range(0, list.Count);
+            while (indexes.Contains(rnd))
             {
-                return station;
+                rnd = UnityEngine.Random.Range(0, list.Count);
+            }
+            indexes.Add(rnd);
+        }
+        foreach (int index in indexes)
+        {
+            if (check(list[index]))
+            {
+                return list[index];
             }
         }
-        return null;
+        return default(T);
     }
+
     public void HireEmployee()
     {
         GameObject newEmployee = Instantiate(workerPrefab, waitingZone.position, Quaternion.identity, transform);
