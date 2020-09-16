@@ -51,21 +51,21 @@ public class Cleaner : MonoBehaviour
 
     private void GoToWaitPoint()
     {
-        if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))
+        if (!(getDistance(waitingZone.position, transform.position) < 0.1f))
         {
-            transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime);
+            transform.position = MoveTowardsAdjacent(transform.position, waitingZone.position, movementSpeed * Time.deltaTime);
         }
     }
 
     private void CleanPlate()
     {
-        if (Vector3.Distance(destinations[currentDestIndex].position, transform.position) < 0.1f)
+        if (getDistance(destinations[currentDestIndex].position, transform.position) < 0.1f)
         {
             shouldWait = true;
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime);
+            transform.position = MoveTowardsAdjacent(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime);
         }
         if (shouldWait)
         {
@@ -92,6 +92,25 @@ public class Cleaner : MonoBehaviour
             employeeBehaviour.TaskAccomplished();
             currentDestIndex = 0;
         }
+    }
+
+    private Vector3 MoveTowardsAdjacent(Vector3 position, Vector3 destination, float speed)
+    {
+        int xDirection = destination.x > position.x ? 1 : -1;
+        int yDirection = destination.y > position.y ? 1 : -1;
+        if (Mathf.Abs(destination.x - position.x) > 0.01f)
+        {
+            position += new Vector3(speed * xDirection, 0, 0);
+        }
+        else if (Mathf.Abs(destination.y - position.y) > 0.01f)
+        {
+            position += new Vector3(0, speed * yDirection, 0);
+        }
+        return position;
+    }
+    private float getDistance(Vector3 a, Vector3 b)
+    {
+        return Mathf.Sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
     }
 
     private void BeginTask(Workstation station)
