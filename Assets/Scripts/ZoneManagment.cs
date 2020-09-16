@@ -60,10 +60,12 @@ public class ZoneManagment : MonoBehaviour
     {
         if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
         {
+            order.IsBeingPrepared = true;
             BeginTask(workstation, employee, order);
         }
         if (ShouldBringDirtyPlates(out Order o, out Waiter waiter))
         {
+            o.IsBeingTakenToClean = true;
             waiter.BringDirtyPlates(o);
         }
     }
@@ -73,6 +75,7 @@ public class ZoneManagment : MonoBehaviour
         waiter = null;
         EmployeeBehaviour employee = FindFreeEmployee();
 
+
         foreach (Order o in orders)
         {
             if (o.Customer.HasFinishedEating)
@@ -80,7 +83,7 @@ public class ZoneManagment : MonoBehaviour
                 order = o;
             }
         }
-        if (employee == null || order == null)
+        if (employee == null || order == null || order.IsBeingTakenToClean)
         {
             return false;
         }
@@ -97,7 +100,7 @@ public class ZoneManagment : MonoBehaviour
         employee = FindFreeEmployee();
         order = CheckForOrders();
 
-        if (workstation == null || employee == null || order == null || input.RessourceQuantity <= 0)
+        if (workstation == null || employee == null || order == null || order.IsBeingPrepared)
         {
             return false;
         }
@@ -129,7 +132,6 @@ public class ZoneManagment : MonoBehaviour
 
     public void BeginTask(Workstation station, EmployeeBehaviour employee, Order order)
     {
-        order.IsBeingPrepared = true;
         employee.BeginTask(station, order);
         test = false;
     }
