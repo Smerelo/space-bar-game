@@ -90,11 +90,11 @@ public class ZoneManagment : MonoBehaviour
 
     public void BeginTask(Workstation station, EmployeeBehaviour employee, Order order)
     {
-        
         order.IsBeingPrepared = true;
         employee.BeginTask(station, waitTimes, order);
         test = false;
     }
+
     private EmployeeBehaviour FindFreeEmployee()
     {
         foreach (EmployeeBehaviour employee in employeesScripts)    
