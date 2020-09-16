@@ -11,6 +11,15 @@ TextureImporter:
   - first:
       213: 8642794591438374475
     second: KitchenStackofcleandishes_2
+  - first:
+      213: 1335611033758550166
+    second: KitchenStackofcleandishes_0
+  - first:
+      213: -6750087890523781416
+    second: KitchenStackofcleandishes_1
+  - first:
+      213: -6435242949258330763
+    second: KitchenStackofcleandishes_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -54,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 4
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -92,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -99,19 +120,19 @@ TextureImporter:
       name: KitchenStackofcleandishes_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 0
         y: 0
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e81c5649c7c74ccb0800000000000000
-      internalID: -4844610424636325490
+      spriteID: 6984549a82b098210800000000000000
+      internalID: 1335611033758550166
       vertices: []
       indices: 
       edges: []
@@ -120,19 +141,19 @@ TextureImporter:
       name: KitchenStackofcleandishes_1
       rect:
         serializedVersion: 2
-        x: 41
+        x: 32
         y: 0
-        width: 14
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f033f36176dfadf0800000000000000
-      internalID: -166678878692888332
+      spriteID: 8d60aaab3ded252a0800000000000000
+      internalID: -6750087890523781416
       vertices: []
       indices: 
       edges: []
@@ -141,19 +162,19 @@ TextureImporter:
       name: KitchenStackofcleandishes_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 64
         y: 0
-        width: 14
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b460a51b3ef51f770800000000000000
-      internalID: 8642794591438374475
+      spriteID: 57dbe1e02ac61b6a0800000000000000
+      internalID: -6435242949258330763
       vertices: []
       indices: 
       edges: []
