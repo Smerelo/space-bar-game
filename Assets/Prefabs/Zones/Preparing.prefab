@@ -223,11 +223,8 @@ MonoBehaviour:
   zoneName: Preparing
   stationsTrasform: {fileID: 6948029635219935152}
   waitingZone: {fileID: 6948029635375321319}
+  employeeSalary: 15
   test: 0
-  waitTimes:
-  - 0.2
-  - 5
-  - 1
   workerPrefab: {fileID: 4674718457654491402, guid: 2d74a6978278b3e439d54721b92899f5,
     type: 3}
 --- !u!1001 &6948029636270535188

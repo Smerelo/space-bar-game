@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+
 
 public class CentralTransactionLogic : MonoBehaviour
 {
     public List<Order> orders;
     private Dictionary<string, ZoneManagment> zones;
+    private float moneyBalance;
+    [SerializeField] float startingBalance;
+    [SerializeField] private TextMeshProUGUI moneyCounter;
     void Start()
     {
+        moneyBalance = startingBalance;
         orders = new List<Order>();
         zones = new Dictionary<string, ZoneManagment>();
         foreach (Transform child in transform)
@@ -21,21 +27,61 @@ public class CentralTransactionLogic : MonoBehaviour
             }
         }
     }
+    public void CashIn(float amount)
+    {
+        moneyBalance += amount;
+    }
+    private void CheckBalance()
+    {
+        if (moneyBalance <= 0)
+        {
+            print("u loose bish");
+        }
+        foreach (ZoneManagment zone in zones.Values)
+        {
+            moneyBalance -= zone.GiveSalary();
+        }
+        moneyCounter.text = $"Money = {moneyBalance}";
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown("u"))
+        if (Input.GetKeyDown("q"))
         {
-            if (zones.TryGetValue("Preparing", out ZoneManagment preparingZone))
+            if (zones.TryGetValue(Constants.cleaning, out ZoneManagment cleaningZone))
+            {
+                cleaningZone.HireEmployee();
+            }
+            else
+            {
+                Debug.Log("Failed to hire employee");
+            }
+        }
+        if (Input.GetKeyDown("w"))
+        {
+            if (zones.TryGetValue(Constants.preparing, out ZoneManagment preparingZone))
             {
                 preparingZone.HireEmployee();
             }
             else
             {
-                print("Failed to hire employee");
+                Debug.Log("Failed to hire employee");
             }
         }
+        if (Input.GetKeyDown("e"))
+        {
+            if (zones.TryGetValue(Constants.serving, out ZoneManagment servingZone))
+            {
+                servingZone.HireEmployee();
+            }
+            else
+            {
+                Debug.Log("Failed to hire employee");
+            }
+        }
+        CheckBalance();
     }
+
 
     public void AddOrder(Order order)
     {

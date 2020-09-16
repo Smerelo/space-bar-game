@@ -135,8 +135,11 @@ public class Waiter : MonoBehaviour
     private void OnDirtyPlateGrab()
     {
         currentOrder.Customer.PayAndLeave();
+        employeeBehaviour.ParentZone.CashIn(currentOrder.GenerateMealPrice());
         currentTable.InUse = false;
     }
+
+
 
     private void OnLeavingFoodPlate()
     {

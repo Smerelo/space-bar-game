@@ -16,4 +16,9 @@ public class Order
         Table = table;
         Customer = customer;
     }
+
+    internal float GenerateMealPrice()
+    {
+        return Random.Range(10f, 20f);
+    }
 }

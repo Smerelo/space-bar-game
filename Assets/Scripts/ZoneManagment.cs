@@ -10,6 +10,7 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private string zoneName;
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
+    [SerializeField] private float employeeSalary;
     [SerializeField] private bool test;
     [SerializeField] GameObject workerPrefab;
     private List<GameObject> employees;
@@ -41,8 +42,19 @@ public class ZoneManagment : MonoBehaviour
             }
         }
     }
-
-
+    public void CashIn(float amount)
+    {
+        zoneManager.CashIn(amount);
+    }
+    public float GiveSalary()
+    {
+        float total = 0f;
+        foreach (EmployeeBehaviour emp in employeesScripts)
+        {
+            total += employeeSalary * Time.deltaTime / 60;
+        }
+        return total;
+    }
 
     void Update()
     {
