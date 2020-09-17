@@ -22,14 +22,18 @@ public class Barman : MonoBehaviour
 
     [SerializeField] private float motivationDuration;
     [SerializeField] private float motivatedSpeedMultiplier;
+    private Transform midPoint;
     [SerializeField] private float motivatedTimerMultiplier;
     private float motivationTimer = 0;
     private float movementSpeedMultiplier = 1f;
     private float timerSpeedMultiplier = 1f;
     private bool isMotivated = false;
+    private Animator animator;
 
     void Start()
     {
+        midPoint = GameObject.Find("MidPoint").transform;
+        animator = GetComponent<Animator>();
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
         waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
     }
@@ -76,25 +80,73 @@ public class Barman : MonoBehaviour
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))
         {
+            animator.SetBool("isWalking", true);
+            if (waitingZone.position.x > transform.position.x)
+            {
+                animator.SetFloat("direction", 1);
+            }
+            else
+            {
+                animator.SetFloat("direction", -1);
+            }
             transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isWating", true);
         }
     }
 
     private void MoveToNextPoint()
     {
+        animator.SetBool("isWating", false);
         if (Vector3.Distance(destinations[currentDestIndex].position, transform.position) < 0.1f)
         {
+            animator.SetBool("isWalking", false);
             shouldWait = true;
         }
         else
         {
+            animator.SetBool("isWalking", true);
+            if (destinations[currentDestIndex].position.x > transform.position.x)
+            {
+                animator.SetFloat("direction", 1);
+            }
+            else
+            {
+                animator.SetFloat("direction", -1);
+            }
             transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
         if (shouldWait)
         {
+            animator.SetBool("isWalking", false);
+            Debug.Log(transform.position.y +  " " +  midPoint.position.y);
+            if (transform.position.y > midPoint.position.y)
+            {
+                animator.SetBool("isPreparingFood", true);
+
+            }
+            else
+            {
+                Debug.Log("here");
+                animator.SetBool("isPreparingDrink", true);
+            }
+
             timer += Time.deltaTime * timerSpeedMultiplier;
             if (timer >= waitTimes[currentDestIndex])
             {
+                if (transform.position.y > midPoint.position.y)
+                {
+                    animator.SetBool("isPreparingFood", false);
+
+                }
+                else
+                {
+                    animator.SetBool("isPreparingDrink", false);
+                }
+
                 shouldWait = false;
                 timer = 0;
                 currentDestIndex++;

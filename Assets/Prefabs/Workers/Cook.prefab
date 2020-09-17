@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4674718457654491405}
   - component: {fileID: 4674718457654491404}
   - component: {fileID: -7404873292046749790}
+  - component: {fileID: 1638741054184190176}
   m_Layer: 0
   m_Name: Cook
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b17d7dd3f20fe42bf9a798cf2cabab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cleaner: {fileID: 0}
 --- !u!212 &4674718457654491404
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -83,8 +85,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -3504595866094625068, guid: e9dec506324cec6429e873f7e97efd3d,
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 6348895878128015455, guid: 5de2bfa8a83a6454f9dbee3ce2373038,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -116,3 +118,22 @@ MonoBehaviour:
   motivationDuration: 7
   motivatedSpeedMultiplier: 2
   motivatedTimerMultiplier: 1.5
+--- !u!95 &1638741054184190176
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674718457654491402}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 689e9b16ed05ead4fb01979a0af7afaa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
