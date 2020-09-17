@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CustomerManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private float endMaxCustomers = 10;
     [SerializeField] private GameObject customerPrefab;
     [SerializeField] private float dayLenght = 8;
+    [SerializeField] private TextMeshProUGUI text;
     private float minClientDealy;
     private float maxClientDelay;
     private float maxDifficultyIncrease;
@@ -29,8 +31,12 @@ public class CustomerManager : MonoBehaviour
     private float maxCustomers;
     private float globalTimer;
     private float timer = 0f;
+    DateTime time;
+    private int hours = 8;
+    private float minutes = 8 * 60;
     private CentralTransactionLogic spaceCantina;
     public Transform waitZone;
+
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +63,24 @@ public class CustomerManager : MonoBehaviour
         {
             IncreaseDifficulty();
         }
-        SpawnerLogic();   
+        UpdateClock();
+        SpawnerLogic();
+    }
+
+    private void UpdateClock()
+    {
+        string hour;
+        string minute;
+        minutes += Time.deltaTime;
+        Debug.Log(minutes);
+        hour = ZeroPadding(Mathf.FloorToInt(minutes / 60));
+        minute = ZeroPadding(Mathf.FloorToInt(minutes) % 60);
+        text.text = hour + ':' + minute;
+    }
+
+    private string ZeroPadding(int n)
+    {
+        return n.ToString().PadLeft(2, '0');
     }
 
     private void IncreaseDifficulty()

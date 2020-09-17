@@ -25,6 +25,7 @@ public class CustomerBehaviour : MonoBehaviour
     private float timer;
     private Animator animator;
     private bool sentOrder;
+    
 
     void Start()
     {
