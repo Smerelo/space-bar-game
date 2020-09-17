@@ -10,7 +10,7 @@ public class CustomerFood : MonoBehaviour
     private float cooldown;
     private float timer;
     [SerializeField] private Sprite dirtyPlate;
-    [SerializeField] private Sprite food;
+    private Sprite food;
 
     void Start()
     {
