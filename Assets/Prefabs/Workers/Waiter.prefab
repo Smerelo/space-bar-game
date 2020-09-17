@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2947266459843473592}
   - component: {fileID: 2947266459843473595}
   - component: {fileID: 8114511569195536905}
+  - component: {fileID: 7429639180438484172}
   m_Layer: 0
   m_Name: Waiter
   m_TagString: Untagged
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1622996254467581529, guid: e9dec506324cec6429e873f7e97efd3d,
+  m_Sprite: {fileID: -6341221878196955409, guid: 0cd5b489f02f3794a8495011144a0f0f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,3 +120,22 @@ MonoBehaviour:
   motivationDuration: 7
   motivatedSpeedMultiplier: 2
   motivatedTimerMultiplier: 1.5
+--- !u!95 &7429639180438484172
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2947266459843474245}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d75787c7c981665408e9987fefb5cae1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
