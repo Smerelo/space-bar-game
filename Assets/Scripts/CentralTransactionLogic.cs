@@ -12,10 +12,19 @@ public class CentralTransactionLogic : MonoBehaviour
     private double moneyBalance;
     [SerializeField] double startingBalance;
     [SerializeField] private TextMeshProUGUI moneyCounterInt;
+    private CustomerManager customerManager;
+    private float shiftEnd;
+    private GameOver gameOver;
+    private GameObject gO;
 
     void Start()
     {
         moneyBalance = startingBalance;
+        gameOver = GameObject.Find("GameOver").GetComponent<GameOver>();
+        gO =  GameObject.Find("GameOver");
+        gO.SetActive(false);
+        customerManager = GameObject.Find("Customer Manager").GetComponent<CustomerManager>();
+        shiftEnd = customerManager.dayLenght  * 60 +  8 * 60;
         orders = new List<Order>();
         zones = new Dictionary<string, ZoneManagment>();
         foreach (Transform child in transform)
@@ -34,9 +43,15 @@ public class CentralTransactionLogic : MonoBehaviour
     }
     private void CheckBalance()
     {
-        if (moneyBalance <= 0)
+        if (moneyBalance <= 0 || customerManager.minutes > shiftEnd)
         {
-            
+            if (moneyBalance < 0)
+            {
+                moneyBalance = 0;
+            }
+            customerManager.StopTimer();
+            gO.SetActive(true);
+            gameOver.GetGameStatus(moneyBalance, customerManager.minutes);
         }
         foreach (ZoneManagment zone in zones.Values)
         {
