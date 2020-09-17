@@ -129,7 +129,6 @@ public class Barman : MonoBehaviour
             }
             else
             {
-                Debug.Log("here");
                 animator.SetBool("isPreparingDrink", true);
             }
 

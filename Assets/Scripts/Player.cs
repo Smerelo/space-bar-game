@@ -5,14 +5,25 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    
     [SerializeField] private float yellCooldown;
     private float cooldownTimer = 0;
     private bool canYell = true;
+    private Animator animator;
+    private float yellDuration = 1;
+    private float timer = 0;
+    private bool yelling;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
-        Move();
+        if (!yelling)
+        {
+            Move();
+        }
         Yell();
     }
 
@@ -20,11 +31,33 @@ public class Player : MonoBehaviour
     {
         float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         float verticalMovement = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            animator.SetBool("walking", true);
+        }
+        else
+        {
+            animator.SetBool("walking", false);
+
+        }
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            animator.SetBool("walk", true);
+
+        }
+        else
+        {
+            animator.SetBool("walk", false);
+        }
+        animator.SetFloat("directionX", Input.GetAxis("Horizontal"));
+        animator.SetFloat("directionY", Input.GetAxis("Vertical"));
         transform.position += new Vector3(horizontalMovement, verticalMovement, 0);
     }
 
     private void Yell()
     {
+        Debug.Log(canYell + " " + this.transform.parent);
+
         if (!canYell)
         {
             cooldownTimer += Time.deltaTime;
@@ -37,7 +70,20 @@ public class Player : MonoBehaviour
         if (canYell && Input.GetKeyDown("r") && this.transform.parent != null)
         {
             canYell = false;
+            yelling = true;
+            animator.SetBool("yelling", true);
             this.transform.parent.gameObject.GetComponent<ZoneManagment>().Yell();
+        }
+        if (yelling)
+        {
+            timer += Time.deltaTime;
+            if (timer >= yellDuration)
+            {
+                timer = 0;
+                yelling = false;
+                animator.SetBool("yelling", false);
+            }
+
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -48,11 +94,11 @@ public class Player : MonoBehaviour
             this.transform.parent = other.transform;
         }
     }
-    private void OnTriggerExit2D(Collider2D other)
+   /* private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Zone"))
         {
             this.transform.parent = null;
         }
-    }
+    }*/
 }
