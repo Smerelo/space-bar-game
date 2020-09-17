@@ -709,12 +709,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f4006d02d8e334a8764b75b22b33f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customers: []
   minEatingTime: 4
   maxEatingTime: 8
-  minClientDelay: 10
-  maxClientDelay: 15
+  startMinClientDelay: 7
+  startMaxClientDelay: 15
+  endMinClientDelay: 7
+  endMaxClientDelay: 15
+  startMaxCustomers: 3
+  endMaxCustomers: 10
   customerPrefab: {fileID: 3374125952783045046, guid: 190658e47fe7ba1438381ea23da40f07,
     type: 3}
+  dayLenght: 8
   waitZone: {fileID: 373785708}
 --- !u!4 &884628023
 Transform:
@@ -2412,7 +2418,12 @@ PrefabInstance:
     - target: {fileID: 6015804125637666153, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434547443386717359, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.68
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eee5fd27e314f214d9c6832685c2c147, type: 3}
