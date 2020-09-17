@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        yellCooldown = 14f;
         animator = GetComponent<Animator>();
     }
 

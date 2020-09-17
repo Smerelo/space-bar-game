@@ -65,14 +65,16 @@ public class Barman : MonoBehaviour
         if (isMotivated)
         {
             motivationTimer += Time.deltaTime;
+            movementSpeedMultiplier = motivatedSpeedMultiplier;
+            timerSpeedMultiplier = motivatedTimerMultiplier;
             if (motivationTimer >= motivationDuration)
             {
+                motivationTimer = 0;
                 isMotivated = false;
                 movementSpeedMultiplier = 1f;
                 timerSpeedMultiplier = 1f;
             }
-            movementSpeedMultiplier = motivatedSpeedMultiplier;
-            timerSpeedMultiplier = motivatedTimerMultiplier;
+            
         }
     }
 
