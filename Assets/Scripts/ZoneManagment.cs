@@ -182,7 +182,7 @@ public class ZoneManagment : MonoBehaviour
 
     public Transform GetInputPos()
     {
-        return input.transform;
+        return input.Output;
     }
 
     public void AssignEmployee(GameObject employee)
@@ -192,7 +192,7 @@ public class ZoneManagment : MonoBehaviour
 
     internal Transform GetOutputPos()
     {
-        return output.transform;
+        return output.Input;
     }
 
     internal Transform GetWaitingZone()
