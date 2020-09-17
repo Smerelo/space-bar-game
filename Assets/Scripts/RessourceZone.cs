@@ -22,7 +22,6 @@ public class RessourceZone : MonoBehaviour
     [SerializeField] private Sprite smallRessources;
     [SerializeField] private Sprite mediumRessources;
     [SerializeField] private Sprite lotsOfRessources;
-    public TextMeshProUGUI textGUI;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -71,6 +70,5 @@ public class RessourceZone : MonoBehaviour
     void Update()
     {
         CheckForSpriteUpdate();
-        textGUI.text = RessourceQuantity.ToString();
     }
 }
