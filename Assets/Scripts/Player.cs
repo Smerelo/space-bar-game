@@ -57,8 +57,6 @@ public class Player : MonoBehaviour
 
     private void Yell()
     {
-        Debug.Log(canYell + " " + this.transform.parent);
-
         if (!canYell)
         {
             cooldownTimer += Time.deltaTime;
@@ -91,7 +89,6 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Zone"))
         {
-            print(this.gameObject.name);
             this.transform.parent = other.transform;
         }
     }
