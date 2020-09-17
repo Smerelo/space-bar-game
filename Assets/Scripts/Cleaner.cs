@@ -34,13 +34,18 @@ public class Cleaner : MonoBehaviour
     private float movementSpeedMultiplier = 1f;
     private float timerSpeedMultiplier = 1f;
     private bool isMotivated = false;
+    private Vector3 lastPosition;
+    private Animator animator;
+
     void Start()
     {
         upgradeLevel = 1;
         upgradePercent = 0;
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
         waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
-        InitialWaitTimes = new List<float>(waitTimes); 
+        InitialWaitTimes = new List<float>(waitTimes);
+        animator = GetComponent<Animator>();
+        lastPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -59,6 +64,18 @@ public class Cleaner : MonoBehaviour
             GoToWaitPoint();
         }
         ManageMotivation();
+        WhatDirection();
+    }
+    private void WhatDirection()
+    {
+        Vector3 dir = transform.position - lastPosition;
+        float horizontal = Vector3.Dot(dir, new Vector3(1, 0));
+        float vertical = Vector3.Dot(dir, new Vector3(0, 1));
+        animator.SetFloat("horizontal", horizontal);
+        animator.SetFloat("vertical", vertical);
+        Debug.Log(horizontal);
+        Debug.Log(vertical);
+        animator.SetBool("isMovingVertically", Mathf.Abs(horizontal) < Mathf.Abs(vertical));
     }
 
     void ManageMotivation()
@@ -99,7 +116,13 @@ public class Cleaner : MonoBehaviour
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))
         {
+            animator.SetBool("isWalking", true);
+            lastPosition = transform.position;
             transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
         }
     }
 
@@ -108,13 +131,20 @@ public class Cleaner : MonoBehaviour
         if (Vector3.Distance(destinations[currentDestIndex].position, transform.position) < 0.1f)
         {
             shouldWait = true;
+            animator.SetBool("isWalking", false);
         }
         else
         {
+            animator.SetBool("isWalking", true);
+            lastPosition = transform.position;
             transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
         if (shouldWait)
         {
+            if (currentDestIndex == 1)
+            {
+                workstation.ReachedStation = true;
+            }
             timer += Time.deltaTime * timerSpeedMultiplier;
             if (timer >= waitTimes[currentDestIndex])
             {

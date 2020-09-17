@@ -13,6 +13,8 @@ public class Workstation : MonoBehaviour
     private SpriteRenderer foodRenderer;
     [SerializeField] private bool isStoveFood;
     [SerializeField] private bool animate;
+    [SerializeField] private bool isCleaner;
+
     void Awake()
     {
         InUse = false;
@@ -29,6 +31,10 @@ public class Workstation : MonoBehaviour
             if (isStoveFood)
             {
                 animator.SetBool("StoveFood", true);
+            }
+            else if (isCleaner)
+            {
+                animator.SetBool("Cleaner", true);
             }
             else
             {
