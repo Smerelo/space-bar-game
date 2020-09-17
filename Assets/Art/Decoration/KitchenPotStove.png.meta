@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: 8768101856134937381
     second: KitchenPotStove_1
+  - first:
+      213: -2608947844157237405
+    second: KitchenPotStove_0
+  - first:
+      213: -7917242255847647555
+    second: KitchenPotStove_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -112,15 +118,15 @@ TextureImporter:
         y: 0
         width: 16
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7737ed52fde735ad0800000000000000
-      internalID: -2714686653496134793
+      spriteID: 3679c7f22c72bcbd0800000000000000
+      internalID: -2608947844157237405
       vertices: []
       indices: 
       edges: []
@@ -133,15 +139,15 @@ TextureImporter:
         y: 0
         width: 16
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52bbd59ce2e8ea970800000000000000
-      internalID: 8768101856134937381
+      spriteID: db61d7b9d1e402290800000000000000
+      internalID: -7917242255847647555
       vertices: []
       indices: 
       edges: []

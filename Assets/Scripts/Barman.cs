@@ -122,6 +122,10 @@ public class Barman : MonoBehaviour
         if (shouldWait)
         {
             animator.SetBool("isWalking", false);
+            if (currentDestIndex == 1)
+            {
+                workstation.ReachedStation = true;
+            }
             if (transform.position.y > midPoint.position.y)
             {
                 animator.SetBool("isPreparingFood", true);
@@ -129,7 +133,6 @@ public class Barman : MonoBehaviour
             }
             else
             {
-                Debug.Log("here");
                 animator.SetBool("isPreparingDrink", true);
             }
 
