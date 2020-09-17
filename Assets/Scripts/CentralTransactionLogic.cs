@@ -9,9 +9,10 @@ public class CentralTransactionLogic : MonoBehaviour
 {
     public List<Order> orders;
     private Dictionary<string, ZoneManagment> zones;
-    private float moneyBalance;
-    [SerializeField] float startingBalance;
-    [SerializeField] private TextMeshProUGUI moneyCounter;
+    private double moneyBalance;
+    [SerializeField] double startingBalance;
+    [SerializeField] private TextMeshProUGUI moneyCounterInt;
+
     void Start()
     {
         moneyBalance = startingBalance;
@@ -41,7 +42,8 @@ public class CentralTransactionLogic : MonoBehaviour
         {
             moneyBalance -= zone.GiveSalary();
         }
-        moneyCounter.text = $"Money = {moneyBalance}";
+        int decimals = (int)Math.Round(100.0 * (moneyBalance - Math.Truncate(moneyBalance)));
+        moneyCounterInt.text = $"${Math.Truncate(moneyBalance)}<size=-14>{decimals.ToString("D2")}</size>";
     }
 
     void Update()
@@ -81,7 +83,6 @@ public class CentralTransactionLogic : MonoBehaviour
         }
         CheckBalance();
     }
-
 
     public void AddOrder(Order order)
     {

@@ -24,10 +24,12 @@ public class EmployeeBehaviour : MonoBehaviour
     private float platePickupTimer;
     private int freeStationIndex;
     private bool hasFreedStation;
+    [SerializeField] Cleaner cleaner;
 
     void Awake()
     {
         ParentZone = transform.GetComponentInParent<ZoneManagment>();
+        cleaner = GetComponent<Cleaner>();
     }
 
     void Update()
@@ -68,4 +70,15 @@ public class EmployeeBehaviour : MonoBehaviour
         return false;
     }
 
+    internal void SalaryRaise()
+    {
+        if (cleaner != null)
+        {
+            cleaner.Upgrade();
+        }
+        else
+        {
+            Debug.Log("Can only upgrade cleaners atm");
+        }
+    }
 }

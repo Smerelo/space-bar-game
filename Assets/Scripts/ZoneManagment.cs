@@ -10,6 +10,7 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private string zoneName;
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
+    [SerializeField] private Transform spawnZone;
     [SerializeField] private float employeeSalary;
     [SerializeField] private bool test;
     [SerializeField] GameObject workerPrefab;
@@ -162,9 +163,21 @@ public class ZoneManagment : MonoBehaviour
     }
     public void HireEmployee()
     {
-        GameObject newEmployee = Instantiate(workerPrefab, waitingZone.position, Quaternion.identity, transform);
+        GameObject newEmployee = Instantiate(workerPrefab, spawnZone.position, Quaternion.identity, transform);
         employees.Add(newEmployee);
         employeesScripts.Add(newEmployee.GetComponent<EmployeeBehaviour>());
+    }
+
+    public void UpgradeEmployee()
+    {
+        if (employees.Count == 0)
+        {
+            HireEmployee();
+        }
+        else
+        {
+            employeesScripts[0].SalaryRaise();
+        }
     }
 
     public Transform GetInputPos()

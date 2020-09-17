@@ -7,11 +7,14 @@ public class Cleaner : MonoBehaviour
 {
 
     [SerializeField] private List<float> waitTimes;
+    private List<float> InitialWaitTimes;
     private EmployeeBehaviour employeeBehaviour;
     private Transform waitingZone;
     private Workstation workstation;
     private bool hasDrawnResource;
     [SerializeField] private float movementSpeed = 1f;
+    private float upgradePercent;
+    private float upgradeLevel;
 
 
     public bool taskFinished { get; private set; }
@@ -33,9 +36,11 @@ public class Cleaner : MonoBehaviour
     private bool isMotivated = false;
     void Start()
     {
+        upgradeLevel = 1;
+        upgradePercent = 0;
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
         waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
-
+        InitialWaitTimes = new List<float>(waitTimes); 
     }
 
     // Update is called once per frame
@@ -76,6 +81,20 @@ public class Cleaner : MonoBehaviour
             timerSpeedMultiplier = motivatedTimerMultiplier;
         }
     }
+
+    internal void Upgrade()
+    {
+        if (upgradePercent < 1)
+        {
+            upgradeLevel++;
+            upgradePercent += 1 / upgradeLevel;
+        }
+        for (int i = 0; i < waitTimes.Count; i++)
+        {
+            waitTimes[i] = upgradePercent * InitialWaitTimes[i];
+        }
+    }
+
     private void GoToWaitPoint()
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))
