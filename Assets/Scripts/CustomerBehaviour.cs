@@ -50,6 +50,7 @@ public class CustomerBehaviour : MonoBehaviour
     {
         HasFinishedEating = false;
         isSitting = false;
+        manager.customers.Remove(this);
         animator.SetBool("isSitting", false);
         isLeaving = true;
         Destroy(this.gameObject);
