@@ -12,6 +12,7 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private Transform waitingZone;
     [SerializeField] private Transform spawnZone;
     [SerializeField] private float employeeSalary;
+    private float startingSalary;
     [SerializeField] private bool test;
     [SerializeField] GameObject workerPrefab;
     private List<GameObject> employees;
@@ -177,6 +178,7 @@ public class ZoneManagment : MonoBehaviour
         else
         {
             employeesScripts[0].SalaryRaise();
+            employeeSalary += startingSalary;
         }
     }
 
