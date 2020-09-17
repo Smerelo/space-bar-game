@@ -6,6 +6,7 @@ using UnityEngine;
 public class EmployeeBehaviour : MonoBehaviour
 {
     public bool IsBusy { get; set; }
+    public bool GotYelledAt { get; set; }
 
     private bool shouldBeginTask;
     private Workstation workstation;
@@ -66,4 +67,5 @@ public class EmployeeBehaviour : MonoBehaviour
         }
         return false;
     }
+
 }

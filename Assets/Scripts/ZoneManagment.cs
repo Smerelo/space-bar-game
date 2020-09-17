@@ -198,4 +198,12 @@ public class ZoneManagment : MonoBehaviour
     {
 
     }
+
+    public void Yell()
+    {
+        foreach (EmployeeBehaviour employee in employeesScripts)
+        {
+            employee.GotYelledAt = true;
+        }
+    }
 }

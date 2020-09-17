@@ -20,6 +20,14 @@ public class Barman : MonoBehaviour
     private int drawResourceIndex;
     private bool hasDrawnResource;
 
+    [SerializeField] private float motivationDuration;
+    [SerializeField] private float motivatedSpeedMultiplier;
+    [SerializeField] private float motivatedTimerMultiplier;
+    private float motivationTimer = 0;
+    private float movementSpeedMultiplier = 1f;
+    private float timerSpeedMultiplier = 1f;
+    private bool isMotivated = false;
+
     void Start()
     {
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
@@ -40,13 +48,35 @@ public class Barman : MonoBehaviour
         {
             MoveToWaitPoint();
         }
+        ManageMotivation();
+    }
+
+    void ManageMotivation()
+    {
+        if (employeeBehaviour.GotYelledAt)
+        {
+            employeeBehaviour.GotYelledAt = false;
+            isMotivated = true;
+        }
+        if (isMotivated)
+        {
+            motivationTimer += Time.deltaTime;
+            if (motivationTimer >= motivationDuration)
+            {
+                isMotivated = false;
+                movementSpeedMultiplier = 1f;
+                timerSpeedMultiplier = 1f;
+            }
+            movementSpeedMultiplier = motivatedSpeedMultiplier;
+            timerSpeedMultiplier = motivatedTimerMultiplier;
+        }
     }
 
     private void MoveToWaitPoint()
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))
         {
-            transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
     }
 
@@ -58,11 +88,11 @@ public class Barman : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
         if (shouldWait)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * timerSpeedMultiplier;
             if (timer >= waitTimes[currentDestIndex])
             {
                 shouldWait = false;

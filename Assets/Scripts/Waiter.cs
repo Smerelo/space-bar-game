@@ -23,6 +23,13 @@ public class Waiter : MonoBehaviour
     private bool hasDrawnResource;
     private Table currentTable;
 
+    [SerializeField] private float motivationDuration;
+    [SerializeField] private float motivatedSpeedMultiplier;
+    [SerializeField] private float motivatedTimerMultiplier;
+    private float motivationTimer = 0;
+    private float movementSpeedMultiplier = 1f;
+    private float timerSpeedMultiplier = 1f;
+    private bool isMotivated = false;
     void Start()
     {
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
@@ -50,13 +57,34 @@ public class Waiter : MonoBehaviour
         {
             MoveToWaitPoint();
         }
-    }
 
+        ManageMotivation();
+    }
+    void ManageMotivation()
+    {
+        if (employeeBehaviour.GotYelledAt)
+        {
+            employeeBehaviour.GotYelledAt = false;
+            isMotivated = true;
+        }
+        if (isMotivated)
+        {
+            motivationTimer += Time.deltaTime;
+            if (motivationTimer >= motivationDuration)
+            {
+                isMotivated = false;
+                movementSpeedMultiplier = 1f;
+                timerSpeedMultiplier = 1f;
+            }
+            movementSpeedMultiplier = motivatedSpeedMultiplier;
+            timerSpeedMultiplier = motivatedTimerMultiplier;
+        }
+    }
     private void MoveToWaitPoint()
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))
         {
-            transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
     }
 
@@ -68,11 +96,11 @@ public class Waiter : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
         if (shouldWait)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * timerSpeedMultiplier;
             if (timer >= waitTimesBringFood[currentDestIndex])
             {
                 shouldWait = false;
@@ -104,11 +132,11 @@ public class Waiter : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
         if (shouldWait)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * timerSpeedMultiplier;
             if (timer >= waitTimesBringDirtyPlates[currentDestIndex])
             {
                 shouldWait = false;
