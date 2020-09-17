@@ -2422,7 +2422,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7145559093861971195, guid: eee5fd27e314f214d9c6832685c2c147,
+    - target: {fileID: 194405618201983209, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 506975948898110914, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: audioManager
       value: 
