@@ -48,39 +48,6 @@ public class CentralTransactionLogic : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("1"))
-        {
-            if (zones.TryGetValue(Constants.cleaning, out ZoneManagment cleaningZone))
-            {
-                cleaningZone.HireEmployee();
-            }
-            else
-            {
-                Debug.Log("Failed to hire employee");
-            }
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            if (zones.TryGetValue(Constants.preparing, out ZoneManagment preparingZone))
-            {
-                preparingZone.HireEmployee();
-            }
-            else
-            {
-                Debug.Log("Failed to hire employee");
-            }
-        }
-        if (Input.GetKeyDown("3"))
-        {
-            if (zones.TryGetValue(Constants.serving, out ZoneManagment servingZone))
-            {
-                servingZone.HireEmployee();
-            }
-            else
-            {
-                Debug.Log("Failed to hire employee");
-            }
-        }
         CheckBalance();
     }
 

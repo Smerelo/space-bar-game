@@ -72,7 +72,6 @@ public class CustomerManager : MonoBehaviour
         string hour;
         string minute;
         minutes += Time.deltaTime;
-        Debug.Log(minutes);
         hour = ZeroPadding(Mathf.FloorToInt(minutes / 60));
         minute = ZeroPadding(Mathf.FloorToInt(minutes) % 60);
         text.text = hour + ':' + minute;
