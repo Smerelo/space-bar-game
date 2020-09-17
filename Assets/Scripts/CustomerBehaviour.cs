@@ -25,13 +25,30 @@ public class CustomerBehaviour : MonoBehaviour
     private float timer;
     private Animator animator;
     private bool sentOrder;
-    
+    private TextBubble textBubble;
+    private CustomerFood food;
+    [SerializeField] private float bubbleUptime = 1f;
 
+    private void Awake()
+    {
+
+    }
     void Start()
     {
+        foreach (Transform t in transform)
+        {
+            if (t.TryGetComponent(out TextBubble bub))
+            {
+                textBubble = bub;
+            }
+            if (t.TryGetComponent(out CustomerFood f))
+            {
+                food = f;
+            }
+        }
         animator = GetComponent<Animator>();
         manager = GetComponentInParent<CustomerManager>();
-        foodPreference = UnityEngine.Random.Range(0, 2);
+        foodPreference = UnityEngine.Random.Range(0, textBubble.SpritesCount);
         eatingTime = manager.GetEatingTime();
     }
 
@@ -43,12 +60,14 @@ public class CustomerBehaviour : MonoBehaviour
 
     public void StartEating()
     {
+        food.ShowFood(eatingTime);
         isEating = true;
         animator.SetBool("isEating", true);
         //maybe animate or smth
     }
     public void PayAndLeave()
     {
+        food.HideFood();
         HasFinishedEating = false;
         isSitting = false;
         manager.customers.Remove(this);
@@ -111,7 +130,11 @@ public class CustomerBehaviour : MonoBehaviour
         
     }
 
-    private void SendOrder() {
+    private void SendOrder() 
+    {
+        textBubble.SetSprite(foodPreference);
+        textBubble.ShowBubble(bubbleUptime);
+        food.SetFood(foodPreference);
         Order order = new Order(foodPreference, assignedTable, this);
         manager.SendOrder(order);
     }
