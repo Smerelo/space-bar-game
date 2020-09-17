@@ -122,7 +122,6 @@ public class Barman : MonoBehaviour
         if (shouldWait)
         {
             animator.SetBool("isWalking", false);
-            Debug.Log(transform.position.y +  " " +  midPoint.position.y);
             if (transform.position.y > midPoint.position.y)
             {
                 animator.SetBool("isPreparingFood", true);
