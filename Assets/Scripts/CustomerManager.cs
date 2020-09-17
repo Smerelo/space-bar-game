@@ -20,9 +20,9 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private float startMaxCustomers = 3;
     [SerializeField] private float endMaxCustomers = 10;
     [SerializeField] private GameObject customerPrefab;
-    [SerializeField] private float dayLenght = 8;
     [SerializeField] private TextMeshProUGUI text;
     private float minClientDealy;
+    public float dayLenght = 8;
     private float maxClientDelay;
     private float maxDifficultyIncrease;
     private float minDifficultyIncrease;
@@ -31,12 +31,14 @@ public class CustomerManager : MonoBehaviour
     private float maxCustomers;
     private float globalTimer;
     private float timer = 0f;
-    DateTime time;
-    private int hours = 8;
-    private float minutes = 8 * 60;
+    public float minutes = 8 * 60;
     private CentralTransactionLogic spaceCantina;
     public Transform waitZone;
-
+    private bool timeStop;
+    internal void StopTimer()
+    {
+        timeStop = true;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -58,13 +60,16 @@ public class CustomerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        globalTimer += Time.deltaTime;
-        if (globalTimer % 60 == 0)
+        if (!timeStop)
         {
-            IncreaseDifficulty();
+            globalTimer += Time.deltaTime;
+            if (globalTimer % 60 == 0)
+            {
+                IncreaseDifficulty();
+            }
+            UpdateClock();
+            SpawnerLogic();
         }
-        UpdateClock();
-        SpawnerLogic();
     }
 
     private void UpdateClock()

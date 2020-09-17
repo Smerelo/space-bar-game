@@ -56,8 +56,6 @@ public class Player : MonoBehaviour
 
     private void Yell()
     {
-        Debug.Log(canYell + " " + this.transform.parent);
-
         if (!canYell)
         {
             cooldownTimer += Time.deltaTime;
