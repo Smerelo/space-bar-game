@@ -32,10 +32,28 @@ public class Workstation : MonoBehaviour
             }
             else
             {
+                switch (Random.Range(0, 2))
+                {
+                    case 0:
+                        animator.SetBool("Wine", true);
+                        break;
+                    case 1:
+                        animator.SetBool("Cup", true);
+                        break;
+                    default:
+                        foodRenderer.enabled = false;
+                        break;
+                }
                 switch (Random.Range(0, 3))
                 {
+                    case 0:
+                        animator.SetBool("Yellow", true);
+                        break;
                     case 1:
-                        animator.SetBool("Wine", true);
+                        animator.SetBool("Pink", true);
+                        break;
+                    case 2:
+                        animator.SetBool("Green", true);
                         break;
                     default:
                         foodRenderer.enabled = false;

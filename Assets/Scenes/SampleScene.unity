@@ -2395,7 +2395,7 @@ PrefabInstance:
     - target: {fileID: 68619269734912727, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.54
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 194405617410652711, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
@@ -2475,12 +2475,12 @@ PrefabInstance:
     - target: {fileID: 194405618221561405, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.07
+      value: -3.28
       objectReference: {fileID: 0}
     - target: {fileID: 194405618221561405, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.27
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 194405618380815482, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
@@ -2587,6 +2587,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2643179196398130272, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.17700008
+      objectReference: {fileID: 0}
     - target: {fileID: 2718666919359128851, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: animate
@@ -2597,6 +2602,17 @@ PrefabInstance:
       propertyPath: isStoveFood
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3015255954235487974, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015255954235487974, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1143120255102273784, guid: 7312b3d60f5d20044ac2e53e7cd0e965,
+        type: 3}
     - target: {fileID: 3056928040969571193, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_RootOrder
@@ -2607,6 +2623,17 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3720839691852613119, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3720839691852613119, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1143120255102273784, guid: 7312b3d60f5d20044ac2e53e7cd0e965,
+        type: 3}
     - target: {fileID: 3904340828409548993, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: animate
@@ -2646,6 +2673,16 @@ PrefabInstance:
         type: 3}
       propertyPath: isStoveFood
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527579793152649081, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4762279383976130670, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.17700008
       objectReference: {fileID: 0}
     - target: {fileID: 5170005599034884829, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
@@ -2692,6 +2729,17 @@ PrefabInstance:
       propertyPath: isStoveFood
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6132325287609756145, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132325287609756145, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1143120255102273784, guid: 7312b3d60f5d20044ac2e53e7cd0e965,
+        type: 3}
     - target: {fileID: 6540638583934235490, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_Color.a
@@ -2757,6 +2805,17 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7700247157177446110, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7700247157177446110, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1143120255102273784, guid: 7312b3d60f5d20044ac2e53e7cd0e965,
+        type: 3}
     - target: {fileID: 7704268702008503548, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: animate
@@ -2767,11 +2826,48 @@ PrefabInstance:
       propertyPath: isStoveFood
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7707970208646721364, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.16400006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873781393989546309, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873781393989546309, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1143120255102273784, guid: 7312b3d60f5d20044ac2e53e7cd0e965,
+        type: 3}
     - target: {fileID: 8342222904026166868, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: animate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8811342080386031834, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.17000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066207260971777857, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.17000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076249225009938123, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076249225009938123, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1143120255102273784, guid: 7312b3d60f5d20044ac2e53e7cd0e965,
+        type: 3}
     - target: {fileID: 9078442982109043577, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_RootOrder
