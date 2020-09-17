@@ -88,7 +88,6 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Zone"))
         {
-            print(this.gameObject.name);
             this.transform.parent = other.transform;
         }
     }
