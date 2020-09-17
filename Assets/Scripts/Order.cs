@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Order
 {
-    private int foodType;
+    public int FoodType { get; private set; }
     public Table Table { get; private set; }
     public CustomerBehaviour Customer {get; private set;}
     public bool IsBeingPrepared { get; set;}
@@ -14,7 +14,13 @@ public class Order
 
     public Order(int foodType, Table table, CustomerBehaviour customer)
     {
-        this.foodType = foodType;
+        FoodType = foodType;
+        Table = table;
+        Customer = customer;
+    }
+    public Order(Table table, CustomerBehaviour customer)
+    {
+        FoodType = 0;
         Table = table;
         Customer = customer;
     }

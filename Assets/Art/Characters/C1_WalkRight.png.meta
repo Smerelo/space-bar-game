@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: ec5eb5bb62618a241a181fcc60418a81
+guid: 26082d77287393b42a44b97b85335d66
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1380507621948724156
-    second: C1_SeatedChewingFront_0
+      213: -1418450022774806761
+    second: C1_WalkRight_0
   - first:
-      213: 268348258489484428
-    second: C1_SeatedChewingFront_1
+      213: -5647171507069728478
+    second: C1_WalkRight_1
   - first:
-      213: 1001749918951547176
-    second: C1_SeatedChewingFront_2
+      213: -7809005766240549792
+    second: C1_WalkRight_2
   - first:
-      213: -7054128127607610775
-    second: C1_SeatedChewingFront_3
+      213: -3437173593638801068
+    second: C1_WalkRight_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -57,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 4
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -95,89 +95,101 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: C1_SeatedChewingFront_0
+      name: C1_WalkRight_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 1
-        width: 16
-        height: 22
-      alignment: 9
-      pivot: {x: 0.5, y: 0.17}
+        x: 9
+        y: 0
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb319ff2e5c882310800000000000000
-      internalID: 1380507621948724156
+      spriteID: 717ecd43837a05ce0800000000000000
+      internalID: -1418450022774806761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: C1_SeatedChewingFront_1
+      name: C1_WalkRight_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 1
-        width: 16
+        x: 41
+        y: 0
+        width: 15
         height: 23
-      alignment: 9
-      pivot: {x: 0.5, y: 0.17}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c844c5fb15d59b300800000000000000
-      internalID: 268348258489484428
+      spriteID: 229c66f2f6731a1b0800000000000000
+      internalID: -5647171507069728478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: C1_SeatedChewingFront_2
+      name: C1_WalkRight_2
       rect:
         serializedVersion: 2
-        x: 72
-        y: 1
-        width: 16
+        x: 73
+        y: 0
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 064414621a6d0a390800000000000000
+      internalID: -7809005766240549792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: C1_WalkRight_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 0
+        width: 15
         height: 23
-      alignment: 9
-      pivot: {x: 0.5, y: 0.17}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82122e86e3ee6ed00800000000000000
-      internalID: 1001749918951547176
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: C1_SeatedChewingFront_3
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 1
-        width: 16
-        height: 22
-      alignment: 9
-      pivot: {x: 0.5, y: 0.17}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9626bd1a7d3ba1e90800000000000000
-      internalID: -7054128127607610775
+      spriteID: 4517ec7d3d4bc40d0800000000000000
+      internalID: -3437173593638801068
       vertices: []
       indices: 
       edges: []
