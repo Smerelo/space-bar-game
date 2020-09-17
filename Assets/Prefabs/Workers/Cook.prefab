@@ -112,4 +112,7 @@ MonoBehaviour:
   - 1
   - 5
   - 1
-  movementSpeed: 10
+  movementSpeed: 5
+  motivationDuration: 7
+  motivatedSpeedMultiplier: 2
+  motivatedTimerMultiplier: 1.5

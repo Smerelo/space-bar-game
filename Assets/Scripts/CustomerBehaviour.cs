@@ -140,12 +140,12 @@ public class CustomerBehaviour : MonoBehaviour
     internal void WaitForTable()
     {
         waitZone = GameObject.Find("Queue").GetComponent<Transform>().position;
-        waitPosition = waitZone + new Vector3(0, -1 * numberInQueue);
+        waitPosition = waitZone + new Vector3(1 * numberInQueue, 0);
     }
 
     internal void MoveUp()
     {
         movingUp = true;
-        waitPosition = waitPosition + new Vector3(0, 1);
+        waitPosition = waitPosition + new Vector3(-1, 0);
     }
 }

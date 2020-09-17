@@ -46,7 +46,7 @@ public class CentralTransactionLogic : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("1"))
         {
             if (zones.TryGetValue(Constants.cleaning, out ZoneManagment cleaningZone))
             {
@@ -57,7 +57,7 @@ public class CentralTransactionLogic : MonoBehaviour
                 Debug.Log("Failed to hire employee");
             }
         }
-        if (Input.GetKeyDown("w"))
+        if (Input.GetKeyDown("2"))
         {
             if (zones.TryGetValue(Constants.preparing, out ZoneManagment preparingZone))
             {
@@ -68,7 +68,7 @@ public class CentralTransactionLogic : MonoBehaviour
                 Debug.Log("Failed to hire employee");
             }
         }
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("3"))
         {
             if (zones.TryGetValue(Constants.serving, out ZoneManagment servingZone))
             {
