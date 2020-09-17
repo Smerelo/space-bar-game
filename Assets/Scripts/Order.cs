@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,13 @@ public class Order
 
     internal float GenerateMealPrice()
     {
-        return Random.Range(10f, 20f);
+        return UnityEngine.Random.Range(10f, 20f);
+    }
+
+    internal void ResetBools()
+    {
+        IsBeingPrepared = false;
+        IsBeingTakenToClean = false;
+        IsReady = false;
     }
 }

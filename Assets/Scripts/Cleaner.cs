@@ -7,11 +7,14 @@ public class Cleaner : MonoBehaviour
 {
 
     [SerializeField] private List<float> waitTimes;
+    private List<float> InitialWaitTimes;
     private EmployeeBehaviour employeeBehaviour;
     private Transform waitingZone;
     private Workstation workstation;
     private bool hasDrawnResource;
     [SerializeField] private float movementSpeed = 1f;
+    private float upgradePercent;
+    private float upgradeLevel;
 
 
     public bool taskFinished { get; private set; }
@@ -24,12 +27,20 @@ public class Cleaner : MonoBehaviour
     private int platesCleanedIndex;
     private int drawResourceIndex;
 
-
+    [SerializeField] private float motivationDuration;
+    [SerializeField] private float motivatedSpeedMultiplier;
+    [SerializeField] private float motivatedTimerMultiplier;
+    private float motivationTimer = 0;
+    private float movementSpeedMultiplier = 1f;
+    private float timerSpeedMultiplier = 1f;
+    private bool isMotivated = false;
     void Start()
     {
+        upgradeLevel = 1;
+        upgradePercent = 0;
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
         waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
-
+        InitialWaitTimes = new List<float>(waitTimes); 
     }
 
     // Update is called once per frame
@@ -47,13 +58,48 @@ public class Cleaner : MonoBehaviour
         {
             GoToWaitPoint();
         }
+        ManageMotivation();
+    }
+
+    void ManageMotivation()
+    {
+        if (employeeBehaviour.GotYelledAt)
+        {
+            employeeBehaviour.GotYelledAt = false;
+            isMotivated = true;
+        }
+        if (isMotivated)
+        {
+            motivationTimer += Time.deltaTime;
+            if (motivationTimer >= motivationDuration)
+            {
+                isMotivated = false;
+                movementSpeedMultiplier = 1f;
+                timerSpeedMultiplier = 1f;
+            }
+            movementSpeedMultiplier = motivatedSpeedMultiplier;
+            timerSpeedMultiplier = motivatedTimerMultiplier;
+        }
+    }
+
+    internal void Upgrade()
+    {
+        if (upgradePercent < 1)
+        {
+            upgradeLevel++;
+            upgradePercent += 1 / upgradeLevel;
+        }
+        for (int i = 0; i < waitTimes.Count; i++)
+        {
+            waitTimes[i] = upgradePercent * InitialWaitTimes[i];
+        }
     }
 
     private void GoToWaitPoint()
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))
         {
-            transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, waitingZone.position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
     }
 
@@ -65,11 +111,11 @@ public class Cleaner : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destinations[currentDestIndex].position, movementSpeed * Time.deltaTime * movementSpeedMultiplier);
         }
         if (shouldWait)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * timerSpeedMultiplier;
             if (timer >= waitTimes[currentDestIndex])
             {
                 shouldWait = false;

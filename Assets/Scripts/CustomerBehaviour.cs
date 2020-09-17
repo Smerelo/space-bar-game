@@ -24,6 +24,8 @@ public class CustomerBehaviour : MonoBehaviour
     private Vector3 waitPosition;
     private float timer;
     private Animator animator;
+    private bool sentOrder;
+    
 
     void Start()
     {
@@ -49,9 +51,10 @@ public class CustomerBehaviour : MonoBehaviour
     {
         HasFinishedEating = false;
         isSitting = false;
+        manager.customers.Remove(this);
         animator.SetBool("isSitting", false);
         isLeaving = true;
-        Destroy(this.gameObject, 2);
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame
@@ -71,9 +74,11 @@ public class CustomerBehaviour : MonoBehaviour
 
                 }
             }
-            if (MoveToTableAndCheck() && !isSitting)
+            if (MoveToTableAndCheck() && !sentOrder)
             {
+                sentOrder = true;
                 isSitting = true;
+                transform.position += new Vector3(0,0,-3);
                 animator.SetBool("isSitting", true);
 
                 SendOrder();
@@ -137,12 +142,12 @@ public class CustomerBehaviour : MonoBehaviour
     internal void WaitForTable()
     {
         waitZone = GameObject.Find("Queue").GetComponent<Transform>().position;
-        waitPosition = waitZone + new Vector3(0, -1 * numberInQueue);
+        waitPosition = waitZone + new Vector3(1 * numberInQueue, 0);
     }
 
     internal void MoveUp()
     {
         movingUp = true;
-        waitPosition = waitPosition + new Vector3(0, 1);
+        waitPosition = waitPosition + new Vector3(-1, 0);
     }
 }

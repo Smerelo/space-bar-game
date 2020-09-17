@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: 50f2d04b8a113414cbbba3e0b5eb1d22
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4456859263522383823
+    second: KitchenStove,SinkandPlaceForDishes_0
+  - first:
+      213: -8381578880050530938
+    second: KitchenStove,SinkandPlaceForDishes_1
+  - first:
+      213: -2293595224642553618
+    second: KitchenStove,SinkandPlaceForDishes_2
+  - first:
+      213: -2528563374995928558
+    second: KitchenStove,SinkandPlaceForDishes_3
+  - first:
+      213: -59035559471410775
+    second: KitchenStove,SinkandPlaceForDishes_4
+  - first:
+      213: -6793843021860221097
+    second: KitchenStove,SinkandPlaceForDishes_5
+  - first:
+      213: -8293358599760769711
+    second: KitchenStove,SinkandPlaceForDishes_6
+  - first:
+      213: -186326478710255213
+    second: KitchenStove,SinkandPlaceForDishes_7
+  - first:
+      213: 8613300421517792448
+    second: KitchenStove,SinkandPlaceForDishes_8
+  - first:
+      213: -5326855948452498313
+    second: KitchenStove,SinkandPlaceForDishes_9
+  - first:
+      213: -7063089427209524195
+    second: KitchenStove,SinkandPlaceForDishes_10
+  - first:
+      213: 8888979093827094440
+    second: KitchenStove,SinkandPlaceForDishes_11
+  - first:
+      213: 8554675830631605445
+    second: KitchenStove,SinkandPlaceForDishes_12
+  - first:
+      213: 4337139421986820149
+    second: KitchenStove,SinkandPlaceForDishes_13
+  - first:
+      213: 1413192087224645840
+    second: KitchenStove,SinkandPlaceForDishes_14
+  - first:
+      213: -8869070269423409533
+    second: KitchenStove,SinkandPlaceForDishes_15
+  - first:
+      213: 6807711706420051195
+    second: KitchenStove,SinkandPlaceForDishes_16
+  - first:
+      213: -8564694071609069550
+    second: KitchenStove,SinkandPlaceForDishes_17
+  - first:
+      213: 5100232099066911000
+    second: KitchenStove,SinkandPlaceForDishes_18
+  - first:
+      213: -4355479411619492329
+    second: KitchenStove,SinkandPlaceForDishes_19
+  - first:
+      213: 6621654000686613601
+    second: KitchenStove,SinkandPlaceForDishes_20
+  - first:
+      213: 4400599032171036589
+    second: KitchenStove,SinkandPlaceForDishes_21
+  - first:
+      213: -3316742161284390328
+    second: KitchenStove,SinkandPlaceForDishes_22
+  - first:
+      213: 6577328587510726768
+    second: KitchenStove,SinkandPlaceForDishes_23
+  - first:
+      213: 3769748185669064547
+    second: KitchenStove,SinkandPlaceForDishes_24
+  - first:
+      213: -8856783235652065117
+    second: KitchenStove,SinkandPlaceForDishes_25
+  - first:
+      213: -149051040662631504
+    second: KitchenStove,SinkandPlaceForDishes_26
+  - first:
+      213: 7745477986133060817
+    second: KitchenStove,SinkandPlaceForDishes_27
+  - first:
+      213: 6762302486501318899
+    second: KitchenStove,SinkandPlaceForDishes_28
+  - first:
+      213: -7404567154775420198
+    second: KitchenStove,SinkandPlaceForDishes_29
+  - first:
+      213: -5322277077252465472
+    second: KitchenStove,SinkandPlaceForDishes_30
+  - first:
+      213: -287660383727212250
+    second: KitchenStove,SinkandPlaceForDishes_31
+  - first:
+      213: -8142943627390847387
+    second: KitchenStove,SinkandPlaceForDishes_32
+  - first:
+      213: 7653984910498561317
+    second: KitchenStove,SinkandPlaceForDishes_33
+  - first:
+      213: -8534090794432440258
+    second: KitchenStove,SinkandPlaceForDishes_34
+  - first:
+      213: -1765786982064446916
+    second: KitchenStove,SinkandPlaceForDishes_35
+  - first:
+      213: -6770458438020181989
+    second: KitchenStove,SinkandPlaceForDishes_36
+  - first:
+      213: 3922951815278688505
+    second: KitchenStove,SinkandPlaceForDishes_37
+  - first:
+      213: 2626074552743360553
+    second: KitchenStove,SinkandPlaceForDishes_38
+  - first:
+      213: 8133908967146428160
+    second: KitchenStove,SinkandPlaceForDishes_39
+  - first:
+      213: 4605533108355259473
+    second: KitchenStove,SinkandPlaceForDishes_40
+  - first:
+      213: -3068372863490251791
+    second: KitchenStove,SinkandPlaceForDishes_41
+  - first:
+      213: 5294777518255642779
+    second: KitchenStove,SinkandPlaceForDishes_42
+  - first:
+      213: -715534395247447247
+    second: KitchenStove,SinkandPlaceForDishes_43
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: KitchenStove,SinkandPlaceForDishes_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc7292003e1f9dd30800000000000000
+      internalID: 4456859263522383823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KitchenStove,SinkandPlaceForDishes_1
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 685fba58a66aeab80800000000000000
+      internalID: -8381578880050530938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KitchenStove,SinkandPlaceForDishes_2
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 0
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee8f5a09b438b20e0800000000000000
+      internalID: -2293595224642553618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

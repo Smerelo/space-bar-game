@@ -9,9 +9,10 @@ public class CentralTransactionLogic : MonoBehaviour
 {
     public List<Order> orders;
     private Dictionary<string, ZoneManagment> zones;
-    private float moneyBalance;
-    [SerializeField] float startingBalance;
-    [SerializeField] private TextMeshProUGUI moneyCounter;
+    private double moneyBalance;
+    [SerializeField] double startingBalance;
+    [SerializeField] private TextMeshProUGUI moneyCounterInt;
+
     void Start()
     {
         moneyBalance = startingBalance;
@@ -35,53 +36,20 @@ public class CentralTransactionLogic : MonoBehaviour
     {
         if (moneyBalance <= 0)
         {
-            print("u loose bish");
+            
         }
         foreach (ZoneManagment zone in zones.Values)
         {
             moneyBalance -= zone.GiveSalary();
         }
-        moneyCounter.text = $"Money = {moneyBalance}";
+        int decimals = (int)Math.Round(100.0 * (moneyBalance - Math.Truncate(moneyBalance)));
+        moneyCounterInt.text = $"${Math.Truncate(moneyBalance)}<size=-14>{decimals.ToString("D2")}</size>";
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("q"))
-        {
-            if (zones.TryGetValue(Constants.cleaning, out ZoneManagment cleaningZone))
-            {
-                cleaningZone.HireEmployee();
-            }
-            else
-            {
-                Debug.Log("Failed to hire employee");
-            }
-        }
-        if (Input.GetKeyDown("w"))
-        {
-            if (zones.TryGetValue(Constants.preparing, out ZoneManagment preparingZone))
-            {
-                preparingZone.HireEmployee();
-            }
-            else
-            {
-                Debug.Log("Failed to hire employee");
-            }
-        }
-        if (Input.GetKeyDown("e"))
-        {
-            if (zones.TryGetValue(Constants.serving, out ZoneManagment servingZone))
-            {
-                servingZone.HireEmployee();
-            }
-            else
-            {
-                Debug.Log("Failed to hire employee");
-            }
-        }
         CheckBalance();
     }
-
 
     public void AddOrder(Order order)
     {
@@ -94,6 +62,7 @@ public class CentralTransactionLogic : MonoBehaviour
 
     internal void SendToNextZone(Order order, string zoneName)
     {
+        order.ResetBools();
         switch (zoneName)
         {
             case Constants.preparing:

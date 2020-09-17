@@ -10,7 +10,9 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private string zoneName;
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
+    [SerializeField] private Transform spawnZone;
     [SerializeField] private float employeeSalary;
+    private float startingSalary;
     [SerializeField] private bool test;
     [SerializeField] GameObject workerPrefab;
     private List<GameObject> employees;
@@ -89,6 +91,7 @@ public class ZoneManagment : MonoBehaviour
                 BeginTask(workstation, employee, order);
             }
         }
+        //print($"{zoneName}: {orders.Count} orders here");
     }
 
     public bool ShouldBringDirtyPlates(out Order order, out Waiter waiter)
@@ -186,14 +189,27 @@ public class ZoneManagment : MonoBehaviour
 
     public void HireEmployee()
     {
-        GameObject newEmployee = Instantiate(workerPrefab, waitingZone.position, Quaternion.identity, transform);
+        GameObject newEmployee = Instantiate(workerPrefab, spawnZone.position, Quaternion.identity, transform);
         employees.Add(newEmployee);
         employeesScripts.Add(newEmployee.GetComponent<EmployeeBehaviour>());
     }
 
+    public void UpgradeEmployee()
+    {
+        if (employees.Count == 0)
+        {
+            HireEmployee();
+        }
+        else
+        {
+            employeesScripts[0].SalaryRaise();
+            employeeSalary += startingSalary;
+        }
+    }
+
     public Transform GetInputPos()
     {
-        return input.transform;
+        return input.Output;
     }
 
     public void AssignEmployee(GameObject employee)
@@ -203,7 +219,7 @@ public class ZoneManagment : MonoBehaviour
 
     internal Transform GetOutputPos()
     {
-        return output.transform;
+        return output.Input;
     }
 
     internal Transform GetWaitingZone()
@@ -221,5 +237,13 @@ public class ZoneManagment : MonoBehaviour
     public void TurnInOrder(Order order)
     {
 
+    }
+
+    public void Yell()
+    {
+        foreach (EmployeeBehaviour employee in employeesScripts)
+        {
+            employee.GotYelledAt = true;
+        }
     }
 }

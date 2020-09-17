@@ -6,6 +6,7 @@ using UnityEngine;
 public class EmployeeBehaviour : MonoBehaviour
 {
     public bool IsBusy { get; set; }
+    public bool GotYelledAt { get; set; }
 
     private bool shouldBeginTask;
     private Workstation workstation;
@@ -23,10 +24,12 @@ public class EmployeeBehaviour : MonoBehaviour
     private float platePickupTimer;
     private int freeStationIndex;
     private bool hasFreedStation;
+    [SerializeField] Cleaner cleaner;
 
     void Awake()
     {
         ParentZone = transform.GetComponentInParent<ZoneManagment>();
+        cleaner = GetComponent<Cleaner>();
     }
 
     void Update()
@@ -74,5 +77,17 @@ public class EmployeeBehaviour : MonoBehaviour
     internal void SetCurrentOrder(Order order)
     {
         currentOrder = order;
+    }
+ 
+    internal void SalaryRaise()
+    {
+        if (cleaner != null)
+        {
+            cleaner.Upgrade();
+        }
+        else
+        {
+            Debug.Log("Can only upgrade cleaners atm");
+        }
     }
 }

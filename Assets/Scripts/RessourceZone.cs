@@ -7,6 +7,8 @@ using TMPro;
 public class RessourceZone : MonoBehaviour
 {
     public int RessourceQuantity { get; set; }
+    public Transform Input { get; private set; }
+    public Transform Output { get; private set; }
 
     [Header("Quantity Thresholds")]
     [Space]
@@ -22,9 +24,10 @@ public class RessourceZone : MonoBehaviour
     [SerializeField] private Sprite smallRessources;
     [SerializeField] private Sprite mediumRessources;
     [SerializeField] private Sprite lotsOfRessources;
-    public TextMeshProUGUI textGUI;
     void Start()
     {
+        Input = transform.GetChild(0);
+        Output = transform.GetChild(1);
         spriteRenderer = GetComponent<SpriteRenderer>();
         RessourceQuantity = startingRessources;
     }
@@ -71,6 +74,5 @@ public class RessourceZone : MonoBehaviour
     void Update()
     {
         CheckForSpriteUpdate();
-        textGUI.text = RessourceQuantity.ToString();
     }
 }
