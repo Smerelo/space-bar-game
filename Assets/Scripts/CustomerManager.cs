@@ -11,8 +11,10 @@ public class CustomerManager : MonoBehaviour
     private List<CustomerBehaviour> queue;
     private TableManager tableManager;
     private float difficultyMultiplier = 1;
-    [SerializeField] private float minEatingTime = 5;
-    [SerializeField] private float maxEatingTime = 10;
+    [SerializeField] private float startMinEatingTime = 5;
+    [SerializeField] private float startMaxEatingTime = 10;
+    [SerializeField] private float endMinEatingTime = 5;
+    [SerializeField] private float endMaxEatingTime = 10;
     [SerializeField] private float startMinClientDelay = 7;
     [SerializeField] private float startMaxClientDelay = 15;
     [SerializeField] private float endMinClientDelay = 7;
@@ -27,6 +29,10 @@ public class CustomerManager : MonoBehaviour
     private float maxDifficultyIncrease;
     private float minDifficultyIncrease;
     private float clientDifficultyIncrease;
+    private float maxEatingSpeedIncrease;
+    private float minEatingSpeedIncrease;
+    private float minEatingTime;
+    private float maxEatingTime;
     private float clientFrequency;
     private float maxCustomers;
     private float globalTimer;
@@ -36,6 +42,7 @@ public class CustomerManager : MonoBehaviour
     private float minutes = 8 * 60;
     private CentralTransactionLogic spaceCantina;
     public Transform waitZone;
+    private bool difficultyIncreased = false;
 
 
     // Start is called before the first frame update
@@ -43,10 +50,14 @@ public class CustomerManager : MonoBehaviour
     {
         maxDifficultyIncrease = (startMaxClientDelay - endMaxClientDelay) / dayLenght;
         minDifficultyIncrease = (startMinClientDelay - endMinClientDelay) / dayLenght;
-        clientDifficultyIncrease = (startMaxCustomers - endMaxCustomers) / dayLenght;
+        clientDifficultyIncrease = (endMaxCustomers - startMaxCustomers) / dayLenght;
+        maxEatingSpeedIncrease = (startMaxEatingTime - endMaxEatingTime) / dayLenght;
+        minEatingSpeedIncrease = (startMinEatingTime - endMinEatingTime) / dayLenght;
         minClientDealy = startMinClientDelay;
         maxClientDelay = startMaxClientDelay;
         maxCustomers = startMaxCustomers;
+        minEatingTime = startMinEatingTime;
+        maxEatingTime = startMaxEatingTime;
         spaceCantina = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         queue = new List<CustomerBehaviour>();
         clientFrequency = UnityEngine.Random.Range(startMinClientDelay, startMaxClientDelay);
@@ -59,9 +70,14 @@ public class CustomerManager : MonoBehaviour
     void Update()
     {
         globalTimer += Time.deltaTime;
-        if (globalTimer % 60 == 0)
+        if (Mathf.FloorToInt(globalTimer) % 60 == 0 && !difficultyIncreased && globalTimer >= 1)
         {
             IncreaseDifficulty();
+            difficultyIncreased = true;
+        }
+        if (Mathf.FloorToInt(globalTimer) % 60 != 0)
+        {
+            difficultyIncreased = false;
         }
         UpdateClock();
         SpawnerLogic();
@@ -87,6 +103,8 @@ public class CustomerManager : MonoBehaviour
         minClientDealy -= minDifficultyIncrease;
         maxClientDelay -= maxDifficultyIncrease;
         maxCustomers += clientDifficultyIncrease;
+        minEatingTime -= minEatingSpeedIncrease;
+        maxEatingTime -= maxEatingSpeedIncrease;
     }
 
     internal void SendOrder(Order order)
@@ -109,6 +127,7 @@ public class CustomerManager : MonoBehaviour
         if (timer >= clientFrequency && queue.Count + customers.Count < Mathf.CeilToInt(maxCustomers))
         {
             clientFrequency = UnityEngine.Random.Range(minClientDealy, maxClientDelay);
+            print(clientFrequency);
             timer = 0f;
             if (tableManager.TryAvailableTable(out Table table))
             {
