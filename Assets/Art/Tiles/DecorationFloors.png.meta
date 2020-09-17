@@ -1,7 +1,61 @@
 fileFormatVersion: 2
 guid: f459bd9bb1b59fe45b53253788f064c1
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 1168856371827217230
+    second: DecorationFloors_0
+  - first:
+      213: 6862395260800207243
+    second: DecorationFloors_1
+  - first:
+      213: -651281657117321625
+    second: DecorationFloors_2
+  - first:
+      213: 6335152648760303459
+    second: DecorationFloors_3
+  - first:
+      213: -1738693865576114595
+    second: DecorationFloors_4
+  - first:
+      213: 3185391510882628401
+    second: DecorationFloors_5
+  - first:
+      213: -2184491128032343174
+    second: DecorationFloors_6
+  - first:
+      213: 1204752911423450515
+    second: DecorationFloors_7
+  - first:
+      213: 980665910008125055
+    second: DecorationFloors_8
+  - first:
+      213: -4057816521722748965
+    second: DecorationFloors_9
+  - first:
+      213: -2090716203189881647
+    second: DecorationFloors_10
+  - first:
+      213: -395818351526288278
+    second: DecorationFloors_11
+  - first:
+      213: -5967244803855537834
+    second: DecorationFloors_12
+  - first:
+      213: 2280801175122576403
+    second: DecorationFloors_0
+  - first:
+      213: -3155354045515788574
+    second: DecorationFloors_1
+  - first:
+      213: -1748804468133832065
+    second: DecorationFloors_2
+  - first:
+      213: 6827023781671206770
+    second: DecorationFloors_3
+  - first:
+      213: -3701945353562186452
+    second: DecorationFloors_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,7 +151,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: DecorationFloors_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 39
+        width: 51
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3148976a59807af10800000000000000
+      internalID: 2280801175122576403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DecorationFloors_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 65
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 1, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ee8070a63ee534d0800000000000000
+      internalID: -3155354045515788574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DecorationFloors_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7a544f0a9ffab7e0800000000000000
+      internalID: -1748804468133832065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DecorationFloors_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27ff7a355f57ebe50800000000000000
+      internalID: 6827023781671206770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
