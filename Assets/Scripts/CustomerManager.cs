@@ -132,7 +132,6 @@ public class CustomerManager : MonoBehaviour
         if (timer >= clientFrequency && queue.Count + customers.Count < Mathf.CeilToInt(maxCustomers))
         {
             clientFrequency = UnityEngine.Random.Range(minClientDealy, maxClientDelay);
-            print(clientFrequency);
             timer = 0f;
             if (tableManager.TryAvailableTable(out Table table))
             {

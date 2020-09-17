@@ -56,6 +56,7 @@ MonoBehaviour:
   endMaxCustomers: 30
   customerPrefab: {fileID: 3374125952783045046, guid: 190658e47fe7ba1438381ea23da40f07,
     type: 3}
-  dayLenght: 8
   text: {fileID: 0}
+  dayLenght: 8
+  minutes: 480
   waitZone: {fileID: 0}
