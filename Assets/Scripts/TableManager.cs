@@ -25,16 +25,28 @@ public class TableManager : MonoBehaviour
 
     internal bool TryAvailableTable(out Table table)
     {
-
-        foreach (Table t in tables)
+        table = DrawRandomAvailable<Table>(tables, (Table t) => !t.InUse);
+        return (table != null);
+    }
+    private T DrawRandomAvailable<T>(List<T> list, Func<T, bool> check)
+    {
+        List<int> indexes = new List<int>(list.Count);
+        for (int i = 0; i < list.Count; i++)
         {
-            if (!t.InUse)
+            int rnd = UnityEngine.Random.Range(0, list.Count);
+            while (indexes.Contains(rnd))
             {
-                table = t;
-                return true;
+                rnd = UnityEngine.Random.Range(0, list.Count);
+            }
+            indexes.Add(rnd);
+        }
+        foreach (int index in indexes)
+        {
+            if (check(list[index]))
+            {
+                return list[index];
             }
         }
-        table = null;
-        return false;
+        return default(T);
     }
 }
