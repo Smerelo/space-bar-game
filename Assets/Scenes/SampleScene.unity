@@ -486,6 +486,25 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &113555348 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 194405618093279962, guid: eee5fd27e314f214d9c6832685c2c147,
+    type: 3}
+  m_PrefabInstance: {fileID: 194405619262758259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &113555350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113555348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0956a9a89e85a48bc71a9e4cd78425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 519420030}
 --- !u!1 &373785707
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +546,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -542,6 +562,24 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b8e8319e4ce7e4fb570758cb8c94f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusic:
+  - {fileID: 8300000, guid: 80d7fc15745524044a0efe3e0f6152d3, type: 3}
+  - {fileID: 8300000, guid: 103d74d40892bc6458b93b5f92ead96d, type: 3}
+  - {fileID: 8300000, guid: 5289a6e7d9691fe42a15e4c95b801eff, type: 3}
+  - {fileID: 8300000, guid: 4a679dc46dd58b44fab2ef3a9c4995ad, type: 3}
+  sfx: []
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2408,6 +2446,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617470370454780856, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6015804125637666153, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
