@@ -22,6 +22,7 @@ public class ZoneManagment : MonoBehaviour
     private CentralTransactionLogic zoneManager;
     void Start()
     {
+        startingSalary = employeeSalary;
         zoneManager = GetComponentInParent<CentralTransactionLogic>();
         orders = new List<Order>();
         employees = new List<GameObject>();

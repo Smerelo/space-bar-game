@@ -33,14 +33,17 @@ public class Cleaner : MonoBehaviour
     private float motivationTimer = 0;
     private float movementSpeedMultiplier = 1f;
     private float timerSpeedMultiplier = 1f;
+    private float initialSpeed;
     private bool isMotivated = false;
     private Vector3 lastPosition;
     private Animator animator;
+    private float upgradePercentSpeed;
 
     void Start()
     {
         upgradeLevel = 1;
         upgradePercent = 0;
+        initialSpeed = movementSpeed;
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
         waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
         InitialWaitTimes = new List<float>(waitTimes);
@@ -73,8 +76,6 @@ public class Cleaner : MonoBehaviour
         float vertical = Vector3.Dot(dir, new Vector3(0, 1));
         animator.SetFloat("horizontal", horizontal);
         animator.SetFloat("vertical", vertical);
-        Debug.Log(horizontal);
-        Debug.Log(vertical);
         animator.SetBool("isMovingVertically", Mathf.Abs(horizontal) < Mathf.Abs(vertical));
     }
 
@@ -105,11 +106,13 @@ public class Cleaner : MonoBehaviour
         if (upgradePercent < 1)
         {
             upgradeLevel++;
-            upgradePercent += 1 / upgradeLevel;
+            upgradePercent += 1 / (Mathf.Pow(upgradeLevel, 2));
+            upgradePercentSpeed += 1 / upgradeLevel;
         }
         for (int i = 0; i < waitTimes.Count; i++)
         {
-            waitTimes[i] = upgradePercent * InitialWaitTimes[i];
+            waitTimes[i] = (1 - upgradePercent) * InitialWaitTimes[i];
+            movementSpeed = (1 + upgradePercentSpeed) * initialSpeed;
         }
     }
 
