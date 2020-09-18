@@ -12,6 +12,8 @@ public class CentralTransactionLogic : MonoBehaviour
     private double moneyBalance;
     [SerializeField] double startingBalance;
     [SerializeField] private TextMeshProUGUI moneyCounterInt;
+    [SerializeField] private Color positiveBalanceColor;
+    [SerializeField] private Color negativeBalanceColor;
     private CustomerManager customerManager;
     private float shiftEnd;
     private GameOver gameOver;
@@ -44,23 +46,28 @@ public class CentralTransactionLogic : MonoBehaviour
     }
     private void CheckBalance()
     {
-        if ((moneyBalance <= 0 || customerManager.minutes > shiftEnd) && !ended)
+        if ((customerManager.minutes > shiftEnd) && !ended)
         {
             ended = true;
-            if (moneyBalance < 0)
-            {
-                moneyBalance = 0;
-            }
             customerManager.StopTimer();
             gO.SetActive(true);
-            gameOver.GetGameStatus(moneyBalance, customerManager.minutes);
+            gameOver.GetGameStatus(moneyBalance, customerManager.minutes, positiveBalanceColor, negativeBalanceColor);
         }
         foreach (ZoneManagment zone in zones.Values)
         {
             moneyBalance -= zone.GiveSalary();
         }
-        int decimals = (int)Math.Round(100.0 * (moneyBalance - Math.Truncate(moneyBalance)));
+        if (moneyBalance >= 0)
+        {
+            moneyCounterInt.color = positiveBalanceColor;
+        }
+        else
+        {
+            moneyCounterInt.color = negativeBalanceColor;
+        }
+        int decimals = Mathf.Abs((int)Math.Round(100.0 * (moneyBalance - Math.Truncate(moneyBalance))));
         moneyCounterInt.text = $"${Math.Truncate(moneyBalance)}<size=-14>{decimals.ToString("D2")}</size>";
+
     }
 
     void Update()

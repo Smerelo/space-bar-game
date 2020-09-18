@@ -1312,7 +1312,7 @@ MonoBehaviour:
     type: 3}
   text: {fileID: 970227366}
   dayLenght: 14
-  minutes: 600
+  minutes: 1400
   waitZone: {fileID: 373785708}
 --- !u!4 &884628023
 Transform:
@@ -4284,6 +4284,46 @@ PrefabInstance:
         type: 3}
       propertyPath: startingBalance
       value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: positiveBalanceColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: positiveBalanceColor.r
+      value: 0.07870577
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: positiveBalanceColor.g
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: positiveBalanceColor.b
+      value: 0.0029814949
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: negativeBalanceColor.r
+      value: 0.6415094
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: negativeBalanceColor.g
+      value: 0.003025995
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: negativeBalanceColor.b
+      value: 0.003025995
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: negativeBalanceColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224719, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
