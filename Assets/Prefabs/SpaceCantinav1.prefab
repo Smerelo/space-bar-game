@@ -291,6 +291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingBalance: 100
   moneyCounterInt: {fileID: 1071394702462454268}
+  positiveBalanceColor: {r: 0, g: 0, b: 0, a: 0}
+  negativeBalanceColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &194405618052379333
 GameObject:
   m_ObjectHideFlags: 0
