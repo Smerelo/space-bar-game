@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
         musicSource.loop = false;
         sfxSource.loop = false;
         if (TotalSongs == 0) stopped = true;
-        musicSource.volume = 0.01f;
+        musicSource.volume = 0.1f;
     }
 
     void Update()

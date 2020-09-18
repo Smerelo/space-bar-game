@@ -3887,7 +3887,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -54, y: 206}
+  m_AnchoredPosition: {x: -54, y: 222}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2008375893
@@ -3909,7 +3909,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME OVER
+  m_text: 'DAY FINISHED
+
+    <size=30>
+
+    Here''s how much you made:
+
+    </size>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1dc0a87f853c8154cbfb07ae9c761d0c, type: 2}
   m_sharedMaterial: {fileID: 2967383013718503330, guid: 1dc0a87f853c8154cbfb07ae9c761d0c,
@@ -3973,7 +3979,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -86.247475, w: 0}
+  m_margin: {x: 0, y: 0, z: -170.6118, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4215,6 +4221,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 194405617721497519, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: employeeSalary
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 194405617917224712, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_Name
@@ -4259,6 +4270,11 @@ PrefabInstance:
         type: 3}
       propertyPath: positiveBalanceColor.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: startingBalance
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224719, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
@@ -4314,6 +4330,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405618201983209, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405618521923672, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: employeeSalary
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405618628719980, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: employeeSalary
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 506975948898110914, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
