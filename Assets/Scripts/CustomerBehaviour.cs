@@ -50,7 +50,7 @@ public class CustomerBehaviour : MonoBehaviour
 
     internal float GetWaitTime()
     {
-        return maxWaitingTime - waitTiimer;
+        return waitTiimer;
     }
 
 
@@ -60,6 +60,7 @@ public class CustomerBehaviour : MonoBehaviour
     }
     void Start()
     {
+        waitTiimer = maxWaitingTime;
         moneyPos = transform.GetChild(1);
         UI = GameObject.Find("UI").transform; ;
         foreach (Transform t in transform)
@@ -100,7 +101,7 @@ public class CustomerBehaviour : MonoBehaviour
         manager.customers.Remove(this);
         animator.SetBool("isSitting", false);
         isLeaving = true;
-        Destroy(this.gameObject, 3f);
+        Destroy(this.gameObject, 1f);
     }
 
     // Update is called once per frame
@@ -156,8 +157,8 @@ public class CustomerBehaviour : MonoBehaviour
         }
         if (waitingForOrder)
         {
-            waitTiimer += Time.deltaTime;
-            if (waitTiimer > maxWaitingTime)
+            waitTiimer -= Time.deltaTime;
+            if (waitTiimer < 0)
             {
                 GetAngry();
             }

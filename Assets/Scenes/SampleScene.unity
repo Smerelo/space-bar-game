@@ -1300,14 +1300,14 @@ MonoBehaviour:
   customers: []
   startMinEatingTime: 5
   startMaxEatingTime: 10
-  endMinEatingTime: 5
-  endMaxEatingTime: 10
-  startMinClientDelay: 7
-  startMaxClientDelay: 15
-  endMinClientDelay: 4
-  endMaxClientDelay: 10
+  endMinEatingTime: 1
+  endMaxEatingTime: 3
+  startMinClientDelay: 5
+  startMaxClientDelay: 8
+  endMinClientDelay: 1
+  endMaxClientDelay: 2
   startMaxCustomers: 1
-  endMaxCustomers: 30
+  endMaxCustomers: 16
   customerPrefab: {fileID: 3374125952783045046, guid: 190658e47fe7ba1438381ea23da40f07,
     type: 3}
   text: {fileID: 970227366}
@@ -4234,32 +4234,32 @@ PrefabInstance:
     - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: positiveBalanceColor.r
-      value: 0.21176472
+      value: 0.54901963
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: positiveBalanceColor.g
-      value: 0.6313726
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: positiveBalanceColor.b
-      value: 0.42352945
+      value: 0.60784316
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: negativeBalanceColor.r
-      value: 0.6431373
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: negativeBalanceColor.g
-      value: 0.003921569
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: negativeBalanceColor.b
-      value: 0.003921569
+      value: 0.45882353
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}

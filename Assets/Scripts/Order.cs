@@ -11,8 +11,8 @@ public class Order
     public bool IsBeingPrepared { get; set;}
     public bool IsBeingTakenToClean { get; set; }
     public bool IsReady { get; set; }
-    private float minPrice = 15f;
-    private float maxPrice = 25f;
+    private float minPrice = 5f;
+    private float maxPrice = 30f;
     public Order(int foodType, Table table, CustomerBehaviour customer)
     {
         FoodType = foodType;

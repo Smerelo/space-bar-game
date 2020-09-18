@@ -100,11 +100,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberInQueue: 0
   movementSpeed: 4
-  maxWaitingTime: 10
+  maxWaitingTime: 12
   bubbleUptime: 1
   moneyPrefab: {fileID: 3852401137864573119, guid: eb8d6671e5ca946449f048851974ec47,
     type: 3}
-  negativeColor: {r: 0.6431373, g: 0.003921569, b: 0.003921569, a: 1}
+  negativeColor: {r: 1, g: 0.4, b: 0.45882353, a: 1}
 --- !u!95 &839262352450290982
 Animator:
   serializedVersion: 3
