@@ -111,12 +111,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTimesBringFood:
-  - 1
-  - 1
+  - 0.3
+  - 0.3
   waitTimesBringDirtyPlates:
-  - 1
-  - 1
-  movementSpeed: 5
+  - 0.3
+  - 0.3
+  movementSpeed: 2
   motivationDuration: 3.5
   motivatedSpeedMultiplier: 2
   motivatedTimerMultiplier: 1.5

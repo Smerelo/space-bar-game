@@ -30,6 +30,14 @@ public class AudioManager : MonoBehaviour
         {
             SkipSong();
         }
+        if (Input.GetKeyDown("f"))
+        {
+            Screen.fullScreen = !Screen.fullScreen;
+        }
+        if (Screen.fullScreen && Input.GetKeyDown("escape"))
+        {
+            Screen.fullScreen = false;
+        }
     }
 
     public void SkipSong()

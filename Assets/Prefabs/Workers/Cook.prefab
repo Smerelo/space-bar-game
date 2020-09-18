@@ -111,10 +111,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTimes:
-  - 1
-  - 5
-  - 1
-  movementSpeed: 5
+  - 0.3
+  - 3
+  - 0.3
+  movementSpeed: 3
   motivationDuration: 3.5
   motivatedSpeedMultiplier: 2
   motivatedTimerMultiplier: 1.5

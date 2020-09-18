@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetKeyDown("f"))
         {
-            Screen.fullScreen = true;
+            Screen.fullScreen = !Screen.fullScreen;
         }
         if (Screen.fullScreen && Input.GetKeyDown("escape"))
         {

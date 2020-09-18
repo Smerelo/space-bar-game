@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
             canYell = true;
             cooldownTimer = 0;
         }
-        if (canYell && Input.GetKeyDown("r") && this.transform.parent != null)
+        if (canYell && Input.GetKeyDown("space") && this.transform.parent != null)
         {
             canYell = false;
             yelling = true;

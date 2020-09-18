@@ -106,7 +106,7 @@ public class Cleaner : MonoBehaviour
         if (upgradePercent < 1)
         {
             upgradeLevel++;
-            upgradePercent += 1 / (Mathf.Pow(upgradeLevel, 2));
+            upgradePercent += 1 / (Mathf.Pow(upgradeLevel, 1.5f));
             upgradePercentSpeed += 1 / upgradeLevel;
         }
         for (int i = 0; i < waitTimes.Count; i++)
