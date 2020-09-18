@@ -1,7 +1,31 @@
 fileFormatVersion: 2
 guid: 479b9a215e9367a489ec859ff4ac1d3c
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -82906636232875111
+    second: C1_SeatedAngryFront_0
+  - first:
+      213: 4372800994184725810
+    second: C1_SeatedAngryFront_1
+  - first:
+      213: 2983477086471193099
+    second: C1_SeatedAngryFront_2
+  - first:
+      213: 3067753095124892237
+    second: C1_SeatedAngryFront_3
+  - first:
+      213: -309633988800538217
+    second: C1_SeatedAngryFront_0
+  - first:
+      213: 797255222614974365
+    second: C1_SeatedAngryFront_1
+  - first:
+      213: 2589333331048700178
+    second: C1_SeatedAngryFront_2
+  - first:
+      213: -3278729073693433373
+    second: C1_SeatedAngryFront_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,7 +121,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: C1_SeatedAngryFront_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1
+        width: 16
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79918271785f3bbf0800000000000000
+      internalID: -309633988800538217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: C1_SeatedAngryFront_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 1
+        width: 16
+        height: 23
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f5a43a66b601b00800000000000000
+      internalID: 797255222614974365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: C1_SeatedAngryFront_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 1
+        width: 16
+        height: 23
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2199c3a12f82fe320800000000000000
+      internalID: 2589333331048700178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: C1_SeatedAngryFront_3
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 1
+        width: 16
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e1e1c7674d9f72d0800000000000000
+      internalID: -3278729073693433373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
