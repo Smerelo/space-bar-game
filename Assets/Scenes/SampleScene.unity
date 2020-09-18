@@ -1312,7 +1312,7 @@ MonoBehaviour:
     type: 3}
   text: {fileID: 970227366}
   dayLenght: 14
-  minutes: 1400
+  minutes: 600
   waitZone: {fileID: 373785708}
 --- !u!4 &884628023
 Transform:
