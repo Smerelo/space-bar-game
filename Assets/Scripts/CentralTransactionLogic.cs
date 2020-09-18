@@ -24,7 +24,7 @@ public class CentralTransactionLogic : MonoBehaviour
         gO =  GameObject.Find("GameOver");
         gO.SetActive(false);
         customerManager = GameObject.Find("Customer Manager").GetComponent<CustomerManager>();
-        shiftEnd = customerManager.dayLenght  * 60 +  8 * 60;
+        shiftEnd = customerManager.dayLenght  * 60 +  10 * 60;
         orders = new List<Order>();
         zones = new Dictionary<string, ZoneManagment>();
         foreach (Transform child in transform)

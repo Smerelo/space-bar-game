@@ -1298,19 +1298,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customers: []
-  minEatingTime: 4
-  maxEatingTime: 8
-  startMinClientDelay: 7
-  startMaxClientDelay: 15
-  endMinClientDelay: 4
-  endMaxClientDelay: 10
+  startMinEatingTime: 5
+  startMaxEatingTime: 10
+  endMinEatingTime: 1
+  endMaxEatingTime: 3
+  startMinClientDelay: 6
+  startMaxClientDelay: 8
+  endMinClientDelay: 1
+  endMaxClientDelay: 2
   startMaxCustomers: 3
-  endMaxCustomers: 10
+  endMaxCustomers: 30
   customerPrefab: {fileID: 3374125952783045046, guid: 190658e47fe7ba1438381ea23da40f07,
     type: 3}
   text: {fileID: 970227366}
-  dayLenght: 8
-  minutes: 480
+  dayLenght: 14
+  minutes: 600
   waitZone: {fileID: 373785708}
 --- !u!4 &884628023
 Transform:
@@ -2854,6 +2856,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3869168036564877585, guid: 03f6a2b77b903b74f8a9223966032238,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3869168036564877586, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2937,7 +2944,7 @@ PrefabInstance:
     - target: {fileID: 3869168036564877678, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.45329142
+      value: 0.16410112
       objectReference: {fileID: 0}
     - target: {fileID: 3869168036564877678, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}
@@ -2947,7 +2954,7 @@ PrefabInstance:
     - target: {fileID: 3869168036564877678, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.90360546
+      value: 0.32522488
       objectReference: {fileID: 0}
     - target: {fileID: 3869168036564877678, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}
@@ -4267,6 +4274,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405617917224718, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: startingBalance
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 194405617917224719, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}

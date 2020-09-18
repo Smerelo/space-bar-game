@@ -73,7 +73,7 @@ public class CustomerManager : MonoBehaviour
     {
         if (!timeStop)
         {
-            globalTimer += Time.deltaTime;
+            globalTimer += 3 * Time.deltaTime;
             if (Mathf.FloorToInt(globalTimer) % 60 == 0 && !difficultyIncreased && globalTimer >= 1)
             {
                 IncreaseDifficulty();
@@ -92,7 +92,7 @@ public class CustomerManager : MonoBehaviour
     {
         string hour;
         string minute;
-        minutes += Time.deltaTime;
+        minutes += 3 * Time.deltaTime;
         hour = ZeroPadding(Mathf.FloorToInt(minutes / 60));
         minute = ZeroPadding(Mathf.FloorToInt(minutes) % 60);
         text.text = hour + ':' + minute;

@@ -117,7 +117,7 @@ MonoBehaviour:
   - 1
   - 1
   movementSpeed: 5
-  motivationDuration: 7
+  motivationDuration: 3.5
   motivatedSpeedMultiplier: 2
   motivatedTimerMultiplier: 1.5
 --- !u!95 &7429639180438484172
