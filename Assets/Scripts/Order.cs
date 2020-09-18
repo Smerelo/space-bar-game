@@ -28,7 +28,12 @@ public class Order
 
     internal float GenerateMealPrice()
     {
-        return UnityEngine.Random.Range(minPrice, maxPrice);
+        float mealPrice = UnityEngine.Random.Range(minPrice, maxPrice);
+        float waitTime = Customer.GetWaitTime();
+        float moneyPayed = mealPrice + waitTime * 1.5f;
+        Customer.Pay(moneyPayed);
+        Debug.Log(moneyPayed);
+        return moneyPayed;
     }
 
     internal void ResetBools()

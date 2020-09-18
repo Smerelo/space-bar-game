@@ -939,7 +939,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &373785707
 GameObject:
@@ -1306,7 +1306,7 @@ MonoBehaviour:
   startMaxClientDelay: 15
   endMinClientDelay: 4
   endMaxClientDelay: 10
-  startMaxCustomers: 3
+  startMaxCustomers: 1
   endMaxCustomers: 30
   customerPrefab: {fileID: 3374125952783045046, guid: 190658e47fe7ba1438381ea23da40f07,
     type: 3}
@@ -3207,7 +3207,7 @@ Transform:
   - {fileID: 470829074}
   - {fileID: 1735065342}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1315483508
 GameObject:

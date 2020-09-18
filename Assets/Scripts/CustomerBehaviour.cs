@@ -2,23 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class CustomerBehaviour : MonoBehaviour
 {
     private Table assignedTable;
     public bool IsWatingForTable { get;  set; }
     public bool movingUp { get; private set; }
-
     public int numberInQueue;
     public bool HasFinishedEating { get; private set; }
     public bool isWalking { get; private set; }
-
     private bool isLeaving;
     private bool isEating;
     private int foodPreference;
     private float eatingTime;
     private CustomerManager manager;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float maxWaitingTime = 1f;
     private bool isSitting;
     private Vector3 waitZone;
     private Vector3 waitPosition;
@@ -27,7 +26,33 @@ public class CustomerBehaviour : MonoBehaviour
     private bool sentOrder;
     private TextBubble textBubble;
     private CustomerFood food;
+    private bool waitingForOrder;
+    private float waitTiimer;
     [SerializeField] private float bubbleUptime = 1f;
+    private Transform UI;
+    [SerializeField] private GameObject moneyPrefab;
+    private Transform moneyPos;
+    [SerializeField] private Color negativeColor;
+
+    internal void Pay(float mealprice)
+    {
+        GameObject money =  Instantiate(moneyPrefab, moneyPos.position, Quaternion.identity, this.transform).transform.GetChild(0).gameObject;
+        money.transform.position = moneyPos.position;
+        TextMeshProUGUI m_text = money.GetComponent<TextMeshProUGUI>();
+        int decimals = Mathf.Abs((int)Math.Round(100.0 * (mealprice - Math.Truncate(mealprice))));
+        m_text.text = $"${Math.Truncate(mealprice)}<size=-14>{decimals.ToString("D2")}</size>";
+        if (mealprice < 0)
+        {
+            m_text.color = negativeColor;
+        }
+        Destroy(money, 1f);
+    }
+
+    internal float GetWaitTime()
+    {
+        return maxWaitingTime - waitTiimer;
+    }
+
 
     private void Awake()
     {
@@ -35,6 +60,8 @@ public class CustomerBehaviour : MonoBehaviour
     }
     void Start()
     {
+        moneyPos = transform.GetChild(1);
+        UI = GameObject.Find("UI").transform; ;
         foreach (Transform t in transform)
         {
             if (t.TryGetComponent(out TextBubble bub))
@@ -60,10 +87,10 @@ public class CustomerBehaviour : MonoBehaviour
 
     public void StartEating()
     {
+        waitingForOrder = false;
         food.ShowFood(eatingTime);
         isEating = true;
         animator.SetBool("isEating", true);
-        //maybe animate or smth
     }
     public void PayAndLeave()
     {
@@ -73,7 +100,7 @@ public class CustomerBehaviour : MonoBehaviour
         manager.customers.Remove(this);
         animator.SetBool("isSitting", false);
         isLeaving = true;
-        Destroy(this.gameObject);
+        Destroy(this.gameObject, 3f);
     }
 
     // Update is called once per frame
@@ -99,7 +126,7 @@ public class CustomerBehaviour : MonoBehaviour
                 isSitting = true;
                 transform.position += new Vector3(0,0,-3);
                 animator.SetBool("isSitting", true);
-
+                waitingForOrder = true;
                 SendOrder();
             }
         }
@@ -127,7 +154,22 @@ public class CustomerBehaviour : MonoBehaviour
 
             }
         }
+        if (waitingForOrder)
+        {
+            waitTiimer += Time.deltaTime;
+            if (waitTiimer > maxWaitingTime)
+            {
+                GetAngry();
+            }
+
+        }
         
+    }
+
+    private void GetAngry()
+    {
+        animator.SetBool("isAngry", true);
+
     }
 
     private void SendOrder() 
