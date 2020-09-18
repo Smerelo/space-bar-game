@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7834328758869819681}
   - component: {fileID: 7834328758869819680}
   - component: {fileID: -6972714583569306679}
-  - component: {fileID: 8813664295584216054}
+  - component: {fileID: 2904864839449553525}
   m_Layer: 0
   m_Name: Cleaner
   m_TagString: Untagged
@@ -118,7 +118,7 @@ MonoBehaviour:
   motivationDuration: 7
   motivatedSpeedMultiplier: 2
   motivatedTimerMultiplier: 1.5
---- !u!95 &8813664295584216054
+--- !u!95 &2904864839449553525
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -128,7 +128,7 @@ Animator:
   m_GameObject: {fileID: 7834328758869819682}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e00f5665ad537584abf647c4c7ebd569, type: 2}
+  m_Controller: {fileID: 9100000, guid: aff36109e8690a84497473e5be17b27b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
