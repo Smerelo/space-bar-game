@@ -14,4 +14,15 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
 
     }
+    public void Update()
+    {
+        if (Input.GetKeyDown("f"))
+        {
+            Screen.fullScreen = true;
+        }
+        if (Screen.fullScreen && Input.GetKeyDown("escape"))
+        {
+            Screen.fullScreen = false;
+        }
+    }
 }

@@ -4265,6 +4265,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 194405617721497519, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: employeeSalary
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 194405617917224712, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_Name
@@ -4365,6 +4370,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -3.6
       objectReference: {fileID: 0}
+    - target: {fileID: 194405618521923672, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: employeeSalary
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 194405618521923673, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_IsTrigger
@@ -4399,6 +4409,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Zone
+      objectReference: {fileID: 0}
+    - target: {fileID: 194405618628719980, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: employeeSalary
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 194405618628719981, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
@@ -4445,6 +4460,16 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 519420030}
+    - target: {fileID: 575762675807471041, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 575762675807471041, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.34
+      objectReference: {fileID: 0}
     - target: {fileID: 1083033811456026947, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: animate
@@ -4454,16 +4479,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -1725883640554967437, guid: e116fe0fe9a89df45a2d7ed8a53ed1ff,
+        type: 3}
     - target: {fileID: 1220725773512545374, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1220725773512545374, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220725773512545374, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220725773512545374, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1548377558549535322, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
@@ -4560,6 +4596,16 @@ PrefabInstance:
     - target: {fileID: 3904340829088204753, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: isStoveFood
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904340829541862395, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: animate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904340829541862395, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: isCleaner
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3904340829594473208, guid: eee5fd27e314f214d9c6832685c2c147,

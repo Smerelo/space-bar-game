@@ -11,7 +11,8 @@ public class Order
     public bool IsBeingPrepared { get; set;}
     public bool IsBeingTakenToClean { get; set; }
     public bool IsReady { get; set; }
-
+    private float minPrice = 10f;
+    private float maxPrice = 15f;
     public Order(int foodType, Table table, CustomerBehaviour customer)
     {
         FoodType = foodType;
@@ -27,7 +28,7 @@ public class Order
 
     internal float GenerateMealPrice()
     {
-        return UnityEngine.Random.Range(10f, 20f);
+        return UnityEngine.Random.Range(minPrice, maxPrice);
     }
 
     internal void ResetBools()

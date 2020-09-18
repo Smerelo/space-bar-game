@@ -16,6 +16,7 @@ public class CentralTransactionLogic : MonoBehaviour
     private float shiftEnd;
     private GameOver gameOver;
     private GameObject gO;
+    private bool ended;
 
     void Start()
     {
@@ -43,8 +44,9 @@ public class CentralTransactionLogic : MonoBehaviour
     }
     private void CheckBalance()
     {
-        if (moneyBalance <= 0 || customerManager.minutes > shiftEnd)
+        if ((moneyBalance <= 0 || customerManager.minutes > shiftEnd) && !ended)
         {
+            ended = true;
             if (moneyBalance < 0)
             {
                 moneyBalance = 0;
