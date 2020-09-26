@@ -70,6 +70,7 @@ public class ZoneManagment : MonoBehaviour
         {
             if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
             {
+                input.SetAsideRessources(1);
                 order.IsBeingPrepared = true;
                 BeginTask(workstation, employee, order);
             }
@@ -88,6 +89,7 @@ public class ZoneManagment : MonoBehaviour
             }
             if (ShouldBeginTask(out Workstation workstation, out EmployeeBehaviour employee, out Order order))
             {
+                input.SetAsideRessources(1);
                 order.IsBeingPrepared = true;
                 BeginTask(workstation, employee, order);
             }
@@ -126,7 +128,7 @@ public class ZoneManagment : MonoBehaviour
         employee = FindFreeEmployee();
         order = CheckForOrders();
 
-        if (workstation == null || employee == null || order == null || order.IsBeingPrepared)
+        if (workstation == null || employee == null || order == null || order.IsBeingPrepared || input.AvailableRessources <= 0)
         {
             return false;
         }

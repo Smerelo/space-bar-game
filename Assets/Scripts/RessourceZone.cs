@@ -6,7 +6,9 @@ using TMPro;
 
 public class RessourceZone : MonoBehaviour
 {
-    public int RessourceQuantity { get; set; }
+    public int RessourceQuantity { get; private set; }
+    public int AvailableRessources { get; private set; }
+
     public Transform Input { get; private set; }
     public Transform Output { get; private set; }
 
@@ -30,8 +32,12 @@ public class RessourceZone : MonoBehaviour
         Output = transform.GetChild(1);
         spriteRenderer = GetComponent<SpriteRenderer>();
         RessourceQuantity = startingRessources;
+        AvailableRessources = startingRessources;
     }
-
+    public void SetAsideRessources(int quantity)
+    {
+        AvailableRessources -= quantity;
+    }
     public bool RemoveRessources(int quantity)
     {
         if (RessourceQuantity - quantity >= 0)
@@ -47,6 +53,7 @@ public class RessourceZone : MonoBehaviour
 
     public void AddRessources(int quantity)
     {
+        AvailableRessources += quantity;
         RessourceQuantity += quantity;
     }
 
