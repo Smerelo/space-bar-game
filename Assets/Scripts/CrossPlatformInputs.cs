@@ -16,33 +16,23 @@ public class CrossPlatformInputs : MonoBehaviour
 
     public float GetHorizontal()
     {
-        if (GetAxisHorizontal() > deadZone)
+        Vector2 movement = new Vector2(GetAxisHorizontal(), GetAxisVertical());
+        
+        if (movement.magnitude < 0.001f)
         {
-            return 1f;
+            return (0);
         }
-        else if (GetAxisHorizontal() < -deadZone)
-        {
-            return -1f;
-        }
-        else
-        {
-            return 0f;
-        }
+        return movement.normalized.x;
     }
     public float GetVertical()
     {
-        if (GetAxisVertical() > deadZone)
+        Vector2 movement = new Vector2(GetAxisHorizontal(), GetAxisVertical());
+
+        if (movement.magnitude < 0.001f)
         {
-            return 1f;
+            return (0);
         }
-        else if (GetAxisVertical() < -deadZone)
-        {
-            return -1f;
-        }
-        else
-        {
-            return 0f;
-        }
+        return movement.normalized.y;
     }
 
 /*#if UNITY_EDITOR
@@ -67,7 +57,5 @@ public class CrossPlatformInputs : MonoBehaviour
         return joystick.Vertical;
     }
 
-
 /*#endif*/
-
 }

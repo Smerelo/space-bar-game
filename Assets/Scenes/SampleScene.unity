@@ -1199,6 +1199,7 @@ GameObject:
   - component: {fileID: 547267597}
   - component: {fileID: 547267596}
   - component: {fileID: 547267595}
+  - component: {fileID: 547267598}
   m_Layer: 0
   m_Name: Motivate
   m_TagString: Untagged
@@ -1317,6 +1318,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 547267593}
   m_CullTransparentMesh: 0
+--- !u!114 &547267598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547267593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9775f2211bee84147b1aedcb05540162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2032067472}
 --- !u!1 &775102232
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,6 +3115,11 @@ PrefabInstance:
       propertyPath: button
       value: 
       objectReference: {fileID: 547267595}
+    - target: {fileID: 3869168036564877679, guid: 03f6a2b77b903b74f8a9223966032238,
+        type: 3}
+      propertyPath: yellButton
+      value: 
+      objectReference: {fileID: 547267595}
     - target: {fileID: 3879328529298245332, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -3706,7 +3725,7 @@ Canvas:
   m_GameObject: {fileID: 1424510152}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -4891,6 +4910,36 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 519420030}
+    - target: {fileID: 1071394701876244568, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071394702068174319, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071394702263278260, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071394702440087248, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071394703062443900, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071394703636367274, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1071394703718410732, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4925,6 +4974,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -24.50003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643179196398130272, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eee5fd27e314f214d9c6832685c2c147, type: 3}
