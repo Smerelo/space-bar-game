@@ -35,7 +35,7 @@ public class CrossPlatformInputs : MonoBehaviour
         return movement.normalized.y;
     }
 
-/*#if UNITY_EDITOR
+#if UNITY_EDITOR
     public float GetAxisHorizontal()
     {
         return Input.GetAxisRaw("Horizontal");
@@ -46,7 +46,7 @@ public class CrossPlatformInputs : MonoBehaviour
     }
 #endif
 
-#if UNITY_ANDROID && !UNITY_EDITOR*/
+#if UNITY_ANDROID && !UNITY_EDITOR
          
     public float GetAxisHorizontal()
     {
@@ -56,6 +56,5 @@ public class CrossPlatformInputs : MonoBehaviour
     {
         return joystick.Vertical;
     }
-
-/*#endif*/
+#endif
 }
