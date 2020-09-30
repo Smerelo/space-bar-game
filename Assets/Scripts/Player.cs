@@ -30,9 +30,9 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float verticalMovement = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        float horizontalMovement = CrossPlatformInputs.Instance.GetAxisHorizontal() * moveSpeed * Time.deltaTime;
+        float verticalMovement = CrossPlatformInputs.Instance.GetAxisVertical() * moveSpeed * Time.deltaTime;
+        if (CrossPlatformInputs.Instance.GetAxisHorizontal() != 0 || CrossPlatformInputs.Instance.GetAxisVertical() != 0)
         {
             animator.SetBool("walking", true);
         }
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
             animator.SetBool("walking", false);
 
         }
-        if (Input.GetAxis("Horizontal") != 0)
+        if (CrossPlatformInputs.Instance.GetAxisHorizontal() != 0)
         {
             animator.SetBool("walk", true);
 
@@ -50,8 +50,8 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("walk", false);
         }
-        animator.SetFloat("directionX", Input.GetAxis("Horizontal"));
-        animator.SetFloat("directionY", Input.GetAxis("Vertical"));
+        animator.SetFloat("directionX", CrossPlatformInputs.Instance.GetAxisHorizontal());
+        animator.SetFloat("directionY", CrossPlatformInputs.Instance.GetAxisVertical());
         transform.position += new Vector3(horizontalMovement, verticalMovement, 0);
     }
 
