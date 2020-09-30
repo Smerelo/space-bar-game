@@ -35,7 +35,7 @@ public class CrossPlatformInputs : MonoBehaviour
         return movement.normalized.y;
     }
 
-#if UNITY_EDITOR
+#if !UNITY_ANDROID
     public float GetAxisHorizontal()
     {
         return Input.GetAxisRaw("Horizontal");
