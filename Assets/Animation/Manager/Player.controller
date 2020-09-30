@@ -34,14 +34,14 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: directionX
-    m_EventTreshold: 0.001
   - m_ConditionMode: 1
-    m_ConditionEvent: walk
+    m_ConditionEvent: isWalking
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: walking
+  - m_ConditionMode: 2
+    m_ConditionEvent: isMovingVertically
+    m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: horizontal
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: yelling
@@ -189,6 +189,37 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-1167365962408082599
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: isWalking
+    m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: vertical
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: yelling
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -4770072160211300880}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 0
 --- !u!1102 &-960649006126540249
 AnimatorState:
   serializedVersion: 5
@@ -224,25 +255,25 @@ AnimatorController:
   m_Name: Player
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: directionX
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: directionY
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: walk
+  - m_Name: isWalking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: walking
+  - m_Name: horizontal
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: vertical
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: isMovingVertically
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -301,14 +332,14 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: directionY
-    m_EventTreshold: 0.001
-  - m_ConditionMode: 2
-    m_ConditionEvent: walk
+  - m_ConditionMode: 1
+    m_ConditionEvent: isWalking
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: walking
+    m_ConditionEvent: isMovingVertically
+    m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: vertical
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: yelling
@@ -336,10 +367,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: walk
+    m_ConditionEvent: isWalking
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: walking
+  - m_ConditionMode: 4
+    m_ConditionEvent: vertical
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: yelling
@@ -369,25 +400,25 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2176037961989736199}
-    m_Position: {x: -90, y: 390, z: 0}
+    m_Position: {x: 290, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4770072160211300880}
-    m_Position: {x: 370, y: -100, z: 0}
+    m_Position: {x: 290, y: -200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3622785211241284556}
-    m_Position: {x: 430, y: 210, z: 0}
+    m_Position: {x: -130, y: -220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5085269878947849778}
-    m_Position: {x: 160, y: 210, z: 0}
+    m_Position: {x: -120, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -960649006126540249}
-    m_Position: {x: 470, y: 70, z: 0}
+    m_Position: {x: -230, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5140166936752546690}
-    m_Position: {x: 450, y: 310, z: 0}
+    m_Position: {x: -230, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6610446780711801995}
-    m_Position: {x: 50, y: 350, z: 0}
+    m_Position: {x: 240, y: 210, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 8829015778543348783}
@@ -396,6 +427,7 @@ AnimatorStateMachine:
   - {fileID: 5245122561664523398}
   - {fileID: 5272991839670428212}
   - {fileID: -4575611653684300158}
+  - {fileID: -1167365962408082599}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
@@ -412,17 +444,17 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: directionX
-    m_EventTreshold: 0.001
   - m_ConditionMode: 1
-    m_ConditionEvent: walking
+    m_ConditionEvent: isWalking
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: walk
+  - m_ConditionMode: 2
+    m_ConditionEvent: isMovingVertically
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: yelling
+    m_EventTreshold: 0
+  - m_ConditionMode: 4
+    m_ConditionEvent: horizontal
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3622785211241284556}
@@ -446,14 +478,14 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: directionY
-    m_EventTreshold: 0.001
-  - m_ConditionMode: 2
-    m_ConditionEvent: walk
+  - m_ConditionMode: 1
+    m_ConditionEvent: isWalking
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: walking
+    m_ConditionEvent: isMovingVertically
+    m_EventTreshold: 0
+  - m_ConditionMode: 4
+    m_ConditionEvent: vertical
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: yelling

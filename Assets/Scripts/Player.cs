@@ -1,22 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float yellCooldown;
     private float cooldownTimer = 0;
-    private bool canYell = true;
+    public bool CanYell { get; private set; }
     private Animator animator;
     private float yellDuration = 1;
     private float timer = 0;
     private bool yelling;
+    private float lastHorizontal;
+    private float lastVertical;
+    private bool shouldYell;
+    
 
     private void Start()
     {
+        CanYell = true;
         yellCooldown = 8f;
         animator = GetComponent<Animator>();
+        shouldYell = false;
     }
 
     void Update()
@@ -26,49 +33,57 @@ public class Player : MonoBehaviour
             Move();
         }
         Yell();
+        if (Input.GetKeyDown("space"))
+        {
+            ShouldYell();
+        }
+    }
+    private void WhatDirection()
+    {
+        animator.SetFloat("horizontal", lastHorizontal - 0.001f);
+        animator.SetFloat("vertical", lastVertical - 0.0001f);
+        animator.SetBool("isMovingVertically", Mathf.Abs(lastHorizontal) < 1.1f * Mathf.Abs(lastVertical));
     }
 
     private void Move()
     {
-        float horizontalMovement = CrossPlatformInputs.Instance.GetAxisHorizontal() * moveSpeed * Time.deltaTime;
-        float verticalMovement = CrossPlatformInputs.Instance.GetAxisVertical() * moveSpeed * Time.deltaTime;
+        float horizontalMovement = CrossPlatformInputs.Instance.GetHorizontal() * moveSpeed * Time.deltaTime;
+        float verticalMovement = CrossPlatformInputs.Instance.GetVertical() * moveSpeed * Time.deltaTime;
+        WhatDirection();
         if (CrossPlatformInputs.Instance.GetAxisHorizontal() != 0 || CrossPlatformInputs.Instance.GetAxisVertical() != 0)
         {
-            animator.SetBool("walking", true);
-        }
-        else
-        {
-            animator.SetBool("walking", false);
-
-        }
-        if (CrossPlatformInputs.Instance.GetAxisHorizontal() != 0)
-        {
-            animator.SetBool("walk", true);
+            lastHorizontal = 10 * CrossPlatformInputs.Instance.GetAxisHorizontal();
+            lastVertical = 10 * CrossPlatformInputs.Instance.GetAxisVertical();
+            animator.SetBool("isWalking", true);
 
         }
         else
         {
-            animator.SetBool("walk", false);
+            animator.SetBool("isWalking", false);
         }
-        animator.SetFloat("directionX", CrossPlatformInputs.Instance.GetAxisHorizontal());
-        animator.SetFloat("directionY", CrossPlatformInputs.Instance.GetAxisVertical());
         transform.position += new Vector3(horizontalMovement, verticalMovement, 0);
+    }
+
+    public void ShouldYell()
+    {
+        shouldYell = true;
     }
 
     private void Yell()
     {
-        if (!canYell)
+        if (!CanYell)
         {
             cooldownTimer += Time.deltaTime;
         }
         if (cooldownTimer >= yellCooldown) 
         {
-            canYell = true;
+            CanYell = true;
             cooldownTimer = 0;
         }
-        if (canYell && Input.GetKeyDown("space") && this.transform.parent != null)
+        if (CanYell && shouldYell && this.transform.parent != null)
         {
-            canYell = false;
+            shouldYell = false;
+            CanYell = false;
             yelling = true;
             animator.SetBool("yelling", true);
             this.transform.parent.gameObject.GetComponent<ZoneManagment>().Yell();
