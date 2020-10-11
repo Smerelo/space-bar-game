@@ -46,7 +46,7 @@ public class CrossPlatformInputs : MonoBehaviour
     }
 #endif
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID
          
     public float GetAxisHorizontal()
     {
