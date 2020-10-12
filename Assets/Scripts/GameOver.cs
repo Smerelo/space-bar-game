@@ -21,23 +21,7 @@ public class GameOver : MonoBehaviour
         
     }
 
-    internal void GetGameStatus(double moneyBalance, float minutes, Color positive, Color negative)
-    {
-        if (moneyBalance >= 0)
-        {
-            moneyText.color = positive;
-        }
-        else
-        {
-            moneyText.color = negative;
-        }
-        int decimals = Mathf.Abs((int)Math.Round(100.0 * (moneyBalance - Math.Truncate(moneyBalance))));
-        moneyText.text = $"${Math.Truncate(moneyBalance)}<size=-14>{decimals.ToString("D2")}</size>";
-        string hour = ZeroPadding(Mathf.FloorToInt(minutes / 60));
-        string minute = ZeroPadding(Mathf.FloorToInt(minutes) % 60);
-        timeText.text = hour + ':' + minute;
-
-    }
+    
 
     public void GoToMenu()
     {

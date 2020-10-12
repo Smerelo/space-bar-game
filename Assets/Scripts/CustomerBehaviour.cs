@@ -167,6 +167,11 @@ public class CustomerBehaviour : MonoBehaviour
         
     }
 
+    internal void GoHome()
+    {
+        Destroy(gameObject);
+    }
+
     private void GetAngry()
     {
         animator.SetBool("isAngry", true);

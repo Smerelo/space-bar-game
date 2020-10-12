@@ -22,7 +22,6 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private float startMaxCustomers = 3;
     [SerializeField] private float endMaxCustomers = 10;
     [SerializeField] private GameObject customerPrefab;
-    [SerializeField] private TextMeshProUGUI text;
     private float minClientDealy;
     public float dayLenght = 8;
     private float maxClientDelay;
@@ -41,11 +40,8 @@ public class CustomerManager : MonoBehaviour
     private CentralTransactionLogic spaceCantina;
     public Transform waitZone;
     private bool difficultyIncreased = false;
-    private bool timeStop;
-    internal void StopTimer()
-    {
-        timeStop = true;
-    }
+    private DayManagement dayManagement;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -66,12 +62,14 @@ public class CustomerManager : MonoBehaviour
         customers = new List<CustomerBehaviour>();
         tables = new List<Table>();
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
+        dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!timeStop)
+        if (!dayManagement.dayFinished)
         {
             globalTimer += 3 * Time.deltaTime;
             if (Mathf.FloorToInt(globalTimer) % 60 == 0 && !difficultyIncreased && globalTimer >= 1)
@@ -83,24 +81,20 @@ public class CustomerManager : MonoBehaviour
             {
                 difficultyIncreased = false;
             }
-            UpdateClock();
             SpawnerLogic();
+        }
+        else{
+            FinishDay();
         }
     }
 
-    private void UpdateClock()
+    public void FinishDay()
     {
-        string hour;
-        string minute;
-        minutes += 3 * Time.deltaTime;
-        hour = ZeroPadding(Mathf.FloorToInt(minutes / 60));
-        minute = ZeroPadding(Mathf.FloorToInt(minutes) % 60);
-        text.text = hour + ':' + minute;
-    }
-
-    private string ZeroPadding(int n)
-    {
-        return n.ToString().PadLeft(2, '0');
+        foreach (CustomerBehaviour customer in customers)
+        {
+            customer.GoHome();
+        }
+        customers.Clear();
     }
 
     private void IncreaseDifficulty()

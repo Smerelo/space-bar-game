@@ -15,9 +15,8 @@ public class ZoneManagment : MonoBehaviour
     private float startingSalary;
     [SerializeField] private bool test;
     [SerializeField] GameObject workerPrefab;
-    private List<GameObject> employees;
     private List<Workstation> stations;
-    private List<EmployeeBehaviour> employeesScripts;
+    private List<EmployeeBehaviour> employees;
     private List<Order> orders;
     private CentralTransactionLogic zoneManager;
     void Start()
@@ -25,15 +24,13 @@ public class ZoneManagment : MonoBehaviour
         startingSalary = employeeSalary;
         zoneManager = GetComponentInParent<CentralTransactionLogic>();
         orders = new List<Order>();
-        employees = new List<GameObject>();
-        employeesScripts = new List<EmployeeBehaviour>();
+        employees = new List<EmployeeBehaviour>();
 
         foreach (Transform child in transform)
         {
             if (child.TryGetComponent(out EmployeeBehaviour employee))
             {
-                employees.Add(child.gameObject);
-                employeesScripts.Add(employee);
+                employees.Add(employee);
             }
         }
         stations = new List<Workstation>();
@@ -52,7 +49,7 @@ public class ZoneManagment : MonoBehaviour
     public float GiveSalary()
     {
         float total = 0f;
-        foreach (EmployeeBehaviour emp in employeesScripts)
+        foreach (EmployeeBehaviour emp in employees)
         {
             total += employeeSalary * Time.deltaTime / 60;
         }
@@ -95,6 +92,20 @@ public class ZoneManagment : MonoBehaviour
             }
         }
         //print($"{zoneName}: {orders.Count} orders here");
+    }
+
+    internal void ClockIn()
+    {
+        input.ResetRessources();
+    }
+
+    internal void ClockOut()
+    {
+        foreach (EmployeeBehaviour employee in employees)
+        {
+            employee.AbortOrder();
+        }
+        orders.Clear();
     }
 
     public bool ShouldBringDirtyPlates(out Order order, out Waiter waiter)
@@ -156,7 +167,7 @@ public class ZoneManagment : MonoBehaviour
 
     private EmployeeBehaviour FindFreeEmployee()
     {
-        return DrawRandomAvailable<EmployeeBehaviour>(employeesScripts, (EmployeeBehaviour e) => !e.IsBusy);
+        return DrawRandomAvailable<EmployeeBehaviour>(employees, (EmployeeBehaviour e) => !e.IsBusy);
     }
 
     private Workstation FindUnoccupiedStation()
@@ -193,8 +204,7 @@ public class ZoneManagment : MonoBehaviour
     public void HireEmployee()
     {
         GameObject newEmployee = Instantiate(workerPrefab, spawnZone.position, Quaternion.identity, transform);
-        employees.Add(newEmployee);
-        employeesScripts.Add(newEmployee.GetComponent<EmployeeBehaviour>());
+        employees.Add(newEmployee.GetComponent<EmployeeBehaviour>());
     }
 
     public void UpgradeEmployee()
@@ -205,7 +215,7 @@ public class ZoneManagment : MonoBehaviour
         }
         else
         {
-            employeesScripts[0].SalaryRaise();
+            employees[0].SalaryRaise();
             employeeSalary += startingSalary;
         }
     }
@@ -244,7 +254,7 @@ public class ZoneManagment : MonoBehaviour
 
     public void Yell()
     {
-        foreach (EmployeeBehaviour employee in employeesScripts)
+        foreach (EmployeeBehaviour employee in employees)
         {
             employee.GotYelledAt = true;
         }

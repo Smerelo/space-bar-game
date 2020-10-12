@@ -19,13 +19,12 @@ public class CentralTransactionLogic : MonoBehaviour
     private GameOver gameOver;
     private GameObject gO;
     private bool ended;
+    private DayManagement dayManagement;
 
     void Start()
     {
         moneyBalance = startingBalance;
-        gameOver = GameObject.Find("GameOver").GetComponent<GameOver>();
-        gO =  GameObject.Find("GameOver");
-        gO.SetActive(false);
+        dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
         customerManager = GameObject.Find("Customer Manager").GetComponent<CustomerManager>();
         shiftEnd = customerManager.dayLenght  * 60 +  10 * 60;
         orders = new List<Order>();
@@ -40,22 +39,24 @@ public class CentralTransactionLogic : MonoBehaviour
             }
         }
     }
+
+    internal double GetBalance()
+    {
+        return moneyBalance;
+    }
+
     public void CashIn(float amount)
     {
         moneyBalance += amount;
     }
     private void CheckBalance()
     {
-        if ((customerManager.minutes > shiftEnd) && !ended)
+        if (!dayManagement.dayFinished)
         {
-            ended = true;
-            customerManager.StopTimer();
-            gO.SetActive(true);
-            gameOver.GetGameStatus(moneyBalance, customerManager.minutes, positiveBalanceColor, negativeBalanceColor);
-        }
-        foreach (ZoneManagment zone in zones.Values)
-        {
-            moneyBalance -= zone.GiveSalary();
+            foreach (ZoneManagment zone in zones.Values)
+            {
+                moneyBalance -= zone.GiveSalary();
+            }
         }
         if (moneyBalance >= 0)
         {
@@ -81,6 +82,21 @@ public class CentralTransactionLogic : MonoBehaviour
         if (zones.TryGetValue(Constants.preparing, out ZoneManagment preparing))
         {
             preparing.AddOrder(order);
+        }
+    }
+        
+    public void EmployeeClockOut()
+    {
+        foreach (ZoneManagment zone in zones.Values)
+        {
+            zone.ClockOut();
+        }
+    }
+    public void EmployeeClockIn()
+    {
+        foreach (ZoneManagment zone in zones.Values)
+        {
+            zone.ClockIn();
         }
     }
 

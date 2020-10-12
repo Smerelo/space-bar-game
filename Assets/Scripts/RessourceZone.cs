@@ -82,4 +82,10 @@ public class RessourceZone : MonoBehaviour
     {
         CheckForSpriteUpdate();
     }
+
+    internal void ResetRessources()
+    {
+        RessourceQuantity = startingRessources;
+        AvailableRessources = startingRessources;
+    }
 }

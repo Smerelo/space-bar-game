@@ -46,6 +46,13 @@ public class EmployeeBehaviour : MonoBehaviour
         currentDestIndex = 0;
         ParentZone.TaskAccomplished(currentOrder);
     }
+    public void AbortOrder()
+    {
+        currentOrder = null;
+        IsBusy = false;
+        destinations = null;
+        currentDestIndex = 0;
+    }
 
     public void DrawResource()
     {
