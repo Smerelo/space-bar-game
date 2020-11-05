@@ -47,6 +47,7 @@ public class RessourceZone : MonoBehaviour
         }
         else
         {
+            Debug.Log("no do this please");
             return (false);
         }
     }

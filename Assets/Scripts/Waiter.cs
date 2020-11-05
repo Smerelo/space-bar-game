@@ -149,8 +149,6 @@ public class Waiter : MonoBehaviour
         }
     }
 
-
-
     private void MoveToNextPoint2()
     {
         if (Vector3.Distance(destinations[currentDestIndex].position, transform.position) < 0.1f)
@@ -216,7 +214,7 @@ public class Waiter : MonoBehaviour
         drawResourceIndex = 1;
         if (waitTimesBringFood.Count != destinations.Count)
         {
-            Debug.LogError("Different size for waitTimesList and Path list for waiter. Fill the waitTimesList onthe inspector properly");
+            Debug.LogError("Different size for waitTimesList and Path list for waiter. Fill the waitTimesList on the inspector properly");
         }
         currentOrder = order;
     }

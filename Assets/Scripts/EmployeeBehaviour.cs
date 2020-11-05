@@ -32,9 +32,6 @@ public class EmployeeBehaviour : MonoBehaviour
         cleaner = GetComponent<Cleaner>();
     }
 
-    void Update()
-    {
-    }
 
     public void TaskAccomplished()
     {
@@ -96,5 +93,10 @@ public class EmployeeBehaviour : MonoBehaviour
         {
             Debug.Log("Can only upgrade cleaners atm");
         }
+    }
+
+    internal void ChangeParentZone(ZoneManagment newZone) 
+    {
+        ParentZone = newZone;
     }
 }

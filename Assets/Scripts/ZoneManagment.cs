@@ -19,10 +19,12 @@ public class ZoneManagment : MonoBehaviour
     private List<EmployeeBehaviour> employees;
     private List<Order> orders;
     private CentralTransactionLogic zoneManager;
+    private SEManager superEmployeeManager;
     void Start()
     {
         startingSalary = employeeSalary;
         zoneManager = GetComponentInParent<CentralTransactionLogic>();
+        superEmployeeManager = GameObject.Find("SEManager").GetComponent<SEManager>();
         orders = new List<Order>();
         employees = new List<EmployeeBehaviour>();
 
@@ -257,6 +259,14 @@ public class ZoneManagment : MonoBehaviour
         foreach (EmployeeBehaviour employee in employees)
         {
             employee.GotYelledAt = true;
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            superEmployeeManager.SelectZone(this);
         }
     }
 }
