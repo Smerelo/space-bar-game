@@ -67,15 +67,15 @@ public class DayManagement : MonoBehaviour
         dayClock = dayStart;
         CTL.EmployeeClockIn();
         dayFinished = false;
+        endOfDayMenu.SetActive(false);
     }
 
     private void UpdateClock()
     {
         string hour;
         string minute;
-        minutes += 3 * Time.deltaTime;
-        hour = ZeroPadding(Mathf.FloorToInt(minutes / 60));
-        minute = ZeroPadding(Mathf.FloorToInt(minutes) % 60);
+        hour = ZeroPadding(Mathf.FloorToInt(dayClock / 60));
+        minute = ZeroPadding(Mathf.FloorToInt(dayClock) % 60);
         text.text = hour + ':' + minute;
     }
 
