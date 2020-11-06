@@ -14,11 +14,13 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private float dayStart;
     [SerializeField] private float dayEnd;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private GameObject MobileUi;
     private float dayClock;
     private bool timeStop;
     private float minutes;
     public int DayCounter { get; set; }
     public bool dayFinished { get; private set; }
+    private TableManager tableManager;
 
     [SerializeField] private GameObject endOfDayMenu;
     private CentralTransactionLogic CTL;
@@ -26,6 +28,7 @@ public class DayManagement : MonoBehaviour
 
     void Start()
     {
+        tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         CTL = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         dayClock = dayStart;
         endOfDayMenu.SetActive(false);
@@ -52,6 +55,8 @@ public class DayManagement : MonoBehaviour
 
     private void PauseGame()
     {
+        tableManager.FreeTables();
+        MobileUi.SetActive(false);
         dayFinished = true;
         CTL.EmployeeClockOut();
     }

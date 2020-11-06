@@ -23,6 +23,14 @@ public class TableManager : MonoBehaviour
         
     }
 
+    public void FreeTables()
+    {
+        foreach (Table table in tables)
+        {
+            table.InUse = false;
+        }
+    }
+
     internal bool TryAvailableTable(out Table table)
     {
         table = DrawRandomAvailable<Table>(tables, (Table t) => !t.InUse);
