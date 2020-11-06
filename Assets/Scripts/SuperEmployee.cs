@@ -10,6 +10,7 @@ public class SuperEmployee : MonoBehaviour
     private Barman barmanScript;
     
     private ZoneManagment newZone;
+    private ZoneManagment oldZone;
 
     private bool shouldChangeZone = false;
 
@@ -25,6 +26,7 @@ public class SuperEmployee : MonoBehaviour
     private void Start()
     {
         superEmployeeManager = GameObject.Find("SEManager").GetComponent<SEManager>();
+        oldZone = employeeBehaviour.ParentZone;
     }
 
     private void Update()
@@ -40,6 +42,8 @@ public class SuperEmployee : MonoBehaviour
     {
         this.transform.parent = newZone.transform;
         employeeBehaviour.ChangeParentZone(transform.GetComponentInParent<ZoneManagment>());
+        oldZone.RemoveSuperEmployee(employeeBehaviour);
+        newZone.AddSuperEmployee(employeeBehaviour);
         if (newZone.gameObject.name == "Preparing")
         {
             waiterScript.enabled = false;
@@ -50,6 +54,7 @@ public class SuperEmployee : MonoBehaviour
             barmanScript.enabled = false;
             waiterScript.enabled = true;
         }
+        oldZone = newZone;
     }
 
     internal void GetNewZone(ZoneManagment zone)

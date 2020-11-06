@@ -262,6 +262,15 @@ public class ZoneManagment : MonoBehaviour
         }
     }
 
+    internal void RemoveSuperEmployee(EmployeeBehaviour superEmployee)
+    {
+        employees.Remove(superEmployee);
+    }
+    internal void AddSuperEmployee(EmployeeBehaviour superEmployee) 
+    {
+        employees.Add(superEmployee);
+    }
+
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
