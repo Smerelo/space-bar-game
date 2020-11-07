@@ -34,6 +34,7 @@ public class EmployeeManager : MonoBehaviour
         salaryBartender = barZone.GetEmployeeSalary(0);
         salaryWaiter = waiterZone.GetEmployeeSalary(0);
         salaryCleaner = cleanerZone.GetEmployeeSalary(1);
+        Debug.Log($"bar: {salaryBartender} waiter: { salaryWaiter} cleaner: {salaryCleaner}");
     }
 
     public void UpdateCount()

@@ -149,7 +149,7 @@ public class ZoneManagment : MonoBehaviour
 
     public float GetEmployeeSalary(int mod)
     {
-        if (mod ==1)
+        if (mod == 0)
         {
             return employees.Count * employeeSalary;
 
