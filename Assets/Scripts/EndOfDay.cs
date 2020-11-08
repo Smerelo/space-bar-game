@@ -25,7 +25,6 @@ public class EndOfDay : MonoBehaviour
 
     public void SetGameStatus(double moneyBalance)
     {
-        Debug.Log(moneyBalance);
         if (moneyBalance >= 0)
         {
             moneyText.color = Colors.Instance.positiveBalance;

@@ -15,6 +15,7 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private float dayEnd;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject MobileUi;
+
     private float dayClock;
     private bool timeStop;
     private float minutes;
