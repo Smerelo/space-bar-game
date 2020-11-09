@@ -151,6 +151,7 @@ public class ZoneManagment : MonoBehaviour
     {
         if (mod == 0)
         {
+            Debug.Log(employees.Count);
             return employees.Count * employeeSalary;
 
         }

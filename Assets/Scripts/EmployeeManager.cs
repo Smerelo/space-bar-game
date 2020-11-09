@@ -17,6 +17,7 @@ public class EmployeeManager : MonoBehaviour
     [SerializeField] private Image arrowButton;
     [SerializeField] private Transform openPos;
     [SerializeField] private Transform closePos;
+    [SerializeField] private float speed;
 
 
     private ZoneManagment barZone;
@@ -32,7 +33,7 @@ public class EmployeeManager : MonoBehaviour
         barZone = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
         waiterZone = GameObject.Find("Serving").GetComponent<ZoneManagment>();
         cleanerZone = GameObject.Find("Cleaning").GetComponent<ZoneManagment>();
-        UpadateSalaryText();
+        UpdateSalaryText();
         UpdateCount();
         UpdateSalary();
     }
@@ -42,6 +43,8 @@ public class EmployeeManager : MonoBehaviour
         salaryBartender = barZone.GetEmployeeSalary(0);
         salaryWaiter = waiterZone.GetEmployeeSalary(0);
         salaryCleaner = cleanerZone.GetEmployeeSalary(1);
+        UpdateSalaryText();
+        UpdateTotal();
     }
 
     public void UpdateCount()
@@ -53,11 +56,11 @@ public class EmployeeManager : MonoBehaviour
 
     public void UpdateTotal()
     {
-        float totalPricel = salaryBartender + salaryCleaner + salaryWaiter;
-        totalText.text = $"TOTAL: ${salaryBartender}/hour";
+        float totalPrice = salaryBartender + salaryCleaner + salaryWaiter;
+        totalText.text = $"TOTAL: ${totalPrice}/hour";
     }
 
-    public void UpadateSalaryText()
+    public void UpdateSalaryText()
     {
         bartender.text = $"${salaryBartender}/hour";
         waiter.text = $"${salaryWaiter}/hour";
@@ -66,31 +69,32 @@ public class EmployeeManager : MonoBehaviour
 
     public void ShowSideMenu()
     {
+        Vector3 scale = new Vector3(-arrowButton.transform.localScale.x, arrowButton.transform.localScale.y, 0);
 
         if (!openSideMenu)
         {
-
+            arrowButton.transform.localScale = scale;
             openSideMenu = true;
         }
 
         else
         {
+            arrowButton.transform.localScale = scale;
             openSideMenu = false ;
         }
-        Debug.Log($"Enters: {openSideMenu}");
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (openSideMenu == true)
         {
-            sideMenu.transform.position = Vector2.MoveTowards(sideMenu.transform.position, openPos.position, 1);
+            sideMenu.transform.position = Vector2.MoveTowards(sideMenu.transform.position, openPos.position, speed *Time.deltaTime);
         }
         else
         {
-            sideMenu.transform.position = Vector2.MoveTowards(sideMenu.transform.position, closePos.position, 1);
+            sideMenu.transform.position = Vector2.MoveTowards(sideMenu.transform.position, closePos.position, speed * Time.deltaTime);
         }
-        UpdateSalary();
     }
 }
