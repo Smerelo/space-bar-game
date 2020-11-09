@@ -1567,7 +1567,7 @@ MonoBehaviour:
   arrowButton: {fileID: 34427306}
   openPos: {fileID: 1800081441}
   closePos: {fileID: 1292905747}
-  speed: 0
+  speed: 20
 --- !u!1 &159712582
 GameObject:
   m_ObjectHideFlags: 0
