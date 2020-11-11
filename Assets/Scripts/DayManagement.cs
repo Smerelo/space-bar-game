@@ -15,6 +15,7 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private float dayEnd;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject MobileUi;
+    [SerializeField] private EmployeeCard[] employeeCards;
 
     private float dayClock;
     private bool timeStop;
@@ -50,6 +51,10 @@ public class DayManagement : MonoBehaviour
 
     private void EndDay()
     {
+        for (int i = 0; i < employeeCards.Length; i++)
+        {
+            employeeCards[i].GenerateStats();
+        }
         PauseGame();
         ShowEndOfDayMenu();
     }
