@@ -4,29 +4,26 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource musicSource;
-    private AudioSource sfxSource;
     [SerializeField] List<AudioClip> backgroundMusic;
-    [SerializeField] List<AudioClip> sfx;
     private bool stopped;
 
     public int CurrentSong { get; private set; }
     public int TotalSongs { get; private set; }
-    
+
+    private void Awake()
+    {
+        SoundManager.MusicVolume = 0.7f;
+    }
     void Start()
     {
-        musicSource = gameObject.AddComponent<AudioSource>();
-        sfxSource = gameObject.AddComponent<AudioSource>();
         TotalSongs = backgroundMusic.Count;
-        musicSource.loop = false;
-        sfxSource.loop = false;
+        SoundManager.MusicSource.loop = false;
         if (TotalSongs == 0) stopped = true;
-        musicSource.volume = 0.1f;
     }
 
     void Update()
     {
-        if (!stopped && !musicSource.isPlaying)
+        if (!stopped && !SoundManager.MusicSource.isPlaying)
         {
             SkipSong();
         }
@@ -43,8 +40,8 @@ public class AudioManager : MonoBehaviour
     public void SkipSong()
     {
         stopped = false;
-        musicSource.clip = backgroundMusic[CurrentSong];
-        musicSource.Play();
+        SoundManager.MusicSource.clip = backgroundMusic[CurrentSong];
+        SoundManager.MusicSource.Play();
         if (CurrentSong < TotalSongs)
         {
             CurrentSong++;
@@ -57,7 +54,7 @@ public class AudioManager : MonoBehaviour
 
     public void Stop()
     {
-        musicSource.Stop();
+        SoundManager.MusicSource.Stop();
         CurrentSong = 0;
         stopped = true;
     }
