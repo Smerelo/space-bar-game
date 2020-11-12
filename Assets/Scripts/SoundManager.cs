@@ -98,7 +98,7 @@ public static class SoundManager
             GameObject music = new GameObject("Music");
             music.transform.SetParent(soundAndMusic.transform);
             musicSource = music.AddComponent<AudioSource>();
-            musicSource.outputAudioMixerGroup = Mixer.FindMatchingGroups("Music")[0];  
+            musicSource.outputAudioMixerGroup = Mixer.FindMatchingGroups("Music")[0];
         }
         if (sfxSources == null)
         {
