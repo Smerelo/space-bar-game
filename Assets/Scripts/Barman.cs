@@ -187,6 +187,7 @@ public class Barman : MonoBehaviour
         };
         freeStationIndex = 2;
         drawResourceIndex = 1;
+        waitTimes[1] = Order.GetFoodTypeAsset(order.FoodType).PreparationTime * UnityEngine.Random.Range(0.9f, 1.1f);
         currentOrder = order;
     }
 }

@@ -60,6 +60,5 @@ public class SoundSlider : MonoBehaviour
             default:
                 break;
         }
-        
     }
 }

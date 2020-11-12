@@ -20,4 +20,20 @@ public class GameAssets : MonoBehaviour
     }
 
     public AudioMixer mixer;
+
+    [SerializeField] private FoodTypeAsset[] foodPlateTypes;
+    public FoodTypeAsset[] FoodPlateTypes { get { return foodPlateTypes; }}
+    [System.Serializable]
+    public class FoodTypeAsset
+    {
+        [SerializeField] private Order.FoodTypes type;
+        [SerializeField] private Sprite foodSprite;
+        [SerializeField] private float price;
+        [SerializeField] private float preparationTime;
+
+        public Order.FoodTypes Type { get { return type; } }
+        public Sprite FoodSprite { get { return foodSprite; } }
+        public float Price { get { return price; } }
+        public float PreparationTime { get { return preparationTime; } }
+    }
 }

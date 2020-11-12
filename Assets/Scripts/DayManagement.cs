@@ -13,6 +13,7 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private float foodQuantity;
     [SerializeField] private float dayStart;
     [SerializeField] private float dayEnd;
+    [SerializeField] private float timeMultiplier = 3;
     [SerializeField] private TextMeshProUGUI text;
     private float dayClock;
     private bool timeStop;
@@ -35,7 +36,7 @@ public class DayManagement : MonoBehaviour
     {
         if (!dayFinished)
         {
-            dayClock += 3 * Time.deltaTime;
+            dayClock += timeMultiplier * Time.deltaTime;
             if (dayClock >= dayEnd)
             {
                 EndDay();

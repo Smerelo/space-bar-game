@@ -7,18 +7,14 @@ public class TextBubble : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer imageSpriteRenderer;
-    [SerializeField] private List<Sprite> spriteList;
     private float timer;
     private float countdown;
 
-    public int SpritesCount { get; internal set; }
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         imageSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        SpritesCount = spriteList.Count;
-
     }
     void Start()
     {
@@ -41,9 +37,9 @@ public class TextBubble : MonoBehaviour
         imageSpriteRenderer.enabled = false;
     }
 
-    public void SetSprite(int i)
+    public void SetSprite(Order.FoodTypes type)
     {
-        imageSpriteRenderer.sprite = spriteList[i];
+        imageSpriteRenderer.sprite = Order.GetFoodTypeAsset(type).FoodSprite;
     }
 
     public void ShowBubble(float uptime)

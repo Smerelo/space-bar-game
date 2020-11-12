@@ -13,11 +13,11 @@ public class CustomerBehaviour : MonoBehaviour
     public bool isWalking { get; private set; }
     private bool isLeaving;
     private bool isEating;
-    private int foodPreference;
+    private Order.FoodTypes foodPreference;
     private float eatingTime;
     private CustomerManager manager;
     [SerializeField] private float movementSpeed;
-    [SerializeField] private float maxWaitingTime = 1f;
+    [SerializeField] private float patienceMultiplier = 3f;
     private bool isSitting;
     private Vector3 waitZone;
     private Vector3 waitPosition;
@@ -28,6 +28,7 @@ public class CustomerBehaviour : MonoBehaviour
     private CustomerFood food;
     private bool waitingForOrder;
     private float waitTiimer;
+    private float maxPatience;
     [SerializeField] private float bubbleUptime = 1f;
     private Transform UI;
     [SerializeField] private GameObject moneyPrefab;
@@ -48,9 +49,9 @@ public class CustomerBehaviour : MonoBehaviour
         Destroy(money, 1f);
     }
 
-    internal float GetWaitTime()
+    internal float GetWaitTimeBonus()
     {
-        return waitTiimer;
+        return waitTiimer / maxPatience;
     }
 
 
@@ -60,7 +61,8 @@ public class CustomerBehaviour : MonoBehaviour
     }
     void Start()
     {
-        waitTiimer = maxWaitingTime;
+        maxPatience = Order.GetFoodTypeAsset(foodPreference).PreparationTime * patienceMultiplier;
+        waitTiimer = maxPatience;
         moneyPos = transform.GetChild(1);
         UI = GameObject.Find("UI").transform; ;
         foreach (Transform t in transform)
@@ -76,7 +78,7 @@ public class CustomerBehaviour : MonoBehaviour
         }
         animator = GetComponent<Animator>();
         manager = GetComponentInParent<CustomerManager>();
-        foodPreference = UnityEngine.Random.Range(0, textBubble.SpritesCount);
+        foodPreference = Order.RandomFoodType();
         eatingTime = manager.GetEatingTime();
     }
 
@@ -128,6 +130,7 @@ public class CustomerBehaviour : MonoBehaviour
                 transform.position += new Vector3(0,0,-3);
                 animator.SetBool("isSitting", true);
                 waitingForOrder = true;
+
                 SendOrder();
             }
         }

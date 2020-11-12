@@ -6,7 +6,6 @@ using UnityEngine;
 public class CustomerFood : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    [SerializeField] private List<Sprite> spriteList;
     private float cooldown;
     private float timer;
     [SerializeField] private Sprite dirtyPlate;
@@ -44,8 +43,8 @@ public class CustomerFood : MonoBehaviour
     {
         spriteRenderer.sprite = dirtyPlate;
     }
-    public void SetFood(int i)
+    public void SetFood(Order.FoodTypes type)
     {
-        food = spriteList[i];
+        food = Order.GetFoodTypeAsset(type).FoodSprite;
     }
 }

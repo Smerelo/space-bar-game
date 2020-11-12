@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberInQueue: 0
   movementSpeed: 4
-  maxWaitingTime: 12
+  patienceMultiplier: 6
   bubbleUptime: 1
   moneyPrefab: {fileID: 3852401137864573119, guid: eb8d6671e5ca946449f048851974ec47,
     type: 3}

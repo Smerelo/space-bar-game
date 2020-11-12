@@ -44,3 +44,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 66f7dbb77ce777346b62e0c827057986, type: 2}
+  foodPlateTypes:
+  - type: 1
+    foodSprite: {fileID: -6189968961900467020, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 6
+    preparationTime: 3
+  - type: 0
+    foodSprite: {fileID: -6506632588742888887, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 6
+    preparationTime: 3
+  - type: 2
+    foodSprite: {fileID: 1910016474383036245, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 6
+    preparationTime: 3
+  - type: 5
+    foodSprite: {fileID: -5027537667671156013, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 9
+    preparationTime: 4
+  - type: 4
+    foodSprite: {fileID: -9096238621520062807, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 9
+    preparationTime: 4
+  - type: 3
+    foodSprite: {fileID: -4057059114748380347, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 9
+    preparationTime: 4
+  - type: 7
+    foodSprite: {fileID: -4634637038825984542, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 4
+    preparationTime: 1
+  - type: 6
+    foodSprite: {fileID: 984896508294592253, guid: 7e680b5ed5fbb394f83dcdd06bfa7d79,
+      type: 3}
+    price: 25
+    preparationTime: 5
