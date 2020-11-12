@@ -35,7 +35,7 @@ public class EmployeeCard : MonoBehaviour
         nameText.text = name;
         taskSpeedText.text = $"{taskSpeed.ToString("F2")}s";
         mSpeedText.text = $"{mSpeed.ToString("F2")}";
-        priceText.text = $"${price.ToString("F1")}/Hour";
+        priceText.text = $"${price.ToString("F0")}/Hour";
     }
     
     private float GetMoveSpeed()
