@@ -15,11 +15,15 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private float dayEnd;
     [SerializeField] private float timeMultiplier = 3;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private GameObject MobileUi;
+    [SerializeField] private EmployeeCard[] employeeCards;
+
     private float dayClock;
     private bool timeStop;
     private float minutes;
     public int DayCounter { get; set; }
     public bool dayFinished { get; private set; }
+    private TableManager tableManager;
 
     [SerializeField] private GameObject endOfDayMenu;
     private CentralTransactionLogic CTL;
@@ -27,6 +31,7 @@ public class DayManagement : MonoBehaviour
 
     void Start()
     {
+        tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         CTL = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         dayClock = dayStart;
         endOfDayMenu.SetActive(false);
@@ -47,12 +52,18 @@ public class DayManagement : MonoBehaviour
 
     private void EndDay()
     {
+        for (int i = 0; i < employeeCards.Length; i++)
+        {
+            employeeCards[i].GenerateStats();
+        }
         PauseGame();
         ShowEndOfDayMenu();
     }
 
     private void PauseGame()
     {
+        tableManager.FreeTables();
+        MobileUi.SetActive(false);
         dayFinished = true;
         CTL.EmployeeClockOut();
     }
@@ -68,15 +79,15 @@ public class DayManagement : MonoBehaviour
         dayClock = dayStart;
         CTL.EmployeeClockIn();
         dayFinished = false;
+        endOfDayMenu.SetActive(false);
     }
 
     private void UpdateClock()
     {
         string hour;
         string minute;
-        minutes += 3 * Time.deltaTime;
-        hour = ZeroPadding(Mathf.FloorToInt(minutes / 60));
-        minute = ZeroPadding(Mathf.FloorToInt(minutes) % 60);
+        hour = ZeroPadding(Mathf.FloorToInt(dayClock / 60));
+        minute = ZeroPadding(Mathf.FloorToInt(dayClock) % 60);
         text.text = hour + ':' + minute;
     }
 
@@ -84,12 +95,4 @@ public class DayManagement : MonoBehaviour
     {
         return n.ToString().PadLeft(2, '0');
     }
-
-  /*  if ((customerManager.minutes > shiftEnd) && !ended)
-        {
-            ended = true;
-            customerManager.StopTimer();
-            gO.SetActive(true);
-            //gameOver.GetGameStatus(moneyBalance, customerManager.minutes, positiveBalanceColor, negativeBalanceColor);
-        }*/
 }
