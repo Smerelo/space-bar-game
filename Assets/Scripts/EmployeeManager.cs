@@ -33,9 +33,7 @@ public class EmployeeManager : MonoBehaviour
         barZone = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
         waiterZone = GameObject.Find("Serving").GetComponent<ZoneManagment>();
         cleanerZone = GameObject.Find("Cleaning").GetComponent<ZoneManagment>();
-        UpdateSalaryText();
-        UpdateCount();
-        UpdateSalary();
+
     }
 
     public void UpdateSalary()
