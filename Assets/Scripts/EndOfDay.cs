@@ -25,7 +25,7 @@ public class EndOfDay : MonoBehaviour
 
     public void SetGameStatus(double moneyBalance)
     {
-        Debug.Log(moneyBalance);
+
         if (moneyBalance >= 0)
         {
             moneyText.color = Colors.Instance.positiveBalance;
@@ -36,5 +36,6 @@ public class EndOfDay : MonoBehaviour
         }
         int decimals = Mathf.Abs((int)Math.Round(100.0 * (moneyBalance - Math.Truncate(moneyBalance))));
         moneyText.text = $"${Math.Truncate(moneyBalance)}<size=-14>{decimals.ToString("D2")}</size>";
+
     }
 }

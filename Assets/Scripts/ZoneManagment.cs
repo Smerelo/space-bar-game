@@ -11,7 +11,7 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
     [SerializeField] private Transform spawnZone;
-    [SerializeField] private float employeeSalary;
+    [SerializeField] public float employeeSalary;
     private float startingSalary;
     [SerializeField] private bool test;
     [SerializeField] GameObject workerPrefab;
@@ -19,6 +19,7 @@ public class ZoneManagment : MonoBehaviour
     private List<EmployeeBehaviour> employees;
     private List<Order> orders;
     private CentralTransactionLogic zoneManager;
+    private int upgradeCount = 0;
     void Start()
     {
         startingSalary = employeeSalary;
@@ -146,8 +147,22 @@ public class ZoneManagment : MonoBehaviour
         return true;
     }
 
+    public float GetEmployeeSalary(int mod)
+    {
+        if (mod == 0)
+        {
+            Debug.Log(employees.Count);
+            return employees.Count * employeeSalary;
+
+        }
+        return upgradeCount * employeeSalary;
+    }
 
 
+    public int GetEmployeeCount()
+    {
+        return employees.Count;
+    }
     public void TaskAccomplished(Order order)
     {
         orders.Remove(order);
@@ -207,6 +222,12 @@ public class ZoneManagment : MonoBehaviour
         employees.Add(newEmployee.GetComponent<EmployeeBehaviour>());
     }
 
+    public void FireEmployee()
+    {
+        GameObject employee = employees[0].gameObject;
+        employees.RemoveAt(0);
+        GameObject.Destroy(employee);
+    }
     public void UpgradeEmployee()
     {
         if (employees.Count == 0)
@@ -218,6 +239,18 @@ public class ZoneManagment : MonoBehaviour
             employees[0].SalaryRaise();
             employeeSalary += startingSalary;
         }
+        upgradeCount += 1;
+    }
+
+    public void DowngradeEmployee()
+    {
+        upgradeCount -= 1;
+        employeeSalary -= startingSalary;
+
+    }
+    public int GetUpgradeCount()
+    {
+        return upgradeCount;
     }
 
     public Transform GetInputPos()
