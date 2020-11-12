@@ -17,11 +17,12 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject MobileUi;
     [SerializeField] private EmployeeCard[] employeeCards;
+    [SerializeField] private TextMeshProUGUI dayCountText;
 
     private float dayClock;
     private bool timeStop;
     private float minutes;
-    public int DayCounter { get; set; }
+    public int dayCounter { get; set; }
     public bool dayFinished { get; private set; }
     private TableManager tableManager;
 
@@ -31,6 +32,7 @@ public class DayManagement : MonoBehaviour
 
     void Start()
     {
+        dayCounter = 1;
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         CTL = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         dayClock = dayStart;
@@ -52,12 +54,23 @@ public class DayManagement : MonoBehaviour
 
     private void EndDay()
     {
+        dayCounter++;
+        if (dayCounter >= 5)
+        {
+            EndDemo();
+        }
+
         for (int i = 0; i < employeeCards.Length; i++)
         {
             employeeCards[i].GenerateStats();
         }
         PauseGame();
         ShowEndOfDayMenu();
+    }
+
+    private void EndDemo()
+    {
+        throw new NotImplementedException();
     }
 
     private void PauseGame()
@@ -71,7 +84,7 @@ public class DayManagement : MonoBehaviour
     private void ShowEndOfDayMenu()
     {
         endOfDayMenu.SetActive(true);
-        endOfDayMenu.GetComponent<EndOfDay>().SetGameStatus(CTL.GetBalance()); 
+        endOfDayMenu.GetComponent<EndOfDay>().SetGameStatus(CTL.GetBalance());
     }
 
     public void NextDay()
@@ -89,6 +102,11 @@ public class DayManagement : MonoBehaviour
         hour = ZeroPadding(Mathf.FloorToInt(dayClock / 60));
         minute = ZeroPadding(Mathf.FloorToInt(dayClock) % 60);
         text.text = hour + ':' + minute;
+    }
+
+    public void UpdateDayCounter()
+    {
+        dayCountText.text = "DAY:" + dayCounter.ToString(); 
     }
 
     private string ZeroPadding(int n)
