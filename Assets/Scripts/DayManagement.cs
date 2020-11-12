@@ -94,12 +94,4 @@ public class DayManagement : MonoBehaviour
     {
         return n.ToString().PadLeft(2, '0');
     }
-
-  /*  if ((customerManager.minutes > shiftEnd) && !ended)
-        {
-            ended = true;
-            customerManager.StopTimer();
-            gO.SetActive(true);
-            //gameOver.GetGameStatus(moneyBalance, customerManager.minutes, positiveBalanceColor, negativeBalanceColor);
-        }*/
 }
