@@ -11,74 +11,107 @@ public class TabletMenu : MonoBehaviour
     [SerializeField] private Button left;
     [SerializeField] private Button right;
     [SerializeField] private Transform curriculums;
+    [SerializeField] private Transform employeeCards;
     [SerializeField] private float speed = 15;
-    private int menuPos = 1;
-    private bool moving = false;
-    // Start is called before the first frame update
+    [SerializeField] private GameObject[] hiringCards;
+    [SerializeField] private GameObject[] upgradeCards;
+
+    private int menuPos1 = 2;
+    private int menuPos2 = 2;
+    public bool moving = false;
+    private HeadEmployeeManager headEmployeeManager;
+
+    public int selectedTab { get; private set; }
+
     void Start()
     {
-        
+        UpdateButtons();
+        headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
     }
 
     public void MoveRight()
     {
-        if (!moving)
+        if (selectedTab == 0)
         {
-            menuPos -= 1;
-            moving = true;
-            StartCoroutine(MovementCoroutine(-6.8f));
+            menuPos1 -= 1;
+            Vector3 newPos = new Vector3(curriculums.localPosition.x - 6.8f, curriculums.localPosition.y, curriculums.localPosition.z);
+            LeanTween.moveLocalX(curriculums.gameObject, newPos.x, 0.5f);
+        }
+        else
+        {
+            menuPos2 -= 1;
+            Vector3 newPos = new Vector3(employeeCards.localPosition.x - 6.8f, employeeCards.localPosition.y, employeeCards.localPosition.z);
+            LeanTween.moveLocalX(employeeCards.gameObject, newPos.x, 0.5f);
         }
 
     }
 
     public void MoveLeft()
     {
-
-        if (!moving)
+        if (selectedTab == 0)
         {
-            menuPos += 1;
-            moving = true;
-            StartCoroutine(MovementCoroutine(6.8f));
+            menuPos1 += 1;
+            Vector3 newPos = new Vector3(curriculums.localPosition.x + 6.8f, curriculums.localPosition.y, curriculums.localPosition.z);
+            LeanTween.moveLocalX(curriculums.gameObject, newPos.x, 0.5f);
+        }
+        else
+        {
+
+            menuPos2 -= 1;
+            Vector3 newPos = new Vector3(employeeCards.localPosition.x + 6.8f, employeeCards.localPosition.y, employeeCards.localPosition.z);
+            LeanTween.moveLocalX(employeeCards.gameObject, newPos.x, 0.5f);
         }
 
     }
-    // Update is called once per frame
-    void Update()
+
+
+    public void HireHeadEmployee()
     {
-       
+        if (headEmployeeManager.employeeList.Count == 3)
+        {
+            //showMessage
+        }
+        else
+        {
+            upgradeCards[headEmployeeManager.employeeList.Count].SetActive(true);
+        }
     }
+
+
+
     public void UpdateButtons()
     {
-        if (menuPos == 2)
+        if (selectedTab == 0)
         {
-            left.interactable = false;
+
+            if (menuPos1 == 2)
+            {
+                left.interactable = false;
+            }
+
+            else if (menuPos1 == 0)
+            {
+                right.interactable = false;
+            }
+            else
+            {
+                left.interactable = true;
+                right.interactable = true;
+            }
         }
-        if (menuPos == 1)
+        else
         {
-            left.interactable = true;
-            right.interactable = true;
-        }
-        if (menuPos == 0)
-        {
-            right.interactable = false;
+            if (headEmployeeManager.employeeList.Count == 0 || headEmployeeManager.employeeList.Count == 1)
+            {
+                left.interactable = false;
+                right.interactable = false;
+            }
+            else
+            {
+
+            }
         }
     }
 
-    public IEnumerator MovementCoroutine(float xPos)
-    {
-        bool arrived = false;
-        Vector3 newPos = new Vector3(curriculums.position.x + xPos, curriculums.position.y, 0);
-        while (!arrived)
-        {
-            curriculums.position =  Vector3.MoveTowards(curriculums.position, newPos, speed * Time.deltaTime);
-            if (Vector3.Distance(curriculums.position, newPos) == 0) 
-                arrived = true;
-            yield return null;
-        }
-        if (arrived)
-        {
-            moving = false;
-        }
-    }
 
-    }
+}

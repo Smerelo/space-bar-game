@@ -33,7 +33,6 @@ public class EmployeeManager : MonoBehaviour
         barZone = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
         waiterZone = GameObject.Find("Serving").GetComponent<ZoneManagment>();
         cleanerZone = GameObject.Find("Cleaning").GetComponent<ZoneManagment>();
-
     }
 
     public void UpdateSalary()
@@ -55,7 +54,7 @@ public class EmployeeManager : MonoBehaviour
     public void UpdateTotal()
     {
         float totalPrice = salaryBartender + salaryCleaner + salaryWaiter;
-        totalText.text = $"TOTAL: ${totalPrice}/hour";
+        totalText.text = $"SPENDING:${totalPrice}/hour";
     }
 
     public void UpdateSalaryText()
@@ -69,30 +68,34 @@ public class EmployeeManager : MonoBehaviour
     {
         Vector3 scale = new Vector3(-arrowButton.transform.localScale.x, arrowButton.transform.localScale.y, 0);
 
+
         if (!openSideMenu)
         {
+            closePos.position = sideMenu.transform.position;
+            openPos.localPosition = new Vector3(-720f, sideMenu.transform.localPosition.y, sideMenu.transform.localPosition.z);
             arrowButton.transform.localScale = scale;
+            LeanTween.moveLocalX(sideMenu, openPos.localPosition.x, 0.3f);
             openSideMenu = true;
         }
 
         else
         {
+            Debug.Log($"enters{closePos.localPosition.x}");
             arrowButton.transform.localScale = scale;
-            openSideMenu = false ;
+            LeanTween.moveLocalX(sideMenu, closePos.localPosition.x, 0.3f);
+            openSideMenu = false;
+
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (openSideMenu == true)
         {
-            sideMenu.transform.position = Vector2.MoveTowards(sideMenu.transform.position, openPos.position, speed *Time.deltaTime);
         }
         else
         {
-            sideMenu.transform.position = Vector2.MoveTowards(sideMenu.transform.position, closePos.position, speed * Time.deltaTime);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Image))]
-public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
 
     [SerializeField] private TabGroup tabGroup;
@@ -37,5 +37,10 @@ public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     void Update()
     {
         
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        tabGroup.OnTabSelected(this);
     }
 }

@@ -9,7 +9,18 @@ public class TabGroup : MonoBehaviour
     [SerializeField] private Sprite tabHover;
     [SerializeField] private Sprite tabActive;
     [SerializeField] private List<GameObject> objectsToSwap;
+    [SerializeField] private TabButton defaultTab;
     private TabButton selectedTab;
+
+
+    private void Start()
+    {
+        ResetDefault();
+    }
+    public void ResetDefault()
+    {
+        OnTabSelected(defaultTab);
+    }
 
     public void Subscribe(TabButton button)
     {
@@ -52,6 +63,7 @@ public class TabGroup : MonoBehaviour
             }
         }
     }
+
     public void ResetTabs()
     {
         foreach (TabButton button in tabButtons)
