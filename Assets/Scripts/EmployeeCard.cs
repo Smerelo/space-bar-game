@@ -11,12 +11,17 @@ public class EmployeeCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI taskSpeedText;
     [SerializeField] private TextMeshProUGUI mSpeedText;
     [SerializeField] private TextMeshProUGUI priceText;
-
+    private HeadEmployeeManager headEmployeeManager;
+    private GameObject cards;
+    private List<EmployeeCard> upgradeCards;
+    private TabletMenu tablet;
 
     // Start is called before the first frame update
+   
     void Start()
     {
-        
+        headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
+        tablet = GameObject.Find("Tablet").GetComponent<TabletMenu>();
     }
 
     // Update is called once per frame
@@ -25,13 +30,28 @@ public class EmployeeCard : MonoBehaviour
         
     }
 
+
+    public void HireHeadEmployee()
+    {
+        tablet.HireHeadEmployee(curriculum); 
+    }
+
+    public void InstanciateEmployee(Cv cv)
+    {
+        nameText.text = cv.name;
+        taskSpeedText.text = $"{cv.prepareSpeeed.ToString("F2")}s";
+        mSpeedText.text = $"{cv.moveSpeed.ToString("F2")}";
+        priceText.text = $"${cv.price.ToString("F0")}/Hour";
+        curriculum = cv;
+    }
+
     public void GenerateStats()
     {
         string name = GetName();
         float price = GetPrice();
         float mSpeed = GetMoveSpeed();
         float taskSpeed = GetTaskSpeed();
-        curriculum = new Cv(name, 10f, 10f, 10f);
+        curriculum = new Cv(name, price, taskSpeed, mSpeed);
         nameText.text = name;
         taskSpeedText.text = $"{taskSpeed.ToString("F2")}s";
         mSpeedText.text = $"{mSpeed.ToString("F2")}";

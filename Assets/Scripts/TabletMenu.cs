@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class TabletMenu : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class TabletMenu : MonoBehaviour
     [SerializeField] private Transform employeeCards;
     [SerializeField] private float speed = 15;
     [SerializeField] private GameObject[] hiringCards;
-    [SerializeField] private GameObject[] upgradeCards;
+    [SerializeField] private EmployeeCard[] upgradeCards;
 
     private int menuPos1 = 2;
     private int menuPos2 = 2;
@@ -27,6 +28,25 @@ public class TabletMenu : MonoBehaviour
     {
         UpdateButtons();
         headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
+    }
+
+    public void HireHeadEmployee(Cv cv)
+    {
+        if (headEmployeeManager.employeeList.Count == 3)
+        {
+            ShowMessage();
+        }
+        else
+        {
+            upgradeCards[headEmployeeManager.employeeList.Count].gameObject.SetActive(true);
+            upgradeCards[headEmployeeManager.employeeList.Count].InstanciateEmployee(cv);
+        }
+
+    }
+
+    private void ShowMessage()
+    {
+        throw new NotImplementedException();
     }
 
     public void MoveRight()
@@ -63,21 +83,6 @@ public class TabletMenu : MonoBehaviour
         }
 
     }
-
-
-    public void HireHeadEmployee()
-    {
-        if (headEmployeeManager.employeeList.Count == 3)
-        {
-            //showMessage
-        }
-        else
-        {
-            upgradeCards[headEmployeeManager.employeeList.Count].SetActive(true);
-        }
-    }
-
-
 
     public void UpdateButtons()
     {
