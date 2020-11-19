@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7322425711914575269}
   - component: {fileID: 6986982474994148587}
+  - component: {fileID: 1414296305861055415}
   m_Layer: 0
   m_Name: SittingZone
   m_TagString: Untagged
@@ -112,6 +113,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!61 &1414296305861055415
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4521734905211219365}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.010368705, y: -0.07035756}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.45216095, y: 0.61480916}
+    oldSize: {x: 0.5625, y: 0.46875}
+    newSize: {x: 4.5, y: 3.75}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.33092904, y: 0.43566847}
+  m_EdgeRadius: 0
 --- !u!1 &8804150173137557022
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +150,7 @@ GameObject:
   - component: {fileID: 1798591791639433197}
   - component: {fileID: 776072101326925846}
   - component: {fileID: 7858288308513935693}
+  - component: {fileID: 3418771649302458178}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -209,3 +237,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 711cdc73f79c6974aa83542d69719aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStoveFood: 0
+  animate: 0
+  isCleaner: 0
+--- !u!61 &3418771649302458178
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8804150173137557022}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.037216663, y: 0.08270389}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5, y: 1.0625}
+    newSize: {x: 12, y: 8.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0947509, y: 0.74822533}
+  m_EdgeRadius: 0

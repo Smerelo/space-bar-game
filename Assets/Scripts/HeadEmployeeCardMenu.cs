@@ -16,20 +16,46 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
     private GameObject canvas;
     private GameObject UI;
     private GameObject MobileUI;
-    private CinemachineBrain cinemachine;
-    private bool hiding = false;
     private float timer;
+    private Button button1;
+    private Button button2;
+    private Animator ligth1;  
+    private Animator ligth2;
+    private int zoneSelected = 0;
+
 
     void Start()
     {
         MobileUI = GameObject.Find("CrossPlatUI");
-        cinemachine = GameObject.Find("Main Camera").GetComponent<CinemachineBrain>();
         UI = GameObject.Find("MainUI");
         camera = transform.GetChild(0).gameObject.GetComponent<CinemachineVirtualCamera>();
         camera.Follow = transform;
         canvas = transform.GetChild(1).gameObject;
         background = canvas.transform.GetChild(0).gameObject.GetComponent<Image>();
         cardMenu = canvas.transform.GetChild(1).gameObject;
+        button1 = cardMenu.transform.GetChild(4).gameObject.GetComponent<Button>();
+        button2 = cardMenu.transform.GetChild(5).gameObject.GetComponent<Button>();
+        ligth1 = button1.transform.GetChild(1).gameObject.GetComponent<Animator>();
+        ligth2 = button2.transform.GetChild(1).gameObject.GetComponent<Animator>();
+        button1.onClick.AddListener(() => OnButtonClick(0));
+        button2.onClick.AddListener(() => OnButtonClick(1));
+    }
+
+    public void OnButtonClick(int mod)
+    {
+        zoneSelected = mod;
+        if (mod == 0)
+        {
+            ligth1.Play("Card_light_green");
+            ligth2.Play("Card_light");
+
+        }
+        if (mod == 1)
+        {
+            ligth2.Play("Card_light_green");
+            ligth1.Play("Card_light");
+
+        }
     }
 
     // Update is called once per frame
@@ -61,22 +87,21 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
     {
         timer = 0f;
         camera.gameObject.SetActive(false);
-        LeanTween.scale(cardMenu, new Vector3(0, 0, 0), 0.2f);
+        LeanTween.scale(cardMenu, new Vector3(0, 0, 0), 0.4f);
         isMenuActive = false;
         background.enabled = false;
-        //cardMenu.SetActive(true);
     }
 
     public void ShowCardMenu()
     {
-        hiding = false;
         UI.SetActive(false);
         MobileUI.SetActive(false);
         camera.gameObject.SetActive(true);
         isMenuActive = true;
         background.enabled = true;
         cardMenu.SetActive(true);
-        LeanTween.scale(cardMenu, new Vector3(1, 1, 1), 0.2f);
+        LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
+        LeanTween.scale(cardMenu, new Vector3(1, 1, 1), 0.4f);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -87,10 +112,15 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!isMenuActive)
+        {
+            LeanTween.scale(gameObject, new Vector3(1.1f, 1.1f, 1), 0.1f);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
 
     }
 
