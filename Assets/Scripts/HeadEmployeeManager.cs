@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class HeadEmployeeManager : MonoBehaviour
 {
-    public List<HeadEmployee> employeeList;
+    [HideInInspector] public List<HeadEmployee> employeeList;
+    public Transform spawn;
 
-    internal void HireEmployee(Cv cv)
+    internal void HireEmployee(HeadEmployee employee)
     {
-        throw new NotImplementedException();
+        employeeList.Add(employee);
     }
 }

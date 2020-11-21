@@ -36,10 +36,10 @@ public class EmployeeCard : MonoBehaviour
         tablet.HireHeadEmployee(curriculum); 
     }
 
-    public void InstanciateEmployee(Cv cv)
+    public void InstantiateEmployee(Cv cv)
     {
         nameText.text = cv.name;
-        taskSpeedText.text = $"{cv.prepareSpeeed.ToString("F2")}s";
+        taskSpeedText.text = $"{cv.taskSpeed.ToString("F2")}s";
         mSpeedText.text = $"{cv.moveSpeed.ToString("F2")}";
         priceText.text = $"${cv.price.ToString("F0")}/Hour";
         curriculum = cv;

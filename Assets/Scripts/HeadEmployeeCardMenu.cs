@@ -124,8 +124,4 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
 
     }
 
-    // Start is called before the first frame update
-
-
-
 }

@@ -17,15 +17,16 @@ public class TabletMenu : MonoBehaviour
     [SerializeField] private GameObject[] hiringCards;
     [SerializeField] private EmployeeCard[] upgradeCards;
 
+    private TabGroup tabGroup;
     private int menuPos1 = 2;
     private int menuPos2 = 2;
     public bool moving = false;
     private HeadEmployeeManager headEmployeeManager;
 
-    public int selectedTab { get; private set; }
 
     void Start()
     {
+        tabGroup = transform.GetComponentInChildren( typeof(TabGroup),true) as TabGroup;
         UpdateButtons();
         headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
     }
@@ -38,8 +39,9 @@ public class TabletMenu : MonoBehaviour
         }
         else
         {
+            Debug.Log($"enters{headEmployeeManager.employeeList.Count}");
             upgradeCards[headEmployeeManager.employeeList.Count].gameObject.SetActive(true);
-            upgradeCards[headEmployeeManager.employeeList.Count].InstanciateEmployee(cv);
+            upgradeCards[headEmployeeManager.employeeList.Count].InstantiateEmployee(cv);
         }
 
     }
@@ -51,7 +53,7 @@ public class TabletMenu : MonoBehaviour
 
     public void MoveRight()
     {
-        if (selectedTab == 0)
+        if (tabGroup.tabIndex == 0)
         {
             menuPos1 -= 1;
             Vector3 newPos = new Vector3(curriculums.localPosition.x - 6.8f, curriculums.localPosition.y, curriculums.localPosition.z);
@@ -68,7 +70,7 @@ public class TabletMenu : MonoBehaviour
 
     public void MoveLeft()
     {
-        if (selectedTab == 0)
+        if (tabGroup.tabIndex == 0)
         {
             menuPos1 += 1;
             Vector3 newPos = new Vector3(curriculums.localPosition.x + 6.8f, curriculums.localPosition.y, curriculums.localPosition.z);
@@ -77,7 +79,7 @@ public class TabletMenu : MonoBehaviour
         else
         {
 
-            menuPos2 -= 1;
+            menuPos2 += 1;
             Vector3 newPos = new Vector3(employeeCards.localPosition.x + 6.8f, employeeCards.localPosition.y, employeeCards.localPosition.z);
             LeanTween.moveLocalX(employeeCards.gameObject, newPos.x, 0.5f);
         }
@@ -86,7 +88,7 @@ public class TabletMenu : MonoBehaviour
 
     public void UpdateButtons()
     {
-        if (selectedTab == 0)
+        if (tabGroup.tabIndex == 0)
         {
 
             if (menuPos1 == 2)
