@@ -207,8 +207,7 @@ public class ZoneManagment : MonoBehaviour
 
     private EmployeeBehaviour FindFreeEmployee()
     {
-        EmployeeBehaviour freeEmployee = null;
-        freeEmployee = DrawRandomAvailable<EmployeeBehaviour>(headEmployees, (EmployeeBehaviour e) => !e.IsBusy);
+        EmployeeBehaviour freeEmployee = DrawRandomAvailable<EmployeeBehaviour>(headEmployees, (EmployeeBehaviour e) => !e.IsBusy);
         if (freeEmployee == null)
         {
             freeEmployee = DrawRandomAvailable<EmployeeBehaviour>(employees, (EmployeeBehaviour e) => !e.IsBusy);
