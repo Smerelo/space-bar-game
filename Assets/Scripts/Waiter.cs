@@ -13,7 +13,8 @@ public class Waiter : MonoBehaviour
     [SerializeField] private List<float> waitTimesBringFood;
     [SerializeField] private List<float> waitTimesBringDirtyPlates;
     private Order currentOrder;
-    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] public float movementSpeed = 1f;
+    public float TaskSpeed { get; set;}
     private int currentDestIndex;
     private bool shouldWait;
     private float timer;

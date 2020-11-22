@@ -9,22 +9,81 @@ using UnityEngine.EventSystems;
 public class HeadEmployee : MonoBehaviour
 {
     private HeadEmployeeManager employeeManager;
-    public float moveSpeed { get; set; }
-    public float taskSpeed { get; set; }
-    public float salary { get; set; }
-    public int employeeNumber { get; private set; }
-    
+    public float Salary { get; set; }
+    public int EmployeeNumber { get; private set; }
+    private EmployeeBehaviour employeeBehaviour;
+    private Waiter waiterScript;
+    private Barman barmanScript;
+
+    private ZoneManagment newZone;
+    private ZoneManagment oldZone;
+
+    public bool shouldChangeZone = false;
+
+
+    void Awake()
+    {
+        employeeBehaviour = GetComponent<EmployeeBehaviour>();
+        waiterScript = GetComponent<Waiter>();
+        barmanScript = GetComponent<Barman>();
+        waiterScript.enabled = false;
+        barmanScript.enabled = false;
+    }
+
     private void Start()
     {
         employeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
+        oldZone = null;
     }
 
     public void InstantiateEmployee(Cv cv)
     {
-        moveSpeed = cv.moveSpeed;
-        taskSpeed = cv.taskSpeed;
-        salary = cv.price;
-        employeeNumber = employeeManager.employeeList.Count + 1;
-    } 
-   
+        employeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
+        waiterScript.movementSpeed = cv.moveSpeed;
+        waiterScript.TaskSpeed = cv.taskSpeed;
+        barmanScript.movementSpeed = cv.moveSpeed;
+        barmanScript.TaskSpeed = cv.taskSpeed;
+        Salary = cv.price;
+        EmployeeNumber = employeeManager.number + 1;
+    }
+
+    private void Update()
+    {
+        if (shouldChangeZone && !employeeBehaviour.IsBusy)
+        {
+            shouldChangeZone = false;
+            ChangeZone();
+        }
+    }
+
+    private void ChangeZone()
+    {
+        this.transform.parent = newZone.transform;
+        employeeBehaviour.ParentZone = newZone;
+        if (oldZone != null)
+        {
+            oldZone.RemoveSuperEmployee(employeeBehaviour);
+        }
+        newZone.AddSuperEmployee(employeeBehaviour);
+        if (newZone.gameObject.name == "Preparing")
+        {
+            waiterScript.enabled = false;
+            barmanScript.enabled = true;
+        }
+        if (newZone.gameObject.name == "Serving")
+        {
+            barmanScript.enabled = false;
+            waiterScript.enabled = true;
+        }
+        oldZone = newZone;
+    }
+
+    internal void GetNewZone(ZoneManagment zone)
+    {
+        shouldChangeZone = true;
+        newZone = zone;
+    }
+
+
+
 }

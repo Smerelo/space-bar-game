@@ -5,13 +5,13 @@ using UnityEngine;
 public class CrossPlatformInputs : MonoBehaviour
 {
     public static CrossPlatformInputs Instance { get; private set; }
-    private FloatingJoystick joystick;
+    [SerializeField] private FloatingJoystick joystick;
     [SerializeField] private float deadZone = 0.1f;
 
     private void Awake()
     {
         Instance = this;
-        joystick = transform.GetChild(0).GetComponent<FloatingJoystick>();
+  
     }
 
     public float GetHorizontal()

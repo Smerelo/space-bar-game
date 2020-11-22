@@ -19,14 +19,17 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
     private float timer;
     private Button button1;
     private Button button2;
+    private HeadEmployee headEmployeeScript;
     private Animator ligth1;  
     private Animator ligth2;
-    private int zoneSelected = 0;
+    private int zoneSelected = -1;
+    private ZoneManagment waitingZone;
+    private ZoneManagment barZone;
 
 
     void Start()
     {
-        MobileUI = GameObject.Find("CrossPlatUI");
+        MobileUI = GameObject.Find("CrossPlatUI").transform.GetChild(0).gameObject;
         UI = GameObject.Find("MainUI");
         camera = transform.GetChild(0).gameObject.GetComponent<CinemachineVirtualCamera>();
         camera.Follow = transform;
@@ -39,22 +42,28 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
         ligth2 = button2.transform.GetChild(1).gameObject.GetComponent<Animator>();
         button1.onClick.AddListener(() => OnButtonClick(0));
         button2.onClick.AddListener(() => OnButtonClick(1));
+        headEmployeeScript = this.GetComponent<HeadEmployee>();
+        barZone = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
+        waitingZone = GameObject.Find("Serving").GetComponent<ZoneManagment>();
+        Debug.Log(waitingZone.gameObject.name);
     }
 
     public void OnButtonClick(int mod)
     {
-        zoneSelected = mod;
-        if (mod == 0)
+        Debug.Log($"mod: {mod}");
+        if (mod == 0 && zoneSelected != mod)
         {
+            zoneSelected = mod;
             ligth1.Play("Card_light_green");
             ligth2.Play("Card_light");
-
+            headEmployeeScript.GetNewZone(barZone);
         }
-        if (mod == 1)
+        else  if (mod == 1 && zoneSelected != mod)
         {
+            zoneSelected = mod;
             ligth2.Play("Card_light_green");
             ligth1.Play("Card_light");
-
+            headEmployeeScript.GetNewZone(waitingZone);
         }
     }
 
@@ -121,7 +130,6 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
     public void OnPointerExit(PointerEventData eventData)
     {
         LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
-
     }
 
 }

@@ -7,14 +7,11 @@ using System;
 
 public class TabletMenu : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI name;
-    [SerializeField] private TextMeshProUGUI[] stats;
     [SerializeField] private Button left;
     [SerializeField] private Button right;
     [SerializeField] private Transform curriculums;
     [SerializeField] private Transform employeeCards;
-    [SerializeField] private float speed = 15;
-    [SerializeField] private GameObject[] hiringCards;
+    [SerializeField] private EmployeeCard[] hiringCards;
     [SerializeField] private EmployeeCard[] upgradeCards;
 
     private TabGroup tabGroup;
@@ -22,13 +19,21 @@ public class TabletMenu : MonoBehaviour
     private int menuPos2 = 2;
     public bool moving = false;
     private HeadEmployeeManager headEmployeeManager;
-
+    public GameObject headEmployee;
 
     void Start()
     {
         tabGroup = transform.GetComponentInChildren( typeof(TabGroup),true) as TabGroup;
         UpdateButtons();
         headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
+    }
+
+    public void GenerateNewCards()
+    {
+        foreach (EmployeeCard card in hiringCards)
+        {
+            card.ResetCard();
+        }
     }
 
     public void HireHeadEmployee(Cv cv)
@@ -40,6 +45,8 @@ public class TabletMenu : MonoBehaviour
         else
         {
             Debug.Log($"enters{headEmployeeManager.employeeList.Count}");
+            HeadEmployee newEmployee =  Instantiate(headEmployee, headEmployeeManager.spawn.position, Quaternion.identity).GetComponent<HeadEmployee>();
+            newEmployee.InstantiateEmployee(cv);
             upgradeCards[headEmployeeManager.employeeList.Count].gameObject.SetActive(true);
             upgradeCards[headEmployeeManager.employeeList.Count].InstantiateEmployee(cv);
         }

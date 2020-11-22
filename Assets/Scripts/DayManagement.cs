@@ -62,7 +62,7 @@ public class DayManagement : MonoBehaviour
 
         for (int i = 0; i < employeeCards.Length; i++)
         {
-            employeeCards[i].GenerateStats();
+            employeeCards[i].ResetCard();
         }
         PauseGame();
         ShowEndOfDayMenu();

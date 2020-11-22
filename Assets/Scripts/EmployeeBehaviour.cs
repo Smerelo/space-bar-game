@@ -18,7 +18,7 @@ public class EmployeeBehaviour : MonoBehaviour
     private int currentWaitTimeIndex;
     private List<Transform> destinations;
     private Order currentOrder;
-    public ZoneManagment ParentZone { get; private set; }
+    public ZoneManagment ParentZone { get;  set; }
     private bool hasPlate;
     private float timer;
     private float platePickupTimer;

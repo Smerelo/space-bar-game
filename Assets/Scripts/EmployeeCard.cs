@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -11,10 +12,14 @@ public class EmployeeCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI taskSpeedText;
     [SerializeField] private TextMeshProUGUI mSpeedText;
     [SerializeField] private TextMeshProUGUI priceText;
+    [SerializeField] private Button hireButton;
+    [SerializeField] private GameObject hireStamp;
+    
     private HeadEmployeeManager headEmployeeManager;
     private GameObject cards;
     private List<EmployeeCard> upgradeCards;
     private TabletMenu tablet;
+  
 
     // Start is called before the first frame update
    
@@ -43,6 +48,13 @@ public class EmployeeCard : MonoBehaviour
         mSpeedText.text = $"{cv.moveSpeed.ToString("F2")}";
         priceText.text = $"${cv.price.ToString("F0")}/Hour";
         curriculum = cv;
+    }
+
+    internal void ResetCard()
+    {
+        GenerateStats();
+        hireStamp.SetActive(false);
+        hireButton.interactable = true;
     }
 
     public void GenerateStats()

@@ -62,6 +62,16 @@ public class ZoneManagment : MonoBehaviour
         TaskVarietyShuffle(UnityEngine.Random.Range(0, 2));
     }
 
+
+    internal void RemoveSuperEmployee(EmployeeBehaviour superEmployee)
+    {
+        employees.Remove(superEmployee);
+    }
+    internal void AddSuperEmployee(EmployeeBehaviour superEmployee)
+    {
+        employees.Add(superEmployee);
+    }
+
     private void TaskVarietyShuffle(int rnd)
     {
         if (rnd == 0)

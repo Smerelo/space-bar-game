@@ -12,7 +12,8 @@ public class Barman : MonoBehaviour
     private Transform waitingZone;
     [SerializeField] private List<float> waitTimes;
     private Order currentOrder;
-    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] public float movementSpeed = 1f;
+    public float TaskSpeed { get; set; }
     private int currentDestIndex;
     private bool shouldWait;
     private float timer;
