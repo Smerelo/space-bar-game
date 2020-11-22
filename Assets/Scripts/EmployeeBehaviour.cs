@@ -24,6 +24,8 @@ public class EmployeeBehaviour : MonoBehaviour
     private float platePickupTimer;
     private int freeStationIndex;
     private bool hasFreedStation;
+    public float Salary { get; set; }
+    public bool IsHeadEmployee { get; set; }
     [SerializeField] Cleaner cleaner;
 
     void Awake()
