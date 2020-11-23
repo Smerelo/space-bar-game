@@ -28,12 +28,14 @@ public class HeadEmployee : MonoBehaviour
         barmanScript = GetComponent<Barman>();
         waiterScript.enabled = false;
         barmanScript.enabled = false;
+        employeeBehaviour.IsHeadEmployee = true;
     }
 
     private void Start()
     {
         employeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
         oldZone = null;
+        employeeBehaviour.Salary = Salary;
     }
 
     public void InstantiateEmployee(Cv cv)
@@ -45,6 +47,8 @@ public class HeadEmployee : MonoBehaviour
         barmanScript.TaskSpeed = cv.taskSpeed;
         Salary = cv.price;
         EmployeeNumber = employeeManager.number + 1;
+        employeeBehaviour.IsHeadEmployee = true;
+        employeeBehaviour.Salary = cv.price;
     }
 
     private void Update()

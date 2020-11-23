@@ -17,6 +17,7 @@ public class ZoneManagment : MonoBehaviour
     [SerializeField] GameObject workerPrefab;
     private List<Workstation> stations;
     private List<EmployeeBehaviour> employees;
+    private List<EmployeeBehaviour> headEmployees;
     private List<Order> orders;
     private CentralTransactionLogic zoneManager;
     private int upgradeCount = 0;
@@ -26,12 +27,20 @@ public class ZoneManagment : MonoBehaviour
         zoneManager = GetComponentInParent<CentralTransactionLogic>();
         orders = new List<Order>();
         employees = new List<EmployeeBehaviour>();
+        headEmployees = new List<EmployeeBehaviour>();
 
         foreach (Transform child in transform)
         {
             if (child.TryGetComponent(out EmployeeBehaviour employee))
             {
-                employees.Add(employee);
+                if (employee.IsHeadEmployee == false)
+                {
+                    employees.Add(employee);
+                }
+                if (employee.IsHeadEmployee == true) 
+                {
+                    headEmployees.Add(employee);
+                }
             }
         }
         stations = new List<Workstation>();
@@ -54,6 +63,14 @@ public class ZoneManagment : MonoBehaviour
         {
             total += employeeSalary * Time.deltaTime / 60;
         }
+        foreach (EmployeeBehaviour headEmp in headEmployees)
+        {
+            total += headEmp.Salary * Time.deltaTime / 60;
+            if (headEmp.Salary == 0)
+            {
+                Debug.LogWarning("Head employee salary is 0");
+            }
+        }
         return total;
     }
 
@@ -65,11 +82,11 @@ public class ZoneManagment : MonoBehaviour
 
     internal void RemoveSuperEmployee(EmployeeBehaviour superEmployee)
     {
-        employees.Remove(superEmployee);
+        headEmployees.Remove(superEmployee);
     }
     internal void AddSuperEmployee(EmployeeBehaviour superEmployee)
     {
-        employees.Add(superEmployee);
+        headEmployees.Add(superEmployee);
     }
 
     private void TaskVarietyShuffle(int rnd)
@@ -190,7 +207,12 @@ public class ZoneManagment : MonoBehaviour
 
     private EmployeeBehaviour FindFreeEmployee()
     {
-        return DrawRandomAvailable<EmployeeBehaviour>(employees, (EmployeeBehaviour e) => !e.IsBusy);
+        EmployeeBehaviour freeEmployee = DrawRandomAvailable<EmployeeBehaviour>(headEmployees, (EmployeeBehaviour e) => !e.IsBusy);
+        if (freeEmployee == null)
+        {
+            freeEmployee = DrawRandomAvailable<EmployeeBehaviour>(employees, (EmployeeBehaviour e) => !e.IsBusy);
+        }
+        return freeEmployee;
     }
 
     private Workstation FindUnoccupiedStation()
@@ -227,7 +249,9 @@ public class ZoneManagment : MonoBehaviour
     public void HireEmployee()
     {
         GameObject newEmployee = Instantiate(workerPrefab, spawnZone.position, Quaternion.identity, transform);
-        employees.Add(newEmployee.GetComponent<EmployeeBehaviour>());
+        EmployeeBehaviour newEmployeeBehaviour = newEmployee.GetComponent<EmployeeBehaviour>();
+        newEmployeeBehaviour.IsHeadEmployee = false;
+        employees.Add(newEmployeeBehaviour);
     }
 
     public void FireEmployee()
@@ -282,7 +306,7 @@ public class ZoneManagment : MonoBehaviour
     }
     internal string GetName()
     {
-        return zoneName;
+           return zoneName;
     }
     public void AddOrder(Order order)
     {
