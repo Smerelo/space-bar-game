@@ -19,6 +19,7 @@ public class EmployeeCard : MonoBehaviour
     private GameObject cards;
     private List<EmployeeCard> upgradeCards;
     private TabletMenu tablet;
+    private GameObject employee;
   
 
     // Start is called before the first frame update
@@ -38,16 +39,24 @@ public class EmployeeCard : MonoBehaviour
 
     public void HireHeadEmployee()
     {
-        tablet.HireHeadEmployee(curriculum); 
+        tablet.HireHeadEmployee(curriculum);
     }
 
-    public void InstantiateEmployee(Cv cv)
+    public void FireEmployee()
+    {
+        Destroy(employee.gameObject);
+        tablet.ResetCard(this);
+        headEmployeeManager.FireEmployee(employee.GetComponent<HeadEmployee>());
+    }
+
+    public void InstantiateEmployee(Cv cv, GameObject hiredEmployee)
     {
         nameText.text = cv.name;
         taskSpeedText.text = $"{cv.taskSpeed.ToString("F2")}s";
         mSpeedText.text = $"{cv.moveSpeed.ToString("F2")}";
         priceText.text = $"${cv.price.ToString("F0")}/Hour";
         curriculum = cv;
+        employee = hiredEmployee;
     }
 
     internal void ResetCard()

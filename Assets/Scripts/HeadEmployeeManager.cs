@@ -12,4 +12,9 @@ public class HeadEmployeeManager : MonoBehaviour
     {
         employeeList.Add(employee);
     }
+
+    internal void FireEmployee(HeadEmployee headEmployee)
+    {
+        employeeList.Remove(headEmployee);
+    }
 }

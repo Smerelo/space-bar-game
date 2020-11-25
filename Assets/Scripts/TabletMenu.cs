@@ -12,11 +12,11 @@ public class TabletMenu : MonoBehaviour
     [SerializeField] private Transform curriculums;
     [SerializeField] private Transform employeeCards;
     [SerializeField] private EmployeeCard[] hiringCards;
-    [SerializeField] private EmployeeCard[] upgradeCards;
+    [SerializeField] private List<EmployeeCard> upgradeCards;
 
     private TabGroup tabGroup;
     private int menuPos1 = 2;
-    private int menuPos2 = 2;
+    private int menuPos2 = 0;
     public bool moving = false;
     private HeadEmployeeManager headEmployeeManager;
     public GameObject headEmployee;
@@ -25,9 +25,14 @@ public class TabletMenu : MonoBehaviour
     {
         tabGroup = transform.GetComponentInChildren( typeof(TabGroup),true) as TabGroup;
         UpdateButtons();
-        headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
+        headEmployeeManager = GameObject.Find("HeadEmployees").
+                              GetComponent<HeadEmployeeManager>();
     }
 
+    private void Update()
+    {
+        UpdateButtons();
+    }
     public void GenerateNewCards()
     {
         foreach (EmployeeCard card in hiringCards)
@@ -44,13 +49,48 @@ public class TabletMenu : MonoBehaviour
         }
         else
         {
-            Debug.Log($"enters{headEmployeeManager.employeeList.Count}");
-            HeadEmployee newEmployee =  Instantiate(headEmployee, headEmployeeManager.spawn.position, Quaternion.identity).GetComponent<HeadEmployee>();
+            HeadEmployee newEmployee =  Instantiate(headEmployee, headEmployeeManager.spawn.position, 
+                                        Quaternion.identity).GetComponent<HeadEmployee>();
             newEmployee.InstantiateEmployee(cv);
-            upgradeCards[headEmployeeManager.employeeList.Count].gameObject.SetActive(true);
-            upgradeCards[headEmployeeManager.employeeList.Count].InstantiateEmployee(cv);
+            headEmployeeManager.HireEmployee(newEmployee);
+            upgradeCards[headEmployeeManager.employeeList.Count -1].gameObject.SetActive(true);
+            upgradeCards[headEmployeeManager.employeeList.Count - 1].InstantiateEmployee(cv, newEmployee.gameObject);
         }
 
+    }
+
+    internal void ResetCard(EmployeeCard employeeCard)
+    {
+        int index = -1;
+        Transform cardPos = employeeCard.gameObject.transform;
+        for (int i = 0; i < upgradeCards.Count; i++)
+        {
+            if (upgradeCards[i] == employeeCard)
+            {
+                index = i;
+                break;
+            }
+        }
+        Debug.Log(index);
+        LeanTween.moveLocalX(employeeCard.gameObject, upgradeCards[2].gameObject.transform.localPosition.x, 0.3f);
+        MoveAfterIndex(index, cardPos);
+        employeeCard.gameObject.gameObject.SetActive(false);
+        EmployeeCard temp = upgradeCards[index];
+        upgradeCards.RemoveAt(index);
+        upgradeCards.Add(temp);
+    }
+
+    private void MoveAfterIndex(int index, Transform pos)
+    {
+        for (int i = 0; i < upgradeCards.Count; i++)
+        {
+            if (i > index)
+            {
+                LeanTween.moveLocalX(upgradeCards[i].gameObject, 
+                                    upgradeCards[i].gameObject.transform.localPosition.x - 6.8f, 0.4f);
+
+            }
+        }
     }
 
     private void ShowMessage()
@@ -68,7 +108,7 @@ public class TabletMenu : MonoBehaviour
         }
         else
         {
-            menuPos2 -= 1;
+            menuPos2 += 1;
             Vector3 newPos = new Vector3(employeeCards.localPosition.x - 6.8f, employeeCards.localPosition.y, employeeCards.localPosition.z);
             LeanTween.moveLocalX(employeeCards.gameObject, newPos.x, 0.5f);
         }
@@ -86,26 +126,30 @@ public class TabletMenu : MonoBehaviour
         else
         {
 
-            menuPos2 += 1;
+            menuPos2 -= 1;
             Vector3 newPos = new Vector3(employeeCards.localPosition.x + 6.8f, employeeCards.localPosition.y, employeeCards.localPosition.z);
             LeanTween.moveLocalX(employeeCards.gameObject, newPos.x, 0.5f);
         }
 
     }
 
+ 
     public void UpdateButtons()
     {
+
         if (tabGroup.tabIndex == 0)
         {
 
             if (menuPos1 == 2)
             {
                 left.interactable = false;
+                right.interactable = true;
             }
 
             else if (menuPos1 == 0)
             {
                 right.interactable = false;
+                left.interactable = true;
             }
             else
             {
@@ -115,6 +159,7 @@ public class TabletMenu : MonoBehaviour
         }
         else
         {
+
             if (headEmployeeManager.employeeList.Count == 0 || headEmployeeManager.employeeList.Count == 1)
             {
                 left.interactable = false;
@@ -122,6 +167,40 @@ public class TabletMenu : MonoBehaviour
             }
             else
             {
+                if (headEmployeeManager.employeeList.Count == 2)
+                {
+                    if (menuPos2 == 0 )
+                    {
+                        left.interactable = false;
+                        right.interactable = true;
+
+                    }
+                    if (menuPos2 == 1)
+                    {
+                        left.interactable = true;
+                        right.interactable = false;
+                    }
+                }
+                else if (headEmployeeManager.employeeList.Count == 3)
+                {
+                    if (menuPos2 == 0)
+                    {
+                        left.interactable = false;
+                        right.interactable = true;
+
+                    }
+
+                    if (menuPos2 == 1)
+                    {
+                        left.interactable = true;
+                        right.interactable = true;
+                    }
+                    if (menuPos2 == 2)
+                    {
+                        left.interactable = true;
+                        right.interactable = false;
+                    }
+                }
 
             }
         }
