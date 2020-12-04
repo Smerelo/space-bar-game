@@ -116,6 +116,18 @@ public class Cleaner : MonoBehaviour
         }
     }
 
+    public void Downgrade()
+    {
+        upgradeLevel--;
+        upgradePercent -= 1 / (Mathf.Pow(upgradeLevel, 1.5f));
+        upgradePercentSpeed -= 1 / upgradeLevel;
+        for (int i = 0; i < waitTimes.Count; i++)
+        {
+            waitTimes[i] = (1 + upgradePercent) * InitialWaitTimes[i];
+            movementSpeed = (1 - upgradePercentSpeed) * initialSpeed;
+        }
+    }
+
     private void GoToWaitPoint()
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))

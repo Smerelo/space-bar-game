@@ -178,9 +178,9 @@ public class ZoneManagment : MonoBehaviour
     {
         if (mod == 0)
         {
-            return employees.Count * employeeSalary;
+            return employees.Count * startingSalary;
         }
-        return upgradeCount * employeeSalary;
+        return upgradeCount * startingSalary;
     }
 
 
@@ -256,9 +256,12 @@ public class ZoneManagment : MonoBehaviour
 
     public void FireEmployee()
     {
-        GameObject employee = employees[0].gameObject;
-        employees.RemoveAt(0);
-        GameObject.Destroy(employee);
+        if (employees.Count != 0)
+        {
+            GameObject employee = employees[0].gameObject;
+            employees.RemoveAt(0);
+            GameObject.Destroy(employee);
+        }
     }
     public void UpgradeEmployee()
     {
@@ -276,9 +279,22 @@ public class ZoneManagment : MonoBehaviour
 
     public void DowngradeEmployee()
     {
-        upgradeCount -= 1;
-        employeeSalary -= startingSalary;
+        if (upgradeCount == 0)
+        {
 
+        }
+        else if (upgradeCount == 1)
+        {
+            FireEmployee();
+            upgradeCount -= 1;
+            employeeSalary -= startingSalary;
+        }
+        else
+        {
+            employees[0].Downgrade();
+            upgradeCount -= 1;
+            employeeSalary -= startingSalary;
+        }
     }
     public int GetUpgradeCount()
     {

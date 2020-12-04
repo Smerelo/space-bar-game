@@ -20,5 +20,6 @@ public class FixCamera : MonoBehaviour
         {
             GetComponent<Camera>().rect = new Rect((1f - bestRatio / screenRatio) / 2f, 0, bestRatio / screenRatio, 1);
         }
+        Screen.SetResolution(Screen.width, Screen.height, Screen.fullScreen);
     }
 }

@@ -29,7 +29,7 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
 
     void Start()
     {
-        MobileUI = GameObject.Find("CrossPlatUI").transform.GetChild(0).gameObject;
+        MobileUI = GameObject.Find("CrossPlatUI").gameObject;
         UI = GameObject.Find("MainUI");
         camera = transform.GetChild(0).gameObject.GetComponent<CinemachineVirtualCamera>();
         camera.Follow = transform;

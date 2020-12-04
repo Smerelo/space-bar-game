@@ -76,7 +76,7 @@ public class DayManagement : MonoBehaviour
     private void PauseGame()
     {
         tableManager.FreeTables();
-        MobileUi.SetActive(false);
+       // MobileUi.SetActive(false);
         dayFinished = true;
         CTL.EmployeeClockOut();
     }
