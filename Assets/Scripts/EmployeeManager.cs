@@ -17,6 +17,7 @@ public class EmployeeManager : MonoBehaviour
     [SerializeField] private Image arrowButton;
     [SerializeField] private Transform openPos;
     [SerializeField] private Transform closePos;
+    [SerializeField] private List<Button> minusButtons;
     [SerializeField] private float speed;
 
 
@@ -26,10 +27,13 @@ public class EmployeeManager : MonoBehaviour
     private float salaryBartender;
     private float salaryWaiter;
     private float salaryCleaner;
+    private DayManagement dayManagement;
     private bool openSideMenu = false;
+    private bool buttonsEnabled = true;
     // Start is called before the first frame update
     void Start()
     {
+        dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
         barZone = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
         waiterZone = GameObject.Find("Serving").GetComponent<ZoneManagment>();
         cleanerZone = GameObject.Find("Cleaning").GetComponent<ZoneManagment>();
@@ -91,11 +95,22 @@ public class EmployeeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (openSideMenu == true)
+        if (!dayManagement.dayFinished && buttonsEnabled)
         {
+            foreach (Button button in minusButtons)
+            {
+                button.interactable = false;
+            }
+            buttonsEnabled = false;
         }
-        else
+        else if (dayManagement.dayFinished && !buttonsEnabled)
         {
+
+            foreach (Button button in minusButtons)
+            {
+                button.interactable = true;
+            }
+            buttonsEnabled = true;
         }
     }
 }

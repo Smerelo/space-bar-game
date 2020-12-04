@@ -94,7 +94,14 @@ public class EmployeeBehaviour : MonoBehaviour
         }
         else
         {
-            Debug.Log("Can only upgrade cleaners atm");
+        }
+    }
+
+    internal void Downgrade()
+    {
+        if (cleaner != null)
+        {
+            cleaner.Downgrade();
         }
     }
 }

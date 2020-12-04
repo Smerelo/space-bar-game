@@ -87,7 +87,7 @@ public class TabletMenu : MonoBehaviour
             if (i > index)
             {
                 LeanTween.moveLocalX(upgradeCards[i].gameObject, 
-                                    upgradeCards[i].gameObject.transform.localPosition.x - 6.8f, 0.4f);
+                upgradeCards[i].gameObject.transform.localPosition.x - 6.8f, 0.4f);
 
             }
         }
