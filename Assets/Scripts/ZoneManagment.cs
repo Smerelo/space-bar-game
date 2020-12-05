@@ -21,6 +21,8 @@ public class ZoneManagment : MonoBehaviour
     private List<Order> orders;
     private CentralTransactionLogic zoneManager;
     private int upgradeCount = 0;
+
+    
     void Start()
     {
         startingSalary = employeeSalary;
@@ -120,6 +122,18 @@ public class ZoneManagment : MonoBehaviour
             }
         }
         //print($"{zoneName}: {orders.Count} orders here");
+    }
+
+    internal void CheckAndRemoveOrder(Order order)
+    {
+        foreach (Order order1 in orders)
+        {
+            if (order == order1)
+            {
+                orders.Remove(order);
+                break;
+            }
+        }
     }
 
     internal void ClockIn()

@@ -201,7 +201,10 @@ public class Waiter : MonoBehaviour
 
     private void OnLeavingFoodPlate()
     {
-        currentOrder.Customer.StartEating();
+        if (currentOrder.Customer != null)
+        {
+            currentOrder.Customer.StartEating();
+        }
     }
 
     private void BringFood(Workstation station, Order order)

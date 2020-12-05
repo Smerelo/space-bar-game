@@ -38,6 +38,7 @@ public class CentralTransactionLogic : MonoBehaviour
                 zones.Add(zoneManagment.GetName(), zoneManagment);
             }
         }
+      
     }
 
     internal double GetBalance()
@@ -121,6 +122,14 @@ public class CentralTransactionLogic : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    internal void DestroyOrder(Order order)
+    {
+        foreach (ZoneManagment zone in zones.Values)
+        {
+            zone.CheckAndRemoveOrder(order);
         }
     }
 }

@@ -17,7 +17,7 @@ public class Popularity : MonoBehaviour
     {
         
     }
-    public void UpadtePopularity(int popularity)
+    public void UpdatePopularity(int popularity)
     {
         slider.value += popularity;
     }

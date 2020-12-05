@@ -11,6 +11,8 @@ public class CustomerBehaviour : MonoBehaviour
     public int numberInQueue;
     public bool HasFinishedEating { get; private set; }
     public bool isWalking { get; private set; }
+    public bool hasReviewed { get; private set; }
+
     private bool isLeaving;
     private bool isEating;
     private Order.FoodTypes foodPreference;
@@ -29,14 +31,18 @@ public class CustomerBehaviour : MonoBehaviour
     private bool waitingForOrder;
     private float waitTiimer;
     private float maxPatience;
+    private Order order;
     [SerializeField] private float bubbleUptime = 1f;
     private Transform UI;
     [SerializeField] private GameObject moneyPrefab;
     private Transform moneyPos;
     [SerializeField] private Color negativeColor;
+    private CentralTransactionLogic ctl;
+    private Popularity popularity;
 
     internal void Pay(float mealprice)
     {
+       
         GameObject money =  Instantiate(moneyPrefab, moneyPos.position, Quaternion.identity, this.transform).transform.GetChild(0).gameObject;
         money.transform.position = moneyPos.position;
         TextMeshProUGUI m_text = money.GetComponent<TextMeshProUGUI>();
@@ -61,6 +67,7 @@ public class CustomerBehaviour : MonoBehaviour
     }
     void Start()
     {
+        ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         maxPatience = Order.GetFoodTypeAsset(foodPreference).PreparationTime * patienceMultiplier;
         waitTiimer = maxPatience;
         moneyPos = transform.GetChild(1);
@@ -160,15 +167,35 @@ public class CustomerBehaviour : MonoBehaviour
         }
         if (waitingForOrder)
         {
+            Debug.Log(maxPatience);
             waitTiimer -= Time.deltaTime;
             if (waitTiimer < 0)
             {
                 GetAngry();
             }
+            if (waitTiimer <= -10 && !hasReviewed)
+            {
+                hasReviewed = true;
+                Leave();
+            }
 
         }
         
     }
+
+    private void Leave()
+    {
+        popularity = GameObject.Find("PopularityBar").GetComponent<Popularity>();
+        ctl.DestroyOrder(order);
+        popularity.UpdatePopularity(-1);
+
+        manager.customers.Remove(this);
+        animator.SetBool("isSitting", false);
+        isLeaving = true;
+        Destroy(this.gameObject, 1f);
+    }
+
+
 
     internal void GoHome()
     {
@@ -186,7 +213,7 @@ public class CustomerBehaviour : MonoBehaviour
         textBubble.SetSprite(foodPreference);
         textBubble.ShowBubble(bubbleUptime);
         food.SetFood(foodPreference);
-        Order order = new Order(foodPreference, assignedTable, this);
+        order = new Order(foodPreference, assignedTable, this);
         manager.SendOrder(order);
     }
 

@@ -84,7 +84,6 @@ public class EmployeeManager : MonoBehaviour
 
         else
         {
-            Debug.Log($"enters{closePos.localPosition.x}");
             arrowButton.transform.localScale = scale;
             LeanTween.moveLocalX(sideMenu, closePos.localPosition.x, 0.3f);
             openSideMenu = false;
