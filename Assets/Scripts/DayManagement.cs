@@ -18,6 +18,7 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private GameObject MobileUi;
     [SerializeField] private EmployeeCard[] employeeCards;
     [SerializeField] private TextMeshProUGUI dayCountText;
+    [SerializeField] private Boss currentBoss;
 
     private float dayClock;
     private bool timeStop;
@@ -57,7 +58,7 @@ public class DayManagement : MonoBehaviour
         dayCounter++;
         if (dayCounter >= 5)
         {
-            EndDemo();
+            StartBossFight();
         }
 
         for (int i = 0; i < employeeCards.Length; i++)
@@ -68,10 +69,12 @@ public class DayManagement : MonoBehaviour
         ShowEndOfDayMenu();
     }
 
-    private void EndDemo()
+    private void StartBossFight()
     {
-        throw new NotImplementedException();
+        currentBoss.BossCinematic();
     }
+
+  
 
     private void PauseGame()
     {

@@ -50,7 +50,6 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
 
     public void OnButtonClick(int mod)
     {
-        Debug.Log($"mod: {mod}");
         if (mod == 0 && zoneSelected != mod)
         {
             zoneSelected = mod;

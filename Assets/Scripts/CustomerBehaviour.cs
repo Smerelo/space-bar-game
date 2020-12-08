@@ -167,7 +167,6 @@ public class CustomerBehaviour : MonoBehaviour
         }
         if (waitingForOrder)
         {
-            Debug.Log(maxPatience);
             waitTiimer -= Time.deltaTime;
             if (waitTiimer < 0)
             {
