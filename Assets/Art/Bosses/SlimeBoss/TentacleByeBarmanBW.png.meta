@@ -1,7 +1,28 @@
 fileFormatVersion: 2
 guid: d3b4700e2fed0964a870b47d75fcf858
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -4729141506823501131
+    second: TentacleByeBarmanBW_0
+  - first:
+      213: 2307951353008813818
+    second: TentacleByeBarmanBW_1
+  - first:
+      213: 3397140591872227756
+    second: TentacleByeBarmanBW_2
+  - first:
+      213: -7591249812184864205
+    second: TentacleByeBarmanBW_3
+  - first:
+      213: 5631981768563750076
+    second: TentacleByeBarmanBW_4
+  - first:
+      213: -7627010209848472399
+    second: TentacleByeBarmanBW_5
+  - first:
+      213: -4846825646356442081
+    second: TentacleByeBarmanBW_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,7 +118,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TentacleByeBarmanBW_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.14, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5baca390bd6be5eb0800000000000000
+      internalID: -4729141506823501131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeBarmanBW_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.14, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6f8fa078d770020800000000000000
+      internalID: 2307951353008813818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeBarmanBW_2
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.14, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca9ba969e51152f20800000000000000
+      internalID: 3397140591872227756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeBarmanBW_3
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.14, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33a6877148676a690800000000000000
+      internalID: -7591249812184864205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeBarmanBW_4
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.14, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb4f7b83491d82e40800000000000000
+      internalID: 5631981768563750076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeBarmanBW_5
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.14, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bc44bfaf9a672690800000000000000
+      internalID: -7627010209848472399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeBarmanBW_6
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.14, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f14dba411cd9cbcb0800000000000000
+      internalID: -4846825646356442081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

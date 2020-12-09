@@ -8,7 +8,7 @@ using UnityEngine;
 public class CentralTransactionLogic : MonoBehaviour
 {
     public List<Order> orders;
-    private Dictionary<string, ZoneManagment> zones;
+    public Dictionary<string, ZoneManagment> zones;
     private double moneyBalance;
     [SerializeField] double startingBalance;
     [SerializeField] private TextMeshProUGUI moneyCounterInt;
@@ -21,13 +21,8 @@ public class CentralTransactionLogic : MonoBehaviour
     private bool ended;
     private DayManagement dayManagement;
 
-    void Start()
+    private void Awake()
     {
-        moneyBalance = startingBalance;
-        dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
-        customerManager = GameObject.Find("Customer Manager").GetComponent<CustomerManager>();
-        shiftEnd = customerManager.dayLenght  * 60 +  10 * 60;
-        orders = new List<Order>();
         zones = new Dictionary<string, ZoneManagment>();
         foreach (Transform child in transform)
         {
@@ -38,7 +33,14 @@ public class CentralTransactionLogic : MonoBehaviour
                 zones.Add(zoneManagment.GetName(), zoneManagment);
             }
         }
-      
+    }
+    void Start()
+    {
+        moneyBalance = startingBalance;
+        dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
+        customerManager = GameObject.Find("Customer Manager").GetComponent<CustomerManager>();
+        shiftEnd = customerManager.dayLenght  * 60 +  10 * 60;
+        orders = new List<Order>();
     }
 
     internal double GetBalance()

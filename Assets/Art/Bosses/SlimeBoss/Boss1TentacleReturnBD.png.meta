@@ -1,7 +1,31 @@
 fileFormatVersion: 2
 guid: ad21f28dd56f2e345be6491faada62f8
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -9103213802168021434
+    second: Boss1TentacleReturnBD_0
+  - first:
+      213: 4510534727741571176
+    second: Boss1TentacleReturnBD_1
+  - first:
+      213: 1091028339012010977
+    second: Boss1TentacleReturnBD_2
+  - first:
+      213: -5686086170651794536
+    second: Boss1TentacleReturnBD_3
+  - first:
+      213: 4282408228317593889
+    second: Boss1TentacleReturnBD_0
+  - first:
+      213: -7613205903223884179
+    second: Boss1TentacleReturnBD_1
+  - first:
+      213: -4330592020406417339
+    second: Boss1TentacleReturnBD_2
+  - first:
+      213: -1436776780660456902
+    second: Boss1TentacleReturnBD_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,7 +121,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Boss1TentacleReturnBD_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1218410389b2e6b30800000000000000
+      internalID: 4282408228317593889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1TentacleReturnBD_1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 0
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d66fe684195785690800000000000000
+      internalID: -7613205903223884179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1TentacleReturnBD_2
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 0
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 548c88c7085a6e3c0800000000000000
+      internalID: -4330592020406417339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1TentacleReturnBD_3
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a32443f512b8f0ce0800000000000000
+      internalID: -1436776780660456902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

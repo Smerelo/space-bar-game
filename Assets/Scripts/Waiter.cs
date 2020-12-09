@@ -99,6 +99,13 @@ public class Waiter : MonoBehaviour
             }
         }
     }
+
+    internal void Stop()
+    {
+        movementSpeed = 0;
+        animator.Play("WaiterIdleFront");
+    }
+
     private void MoveToWaitPoint()
     {
         if (!(Vector3.Distance(waitingZone.position, transform.position) < 0.1f))

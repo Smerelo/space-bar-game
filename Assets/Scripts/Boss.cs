@@ -27,11 +27,12 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AttackTimer -= Time.deltaTime;
-        if (AttackTimer >= 0)
+       /* AttackTimer -= Time.deltaTime;
+        if (AttackTimer <= 0)
         {
             slimeBoss.Attack();
-        }
+            AttackTimer = 30f;
+        }*/
     }
 
     

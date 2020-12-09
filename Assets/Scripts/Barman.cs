@@ -101,6 +101,12 @@ public class Barman : MonoBehaviour
         }
     }
 
+    internal void Stop()
+    {
+        movementSpeed = 0;
+        animator.Play("BartenderFrontIdle");
+    }
+
     private void MoveToNextPoint()
     {
         animator.SetBool("isWating", false);

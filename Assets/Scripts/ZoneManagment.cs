@@ -20,6 +20,7 @@ public class ZoneManagment : MonoBehaviour
     private List<EmployeeBehaviour> headEmployees;
     private List<Order> orders;
     private CentralTransactionLogic zoneManager;
+    private EmployeeManager employeeManager;
     private int upgradeCount = 0;
 
     
@@ -53,7 +54,18 @@ public class ZoneManagment : MonoBehaviour
                 stations.Add(station);
             }
         }
+        employeeManager = GameObject.Find("SideMenu").GetComponent<EmployeeManager>();
     }
+
+    internal GameObject GetRandomEmployee()
+    {
+        if (employees.Count == 0)
+        {
+            return null;
+        }
+        return employees[UnityEngine.Random.Range(0, employees.Count)].gameObject;
+    }
+
     public void CashIn(float amount)
     {
         zoneManager.CashIn(amount);
@@ -82,12 +94,31 @@ public class ZoneManagment : MonoBehaviour
     }
 
 
+    internal void RemoveEmployee(GameObject employee)
+    {
+        employees.Remove(employee.GetComponent<EmployeeBehaviour>());
+        Destroy(employee);
+        UpdateNumbers();
+    }
+
+
+    public void UpdateNumbers()
+    {
+        employeeManager.UpdateCount();
+        employeeManager.UpdateSalary();
+        employeeManager.UpdateSalaryText();
+        employeeManager.UpdateTotal();
+
+    }
+
     internal void RemoveSuperEmployee(EmployeeBehaviour superEmployee)
     {
+        UpdateNumbers();
         headEmployees.Remove(superEmployee);
     }
     internal void AddSuperEmployee(EmployeeBehaviour superEmployee)
     {
+        UpdateNumbers();
         headEmployees.Add(superEmployee);
     }
 
