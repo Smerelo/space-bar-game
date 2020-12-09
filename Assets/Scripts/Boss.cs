@@ -11,10 +11,11 @@ public class Boss : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private Slider healthBar;
     [SerializeField] private int bossNb;
+    [SerializeField] private Slider progressBar;
+    [HideInInspector] public bool attacking;
 
     private float AttackTimer;
     private SlimeBoss slimeBoss;
-
 
     void Start()
     {
@@ -27,12 +28,17 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /* AttackTimer -= Time.deltaTime;
-        if (AttackTimer <= 0)
+        if (!attacking)
         {
-            slimeBoss.Attack();
-            AttackTimer = 30f;
-        }*/
+            AttackTimer -= Time.deltaTime;
+            progressBar.value = AttackTimer;
+            if (AttackTimer <= 0)
+            {
+                AttackTimer = 30f;
+                slimeBoss.GetAngry();
+                attacking = true;
+            }
+        }
     }
 
     
