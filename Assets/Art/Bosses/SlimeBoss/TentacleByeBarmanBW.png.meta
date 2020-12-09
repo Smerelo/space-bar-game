@@ -23,6 +23,90 @@ TextureImporter:
   - first:
       213: -4846825646356442081
     second: TentacleByeBarmanBW_6
+  - first:
+      213: 6180760757161775920
+    second: TentacleByeBarmanBW_0
+  - first:
+      213: 593715685217703847
+    second: TentacleByeBarmanBW_1
+  - first:
+      213: 276763378227472070
+    second: TentacleByeBarmanBW_2
+  - first:
+      213: -2505111739654094472
+    second: TentacleByeBarmanBW_3
+  - first:
+      213: 7411145322226731003
+    second: TentacleByeBarmanBW_4
+  - first:
+      213: 5794002593845273472
+    second: TentacleByeBarmanBW_5
+  - first:
+      213: 8661044193868562796
+    second: TentacleByeBarmanBW_6
+  - first:
+      213: 8711027696639979159
+    second: TentacleByeBarmanBW_7
+  - first:
+      213: 7379784711593254245
+    second: TentacleByeBarmanBW_8
+  - first:
+      213: -318552040480376194
+    second: TentacleByeBarmanBW_9
+  - first:
+      213: 8668500563227226441
+    second: TentacleByeBarmanBW_10
+  - first:
+      213: -1041266485918248083
+    second: TentacleByeBarmanBW_11
+  - first:
+      213: 838867811030551363
+    second: TentacleByeBarmanBW_12
+  - first:
+      213: 4747944638816254772
+    second: TentacleByeBarmanBW_13
+  - first:
+      213: 8268914002283161008
+    second: TentacleByeBarmanBW_14
+  - first:
+      213: 2498194036585694482
+    second: TentacleByeBarmanBW_15
+  - first:
+      213: -3315778974283405970
+    second: TentacleByeBarmanBW_16
+  - first:
+      213: 1171208616400756561
+    second: TentacleByeBarmanBW_17
+  - first:
+      213: 2074901092840638651
+    second: TentacleByeBarmanBW_18
+  - first:
+      213: 6900944077114790858
+    second: TentacleByeBarmanBW_19
+  - first:
+      213: 7347826941525423630
+    second: TentacleByeBarmanBW_20
+  - first:
+      213: -175081866696587284
+    second: TentacleByeBarmanBW_21
+  - first:
+      213: 6635083688163578504
+    second: TentacleByeBarmanBW_22
+  - first:
+      213: 3825738008278600625
+    second: TentacleByeBarmanBW_23
+  - first:
+      213: 2633383388947976338
+    second: TentacleByeBarmanBW_24
+  - first:
+      213: 1581510827301365865
+    second: TentacleByeBarmanBW_25
+  - first:
+      213: 3593222330980437797
+    second: TentacleByeBarmanBW_26
+  - first:
+      213: 4204993728648841430
+    second: TentacleByeBarmanBW_27
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -128,14 +212,14 @@ TextureImporter:
         width: 176
         height: 142
       alignment: 9
-      pivot: {x: 0.14, y: 0.1}
+      pivot: {x: 0.1647727, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5baca390bd6be5eb0800000000000000
-      internalID: -4729141506823501131
+      spriteID: 0335d4c592976c550800000000000000
+      internalID: 6180760757161775920
       vertices: []
       indices: 
       edges: []
@@ -149,14 +233,14 @@ TextureImporter:
         width: 176
         height: 142
       alignment: 9
-      pivot: {x: 0.14, y: 0.1}
+      pivot: {x: 0.1647727, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af6f8fa078d770020800000000000000
-      internalID: 2307951353008813818
+      spriteID: 7a79af2254d4d3800800000000000000
+      internalID: 593715685217703847
       vertices: []
       indices: 
       edges: []
@@ -170,14 +254,14 @@ TextureImporter:
         width: 176
         height: 142
       alignment: 9
-      pivot: {x: 0.14, y: 0.1}
+      pivot: {x: 0.1647727, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca9ba969e51152f20800000000000000
-      internalID: 3397140591872227756
+      spriteID: 6c6e51e73d247d300800000000000000
+      internalID: 276763378227472070
       vertices: []
       indices: 
       edges: []
@@ -191,14 +275,14 @@ TextureImporter:
         width: 176
         height: 142
       alignment: 9
-      pivot: {x: 0.14, y: 0.1}
+      pivot: {x: 0.1647727, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33a6877148676a690800000000000000
-      internalID: -7591249812184864205
+      spriteID: 871c14b352e0c3dd0800000000000000
+      internalID: -2505111739654094472
       vertices: []
       indices: 
       edges: []
@@ -212,14 +296,14 @@ TextureImporter:
         width: 176
         height: 142
       alignment: 9
-      pivot: {x: 0.14, y: 0.1}
+      pivot: {x: 0.1647727, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb4f7b83491d82e40800000000000000
-      internalID: 5631981768563750076
+      spriteID: bf74f16976da9d660800000000000000
+      internalID: 7411145322226731003
       vertices: []
       indices: 
       edges: []
@@ -233,14 +317,14 @@ TextureImporter:
         width: 176
         height: 142
       alignment: 9
-      pivot: {x: 0.14, y: 0.1}
+      pivot: {x: 0.1647727, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bc44bfaf9a672690800000000000000
-      internalID: -7627010209848472399
+      spriteID: 083e6d149ae686050800000000000000
+      internalID: 5794002593845273472
       vertices: []
       indices: 
       edges: []
@@ -254,14 +338,14 @@ TextureImporter:
         width: 176
         height: 142
       alignment: 9
-      pivot: {x: 0.14, y: 0.1}
+      pivot: {x: 0.1647727, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f14dba411cd9cbcb0800000000000000
-      internalID: -4846825646356442081
+      spriteID: c61ce7f5ec5323870800000000000000
+      internalID: 8661044193868562796
       vertices: []
       indices: 
       edges: []

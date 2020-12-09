@@ -1,7 +1,28 @@
 fileFormatVersion: 2
 guid: 761cab4a5a909544a9c1888c9c664d52
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6979021113376934994
+    second: TentacleByeWaiterBD_0
+  - first:
+      213: 1604959828789570008
+    second: TentacleByeWaiterBD_1
+  - first:
+      213: -909502881126775305
+    second: TentacleByeWaiterBD_2
+  - first:
+      213: -6484134559201043078
+    second: TentacleByeWaiterBD_3
+  - first:
+      213: 1375962152509935836
+    second: TentacleByeWaiterBD_4
+  - first:
+      213: -8227975104701523512
+    second: TentacleByeWaiterBD_5
+  - first:
+      213: -4946559046232641383
+    second: TentacleByeWaiterBD_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,7 +118,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TentacleByeWaiterBD_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea377391649852f90800000000000000
+      internalID: -6979021113376934994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeWaiterBD_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d926c9f576f54610800000000000000
+      internalID: 1604959828789570008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeWaiterBD_2
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f58e38c2fbc063f0800000000000000
+      internalID: -909502881126775305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeWaiterBD_3
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7ddcfa09f9b306a0800000000000000
+      internalID: -6484134559201043078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeWaiterBD_4
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd09cbc9946681310800000000000000
+      internalID: 1375962152509935836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeWaiterBD_5
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c912876c3c50dd80800000000000000
+      internalID: -8227975104701523512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeWaiterBD_6
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990fec461ca4a5bb0800000000000000
+      internalID: -4946559046232641383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

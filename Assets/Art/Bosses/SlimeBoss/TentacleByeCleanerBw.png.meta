@@ -1,7 +1,28 @@
 fileFormatVersion: 2
 guid: 6bdd2b4335e113646a87654382bfacf5
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 217395412079931551
+    second: TentacleByeCleanerBw_0
+  - first:
+      213: 5794963983375446549
+    second: TentacleByeCleanerBw_1
+  - first:
+      213: 2706419023991040478
+    second: TentacleByeCleanerBw_2
+  - first:
+      213: -3954885415139990918
+    second: TentacleByeCleanerBw_3
+  - first:
+      213: 889386808498729650
+    second: TentacleByeCleanerBw_4
+  - first:
+      213: 5206228503463757522
+    second: TentacleByeCleanerBw_5
+  - first:
+      213: 9069085537059764593
+    second: TentacleByeCleanerBw_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,7 +118,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TentacleByeCleanerBw_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90f2d8b9f7540300800000000000000
+      internalID: 217395412079931551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeCleanerBw_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 512b6433a09db6050800000000000000
+      internalID: 5794963983375446549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeCleanerBw_2
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed9685a53c12f8520800000000000000
+      internalID: 2706419023991040478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeCleanerBw_3
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7225373bac6d19c0800000000000000
+      internalID: -3954885415139990918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeCleanerBw_4
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b23c74179cb75c00800000000000000
+      internalID: 889386808498729650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeCleanerBw_5
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d688787d3d304840800000000000000
+      internalID: 5206228503463757522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TentacleByeCleanerBw_6
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 0
+        width: 176
+        height: 142
+      alignment: 9
+      pivot: {x: 0.1647727, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1797412fe3ddbdd70800000000000000
+      internalID: 9069085537059764593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

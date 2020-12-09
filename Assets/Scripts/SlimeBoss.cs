@@ -35,6 +35,9 @@ public class SlimeBoss : MonoBehaviour
     private const string SPAWN_TENTACLE = "SpawnTentacle";
     private const string TENTACLE_RETURN = "TentacleReturn";
     private const string ATTACK_BARMAN = "AttackBarman";
+    private const string SHADOW_BD_SPAWN = "ShadowBDSpawn";
+    private const string SHADOW_BD_RETURN = "ShadowBDReturn";
+
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +63,7 @@ public class SlimeBoss : MonoBehaviour
 
     internal void Attack()
     {
+        tentacleObj.SetActive(true);
         zoneAttacked = UnityEngine.Random.Range(0, 2);
         employeeAttacked = zones[zoneAttacked].GetRandomEmployee();
         if (employeeAttacked == null)
@@ -69,8 +73,7 @@ public class SlimeBoss : MonoBehaviour
         }
         if (employeeAttacked != null)
         {
-            tentacleObj.transform.position = new Vector3(employeeAttacked.transform.position.x + 0.6f, employeeAttacked.transform.position.y - 0.4f, 0) ;
-            ChangeAnimationState(SPAWN_TENTACLE, tentacleAnimator);
+            tentacleObj.transform.position = new Vector3(employeeAttacked.transform.position.x + 0.8f, employeeAttacked.transform.position.y - 0.9f, 0) ;
             if (zoneAttacked == 0)
             {
                 employeeAttacked.GetComponent<Barman>().Stop();
@@ -80,16 +83,43 @@ public class SlimeBoss : MonoBehaviour
             {
                 employeeAttacked.GetComponent<Waiter>().Stop();
             }
-            Invoke("YeetEmployee", tentacleAnimator.GetCurrentAnimatorStateInfo(0).length);
+            ChangeAnimationState(SHADOW_BD_SPAWN, tentacleAnimator);
+            StartCoroutine(PlayNextAnimation(tentacleAnimator, "SpawnTentacle"));
+        }
+    }
+
+    private void SpawnTentacle()
+    {
+        ChangeAnimationState(SPAWN_TENTACLE, tentacleAnimator);
+        StartCoroutine(PlayNextAnimation(tentacleAnimator, "YeetEmployee"));
+    }
+
+    IEnumerator PlayNextAnimation(Animator anim, string method)
+    {
+        yield return new WaitForEndOfFrame();
+        Invoke(method, anim.GetCurrentAnimatorStateInfo(0).length);
+        if (method == "TentacleReturn")
+        {
+            Debug.Log(anim.GetCurrentAnimatorStateInfo(0).length);
         }
     }
 
     private void YeetEmployee()
     {
         ChangeAnimationState(ATTACK_BARMAN, tentacleAnimator);
+        StartCoroutine(PlayNextAnimation(tentacleAnimator, "TentacleReturn"));
         Invoke("DestroyEmployee", 0.03f);
+    }
+    private void TentacleReturn()
+    {
+        ChangeAnimationState(TENTACLE_RETURN, tentacleAnimator);
+        StartCoroutine(PlayNextAnimation(tentacleAnimator, "ReturnShadow"));
+    }
 
-        Invoke("TentacleReturn", .7f);
+    private void ReturnShadow()
+    {
+        ChangeAnimationState(SHADOW_BD_RETURN, tentacleAnimator);
+        StartCoroutine(PlayNextAnimation(tentacleAnimator, "HideTentacle"));
     }
 
     private void DestroyEmployee()
@@ -98,15 +128,10 @@ public class SlimeBoss : MonoBehaviour
     }
 
 
-    private void TentacleReturn()
-    {
-        ChangeAnimationState(TENTACLE_RETURN, tentacleAnimator);
-        Invoke("HideTentacle", tentacleAnimator.GetCurrentAnimatorStateInfo(0).length);
-
-    }
+  
     private void HideTentacle()
     {
-
+        tentacleObj.SetActive(false);
     }
     private void MoveHealthBar()
     {
