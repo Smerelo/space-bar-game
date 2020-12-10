@@ -16,6 +16,11 @@ public class Table : MonoBehaviour
         InUse = false;
     }
 
+    public void SetUpBossTable(Transform waitZone)
+    {
+        waiterZone = waitZone;
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -69,7 +69,7 @@ public class CustomerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dayManagement.dayFinished)
+        if (!dayManagement.dayFinished && !dayManagement.bossActive)
         {
             globalTimer += 3 * Time.deltaTime;
             if (Mathf.FloorToInt(globalTimer) % 60 == 0 && !difficultyIncreased && globalTimer >= 1)

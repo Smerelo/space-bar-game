@@ -23,6 +23,11 @@ public class TableManager : MonoBehaviour
         
     }
 
+    public void AddTable(Table table)
+    {
+        tables.Add(table);
+    }
+
     public void FreeTables()
     {
         foreach (Table table in tables)

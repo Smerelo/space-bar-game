@@ -14,6 +14,7 @@ public class SlimeBoss : MonoBehaviour
     [SerializeField] private GameObject mobileUI;
     [SerializeField] private GameObject sideMenu;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private Popularity popularityBar;
     private string currentState;
     private int zoneAttacked;
     private Animator animator;
@@ -31,6 +32,7 @@ public class SlimeBoss : MonoBehaviour
     private const string BOSS_ANGRY = "Angry";
     private const string BOSS_ATTACK = "BossAttack";
     private const string BOSS_LANDING = "Landing";
+    private const string BOSS_EAT = "BossEat";
 
     private const string TENTACLE_IDLE = "TentacleIdle";
     private const string SPAWN_TENTACLE = "SpawnTentacle";
@@ -67,6 +69,16 @@ public class SlimeBoss : MonoBehaviour
         }
     }
 
+    internal void Eat()
+    {
+        ChangeAnimationState(BOSS_EAT, animator);
+        StartCoroutine(PlayNextAnimation(animator, "BackToIdle"));
+    }
+
+    private void BackToIdle()
+    {
+        ChangeAnimationState(BOSS_IDLE, animator);
+    }
 
     internal void Attack()
     {
@@ -168,6 +180,7 @@ public class SlimeBoss : MonoBehaviour
     {
         tentacleObj.SetActive(false);
         ChangeAnimationState(BOSS_IDLE, animator);
+        popularityBar.UpdatePopularity(-1);
         boss.attacking = false;
     }
     private void MoveHealthBar()
@@ -178,6 +191,7 @@ public class SlimeBoss : MonoBehaviour
         mobileUI.SetActive(true);
         sideMenu.SetActive(true);
         LeanTween.moveLocalX(healthBarPosition, 7.41f, .7f);
+        boss.isInCinematic = false;
     }
 
     // Update is called once per frame
@@ -221,7 +235,7 @@ public class SlimeBoss : MonoBehaviour
         camera.gameObject.SetActive(true);
         mainUi.SetActive(false);
         mobileUI.SetActive(false);
-        //sideMenu.SetActive(false);
+        sideMenu.SetActive(false);
         LeanTween.moveY(gameObject, landingPosition.transform.position.y, .5f).setOnComplete(Land);
     }
 

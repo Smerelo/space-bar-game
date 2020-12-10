@@ -34,6 +34,11 @@ public class Order
         Table = table;
         Customer = customer;
     }
+    public Order(FoodTypes foodTypes, Table table)
+    {
+        FoodType = foodTypes;
+        Table = table;
+    }
 
     internal float GenerateMealPrice()
     {

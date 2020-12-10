@@ -74,6 +74,11 @@ public class CentralTransactionLogic : MonoBehaviour
 
     }
 
+    internal void AddBossOrder(Order order)
+    {
+        throw new NotImplementedException();
+    }
+
     void Update()
     {
         CheckBalance();

@@ -14,7 +14,7 @@ public class CustomerBehaviour : MonoBehaviour
     public bool hasReviewed { get; private set; }
 
     private bool isLeaving;
-    private bool isEating;
+    [HideInInspector]public bool isEating;
     private Order.FoodTypes foodPreference;
     private float eatingTime;
     private CustomerManager manager;
@@ -86,7 +86,8 @@ public class CustomerBehaviour : MonoBehaviour
         animator = GetComponent<Animator>();
         manager = GetComponentInParent<CustomerManager>();
         foodPreference = Order.RandomFoodType();
-        eatingTime = manager.GetEatingTime();
+        // eatingTime = manager.GetEatingTime();
+        eatingTime = 3f;
     }
 
     public void AssignTable(Table table)

@@ -19,12 +19,15 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private EmployeeCard[] employeeCards;
     [SerializeField] private TextMeshProUGUI dayCountText;
     [SerializeField] private Boss currentBoss;
+    [HideInInspector] public bool dayFinished { get; private set; }
+    [HideInInspector] public bool bossActive { get; private set; }
+
+
 
     private float dayClock;
     private bool timeStop;
     private float minutes;
     public int dayCounter { get; set; }
-    public bool dayFinished { get; private set; }
     private TableManager tableManager;
 
     [SerializeField] private GameObject endOfDayMenu;
@@ -45,7 +48,7 @@ public class DayManagement : MonoBehaviour
         if (!dayFinished)
         {
             dayClock += timeMultiplier * Time.deltaTime;
-            if (dayClock >= dayEnd)
+            if (!bossActive && dayClock >= dayEnd)
             {
                 EndDay();
             }
@@ -56,11 +59,6 @@ public class DayManagement : MonoBehaviour
     private void EndDay()
     {
         dayCounter++;
-        if (dayCounter >= 5)
-        {
-            StartBossFight();
-        }
-
         for (int i = 0; i < employeeCards.Length; i++)
         {
             employeeCards[i].ResetCard();
@@ -92,6 +90,11 @@ public class DayManagement : MonoBehaviour
 
     public void NextDay()
     {
+        if (dayCounter == 5)
+        {
+            bossActive = true;
+            StartBossFight();
+        }
         dayClock = dayStart;
         CTL.EmployeeClockIn();
         dayFinished = false;
