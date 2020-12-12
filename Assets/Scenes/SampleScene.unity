@@ -748,7 +748,7 @@ MonoBehaviour:
   foodPrices: 0
   foodQuantity: 0
   dayStart: 8
-  dayEnd: 400
+  dayEnd: 160
   timeMultiplier: 3
   text: {fileID: 441139228}
   MobileUi: {fileID: 1424510152}
@@ -7500,7 +7500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 9.771973, y: 1.5999985}
+  m_AnchoredPosition: {x: 9.771973, y: 1.6000061}
   m_SizeDelta: {x: 19.476196, y: 331.9508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &692888869
