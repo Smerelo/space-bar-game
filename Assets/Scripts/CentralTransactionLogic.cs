@@ -14,6 +14,8 @@ public class CentralTransactionLogic : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyCounterInt;
     [SerializeField] private Color positiveBalanceColor;
     [SerializeField] private Color negativeBalanceColor;
+    [SerializeField] private GameObject UI;
+    private OrderList orderList;
     private CustomerManager customerManager;
     private float shiftEnd;
     private GameOver gameOver;
@@ -36,6 +38,7 @@ public class CentralTransactionLogic : MonoBehaviour
     }
     void Start()
     {
+        orderList = GameObject.Find("OrderList").GetComponent<OrderList>();
         moneyBalance = startingBalance;
         dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
         customerManager = GameObject.Find("Customer Manager").GetComponent<CustomerManager>();
@@ -86,7 +89,9 @@ public class CentralTransactionLogic : MonoBehaviour
 
     public void AddOrder(Order order)
     {
+        order.IsBeingPrepared = true;
         orders.Add(order);
+        orderList.AddOrder(order);
         if (zones.TryGetValue(Constants.preparing, out ZoneManagment preparing))
         {
             preparing.AddOrder(order);

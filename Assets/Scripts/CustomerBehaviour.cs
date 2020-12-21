@@ -188,7 +188,7 @@ public class CustomerBehaviour : MonoBehaviour
         popularity = GameObject.Find("PopularityBar").GetComponent<Popularity>();
         ctl.DestroyOrder(order);
         popularity.UpdatePopularity(-1);
-
+        assignedTable.InUse = false;
         manager.customers.Remove(this);
         animator.SetBool("isSitting", false);
         isLeaving = true;

@@ -22,7 +22,6 @@ public class ZoneManagment : MonoBehaviour
     private CentralTransactionLogic zoneManager;
     private EmployeeManager employeeManager;
     private int upgradeCount = 0;
-
     
     void Start()
     {
@@ -54,7 +53,7 @@ public class ZoneManagment : MonoBehaviour
                 stations.Add(station);
             }
         }
-        employeeManager = GameObject.Find("SideMenu").GetComponent<EmployeeManager>();
+        //employeeManager = GameObject.Find("SideMenu").GetComponent<EmployeeManager>();
     }
 
     internal GameObject GetRandomEmployee()
@@ -90,9 +89,71 @@ public class ZoneManagment : MonoBehaviour
 
     void Update()
     {
-        TaskVarietyShuffle(UnityEngine.Random.Range(0, 2));
+        //TaskVarietyShuffle(UnityEngine.Random.Range(0, 2));
+        if (headEmployees.Count > 0)
+        {
+            CheckCurrentOrders();
+        }
+        if (zoneName == Constants.serving)
+        {
+
+        }
+
     }
 
+    private void CheckCurrentOrders()
+    {
+        Workstation workstation;
+        foreach (Order order  in orders)
+        {
+            if (!order.IsAssigned)
+            {
+                if (zoneName == Constants.preparing)
+                {
+                    workstation = GetFreeWorkStation();
+                }
+                else
+                    workstation = order.GetTable();
+                if (workstation != null)
+                {
+                    EmployeeBehaviour employee = GetEmployee();
+                    if(employee != null)
+                    {
+                        order.IsAssigned = true;
+                        employee.BeginTask(workstation, order);
+                    }
+                   
+                }
+            }
+        }
+    }
+
+    public Workstation GetFreeWorkStation()
+    {
+        foreach (Workstation workstation in stations)
+        {
+            if (!workstation.InUse)
+            {
+                workstation.InUse = true;
+                return workstation;
+            }
+        }
+        Debug.Log("here");
+
+        return null;
+    }
+
+    private EmployeeBehaviour GetEmployee()
+    {
+        foreach (EmployeeBehaviour employee in headEmployees)
+        {
+            if (!employee.IsBusy)
+            {
+                return employee;
+            }
+        }
+        return null;
+    }
 
     internal void RemoveEmployee(GameObject employee)
     {
@@ -104,10 +165,10 @@ public class ZoneManagment : MonoBehaviour
 
     public void UpdateNumbers()
     {
-        employeeManager.UpdateCount();
+        /*employeeManager.UpdateCount();
         employeeManager.UpdateSalary();
         employeeManager.UpdateSalaryText();
-        employeeManager.UpdateTotal();
+        employeeManager.UpdateTotal();*/
 
     }
 
@@ -152,7 +213,7 @@ public class ZoneManagment : MonoBehaviour
                 BeginTask(workstation, employee, order);
             }
         }
-        //print($"{zoneName}: {orders.Count} orders here");
+        print($"{zoneName}: {orders.Count} orders here");
     }
 
     internal void CheckAndRemoveOrder(Order order)
@@ -253,14 +314,10 @@ public class ZoneManagment : MonoBehaviour
     private EmployeeBehaviour FindFreeEmployee()
     {
         EmployeeBehaviour freeEmployee = DrawRandomAvailable<EmployeeBehaviour>(headEmployees, (EmployeeBehaviour e) => !e.IsBusy);
-        if (freeEmployee == null)
-        {
-            freeEmployee = DrawRandomAvailable<EmployeeBehaviour>(employees, (EmployeeBehaviour e) => !e.IsBusy);
-        }
         return freeEmployee;
     }
 
-    private Workstation FindUnoccupiedStation()
+    public Workstation FindUnoccupiedStation()
     {
         return DrawRandomAvailable<Workstation>(stations, (Workstation station) => !station.InUse);
     }
@@ -371,6 +428,7 @@ public class ZoneManagment : MonoBehaviour
     }
     public void AddOrder(Order order)
     {
+        order.Zone = zoneName;
         orders.Add(order);
     }
     public void TurnInOrder(Order order)

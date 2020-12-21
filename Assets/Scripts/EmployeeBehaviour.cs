@@ -10,28 +10,21 @@ public class EmployeeBehaviour : MonoBehaviour
 
     private bool shouldBeginTask;
     private Workstation workstation;
-    private bool shouldWait;
-    private bool platePickup;
-    private float timeWaited;
-    private Transform currentWorkstation;
     private int currentDestIndex;
     private int currentWaitTimeIndex;
     private List<Transform> destinations;
     private Order currentOrder;
     public ZoneManagment ParentZone { get;  set; }
-    private bool hasPlate;
-    private float timer;
-    private float platePickupTimer;
-    private int freeStationIndex;
-    private bool hasFreedStation;
     public float Salary { get; set; }
     public bool IsHeadEmployee { get; set; }
     [SerializeField] Cleaner cleaner;
+    private HeadEmployee headEmployee;
 
     void Awake()
     {
         ParentZone = transform.GetComponentInParent<ZoneManagment>();
         cleaner = GetComponent<Cleaner>();
+        headEmployee = GetComponent<HeadEmployee>();
     }
 
     void Update()
@@ -64,12 +57,12 @@ public class EmployeeBehaviour : MonoBehaviour
     public void BeginTask(Workstation station, Order order)
     {
         IsBusy = true;
-        shouldBeginTask = true;
-        if (order == null)
-            print("null bish");
         currentOrder = order;
-        workstation = station;
+        headEmployee.StartOrder(order, station);
     }
+
+   
+
     public bool ShouldBeginTask(out Workstation station, out Order order)
     {
         order = currentOrder;

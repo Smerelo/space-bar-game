@@ -81,7 +81,7 @@ public class EmployeeCard : MonoBehaviour
     
     private float GetMoveSpeed()
     {
-        return UnityEngine.Random.Range(4f, 15f);
+        return UnityEngine.Random.Range(2f, 4f);
     }
 
     private float GetTaskSpeed()
@@ -91,7 +91,7 @@ public class EmployeeCard : MonoBehaviour
 
     private float GetPrice()
     {
-        return UnityEngine.Random.Range(10f, 15f);
+        return UnityEngine.Random.Range(5, 10);
     }
 
     private string GetName()

@@ -36,24 +36,24 @@ public class Barman : MonoBehaviour
         midPoint = GameObject.Find("MidPoint").transform;
         animator = GetComponent<Animator>();
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
-        waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
+       // waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
     }
 
     void Update()
     {
-        if (employeeBehaviour.ShouldBeginTask(out Workstation station, out Order order))
+       /* if (employeeBehaviour.ShouldBeginTask(out Workstation station, out Order order))
         {
             BeginTask(station, order);
         }
         if (employeeBehaviour.IsBusy)
         {
-            MoveToNextPoint();
+            //MoveToNextPoint();
         }
         else
         {
-            MoveToWaitPoint();
+           // MoveToWaitPoint();
         }
-        ManageMotivation();
+        ManageMotivation();*/
     }
 
     void ManageMotivation()

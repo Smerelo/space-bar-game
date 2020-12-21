@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float yellCooldown;
+    [SerializeField] private Transform taskArrow;
     private float cooldownTimer = 0;
     public bool CanYell { get; private set; }
     private Animator animator;
@@ -16,10 +18,41 @@ public class Player : MonoBehaviour
     private float lastHorizontal;
     private float lastVertical;
     private bool shouldYell;
-    
+    private Order currentOrder;
+    private ZoneManagment preparing;
+    private ZoneManagment serving;
+    private ZoneManagment cleaning;
+    private Workstation workstation;
+    private Table table;
+
+
+    internal void AssignOrder(Order order)
+    {
+        if (currentOrder == null)
+        {
+            currentOrder = order;
+            if (currentOrder.IsBeingPrepared)
+            {
+                workstation = preparing.GetFreeWorkStation();
+                Debug.Log(workstation);
+
+                workstation.InUse = true;
+                Vector3 workpos = workstation.transform.position;
+                Debug.Log(workpos);
+                taskArrow.position = new Vector3(workpos.x, workpos.y + 1, 0);
+            }
+            if (currentOrder.IsReady)
+            {
+                table = currentOrder.Table;
+            }
+        }
+    }
 
     private void Start()
     {
+        preparing = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
+        serving = GameObject.Find("Serving").GetComponent<ZoneManagment>();
+        cleaning = GameObject.Find("Cleaning").GetComponent<ZoneManagment>();
         CanYell = true;
         yellCooldown = 8f;
         animator = GetComponent<Animator>();

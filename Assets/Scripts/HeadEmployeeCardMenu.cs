@@ -45,7 +45,6 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
         headEmployeeScript = this.GetComponent<HeadEmployee>();
         barZone = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
         waitingZone = GameObject.Find("Serving").GetComponent<ZoneManagment>();
-        Debug.Log(waitingZone.gameObject.name);
     }
 
     public void OnButtonClick(int mod)

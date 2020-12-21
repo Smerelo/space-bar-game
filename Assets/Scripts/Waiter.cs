@@ -37,7 +37,7 @@ public class Waiter : MonoBehaviour
     void Start()
     {
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
-        waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
+        //waitingZone = employeeBehaviour.ParentZone.GetWaitingZone();
         animator = GetComponent<Animator>();
         lastPosition = transform.position;
     }
@@ -61,7 +61,7 @@ public class Waiter : MonoBehaviour
         }
         else
         {
-            MoveToWaitPoint();
+            //MoveToWaitPoint();
         }
 
         ManageMotivation();

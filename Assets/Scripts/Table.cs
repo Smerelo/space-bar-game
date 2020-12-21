@@ -27,12 +27,12 @@ public class Table : MonoBehaviour
         
     }
 
-    internal Vector3 GetSittingZone()
+    public Vector3 GetSittingZone()
     {
         return sittingZone.position;
     }
 
-    internal Transform GetWaiterZone()
+    public Transform GetWaiterZone()
     {
         return waiterZone;
     }
