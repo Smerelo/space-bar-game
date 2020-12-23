@@ -748,7 +748,7 @@ MonoBehaviour:
   foodPrices: 0
   foodQuantity: 0
   dayStart: 8
-  dayEnd: 1111
+  dayEnd: 1
   timeMultiplier: 3
   text: {fileID: 441139228}
   MobileUi: {fileID: 1424510152}
@@ -5303,7 +5303,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25800002, y: 0.2336934}
   m_AnchorMax: {x: 0.95400006, y: 0.74069345}
-  m_AnchoredPosition: {x: -4, y: -6}
+  m_AnchoredPosition: {x: -4, y: -6.000001}
   m_SizeDelta: {x: -10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &441139228
@@ -11614,7 +11614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0064375005, y: 0.09}
   m_AnchorMax: {x: 0.073791675, y: 0.9204074}
-  m_AnchoredPosition: {x: -346.00003, y: -5.5}
+  m_AnchoredPosition: {x: -346.00006, y: -5.5}
   m_SizeDelta: {x: 803.68506, y: 17.685059}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &973160052
@@ -13909,7 +13909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1144207415
 Transform:
   m_ObjectHideFlags: 0
@@ -24860,6 +24860,26 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 84
       objectReference: {fileID: 0}
+    - target: {fileID: 1080779200645655949, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.27937603
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080779200645655949, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.36995506
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861719047150321048, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.33218575
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861719047150321048, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3357172
+      objectReference: {fileID: 0}
     - target: {fileID: 2140493389156605497, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -24880,15 +24900,60 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 84
       objectReference: {fileID: 0}
+    - target: {fileID: 2184149148577522179, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.24666405
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184149148577522179, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.42050934
+      objectReference: {fileID: 0}
     - target: {fileID: 2643179196398130272, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2742840856877939383, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.29127073
+      objectReference: {fileID: 0}
+    - target: {fileID: 2742840856877939383, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.41158724
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659520948413683385, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.38940573
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659520948413683385, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.38482332
+      objectReference: {fileID: 0}
     - target: {fileID: 6520691079760359663, guid: eee5fd27e314f214d9c6832685c2c147,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 331
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544492432487785888, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.34058857
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544492432487785888, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.4309826
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544492432487785888, guid: eee5fd27e314f214d9c6832685c2c147,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.004454851
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 194405617301388690, guid: eee5fd27e314f214d9c6832685c2c147, type: 3}

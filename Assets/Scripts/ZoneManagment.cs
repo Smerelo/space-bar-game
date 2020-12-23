@@ -110,7 +110,7 @@ public class ZoneManagment : MonoBehaviour
             {
                 if (zoneName == Constants.preparing)
                 {
-                    workstation = GetFreeWorkStation();
+                    workstation = FindUnoccupiedStation();
                 }
                 else
                     workstation = order.GetTable();
@@ -134,12 +134,9 @@ public class ZoneManagment : MonoBehaviour
         {
             if (!workstation.InUse)
             {
-                workstation.InUse = true;
                 return workstation;
             }
         }
-        Debug.Log("here");
-
         return null;
     }
 

@@ -11,10 +11,12 @@ public class Workstation : MonoBehaviour
     private Transform foodPlacement;
     private Animator animator;
     private SpriteRenderer foodRenderer;
+    private Player player;
     [SerializeField] private bool isStoveFood;
     [SerializeField] private bool animate;
     [SerializeField] private bool isCleaner;
-
+   
+    
     void Awake()
     {
         InUse = false;
@@ -24,6 +26,7 @@ public class Workstation : MonoBehaviour
     }
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Player>();
         if (animate)
         {
             foodRenderer = foodPlacement.GetComponent<SpriteRenderer>();
@@ -66,6 +69,13 @@ public class Workstation : MonoBehaviour
                         break;
                 }
             }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            player.CheckCollision(this);
         }
     }
 

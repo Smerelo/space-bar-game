@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2561351880886385416}
   - component: {fileID: 2720744994516750607}
   - component: {fileID: 3791375221611416717}
+  - component: {fileID: 7010040970513580142}
   m_Layer: 0
   m_Name: stationPrefab
   m_TagString: Untagged
@@ -31,7 +32,6 @@ Transform:
   m_Children:
   - {fileID: 6376968940357871965}
   - {fileID: 382577249151779511}
-  - {fileID: 3997027100706225644}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,6 +101,22 @@ MonoBehaviour:
   isStoveFood: 0
   animate: 0
   isCleaner: 0
+--- !u!58 &7010040970513580142
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990457313073905895}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.004454851, y: -0.45217228}
+  serializedVersion: 2
+  m_Radius: 0.50674796
 --- !u!1 &5472129550594616051
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,47 +249,3 @@ Transform:
   m_Father: {fileID: 2561351880886385416}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8012038267018254465
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3997027100706225644}
-  - component: {fileID: 3275209431702505903}
-  m_Layer: 0
-  m_Name: hitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3997027100706225644
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8012038267018254465}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.742, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2561351880886385416}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3275209431702505903
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8012038267018254465}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.6965966, z: 1}
-  m_Center: {x: 0, y: 0.016855717, z: 0}

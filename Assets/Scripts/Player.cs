@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float yellCooldown;
     [SerializeField] private Transform taskArrow;
+    [SerializeField] private Image buttonImage;
+
     private float cooldownTimer = 0;
     public bool CanYell { get; private set; }
     private Animator animator;
@@ -33,12 +35,11 @@ public class Player : MonoBehaviour
             currentOrder = order;
             if (currentOrder.IsBeingPrepared)
             {
-                workstation = preparing.GetFreeWorkStation();
-                Debug.Log(workstation);
-
+                workstation = preparing.FindUnoccupiedStation();
                 workstation.InUse = true;
                 Vector3 workpos = workstation.transform.position;
                 Debug.Log(workpos);
+                taskArrow.gameObject.SetActive(true);
                 taskArrow.position = new Vector3(workpos.x, workpos.y + 1, 0);
             }
             if (currentOrder.IsReady)
@@ -76,6 +77,14 @@ public class Player : MonoBehaviour
         animator.SetFloat("horizontal", lastHorizontal - 0.001f);
         animator.SetFloat("vertical", lastVertical - 0.0001f);
         animator.SetBool("isMovingVertically", Mathf.Abs(lastHorizontal) < 1.1f * Mathf.Abs(lastVertical));
+    }
+
+    internal void CheckCollision(Workstation station)
+    {
+        if (workstation != null && workstation == station)
+        {
+
+        }
     }
 
     private void Move()

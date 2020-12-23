@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 7858288308513935693}
   - component: {fileID: 3418771649302458178}
   - component: {fileID: 4542332532457942753}
+  - component: {fileID: 5698996543228807411}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -279,3 +280,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61bb8ecb34f6c34089e9b1102274728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &5698996543228807411
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8804150173137557022}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.9748285, y: 0.029628396}
+  serializedVersion: 2
+  m_Radius: 0.5456128
