@@ -9,12 +9,12 @@ public class OrderList : MonoBehaviour
     [SerializeField] private Transform orderSpawn;
     [SerializeField] private Transform orderPos;
 
-    private List<GameObject> orders;
+    private List<OrderCard> orders;
     private int activeOrders = 0;
 
     void Start()
     {
-        orders = new List<GameObject>();
+        orders = new List<OrderCard>();
     }
 
     // Update is called once per frame
@@ -25,11 +25,24 @@ public class OrderList : MonoBehaviour
 
     internal void AddOrder(Order order)
     {
+        Debug.Log(order.GetFoodSprite());
         orders.Add(Instantiate(orderPrefab, orderSpawn.position, 
-            Quaternion.identity, transform));
-        orders[activeOrders].GetComponent<OrderCard>().AssignOrder(order);
-        LeanTween.moveLocalX(orders[activeOrders], 
+            Quaternion.identity, transform).GetComponent<OrderCard>());
+        orders[activeOrders].AssignOrder(order);
+        LeanTween.moveLocalX(orders[activeOrders].gameObject, 
             orderPos.localPosition.x + 70 * activeOrders, 1f);
         activeOrders++;
+    }
+
+    internal void SendOrderToNextStep(Order order)
+    {
+        foreach (OrderCard card in orders)
+        {
+            Order orderTemp = card.GetOrder();
+            if (orderTemp == order)
+            {
+                card.GetComponent<OrderCard>().NextStep();
+            }
+        }
     }
 }

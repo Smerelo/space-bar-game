@@ -1,15 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private Order currentOrder;
     private Player player;
+    private Animator animator;
+    private string currentState;
+    private Image foodImage;
+
+    private const string ORDER_NORMAL = "Order_Normal";
+    private const string ORDER_SLECTED = "Order_Selected";
 
     void Start()
     {
+        foodImage = transform.GetChild(1).GetComponent<Image>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
@@ -20,14 +30,35 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        currentOrder.IsAssigned = true;
-        player.AssignOrder(currentOrder);
+        if (!currentOrder.IsAssigned && !player.orderAssigned)
+        {
+            ChangeAnimationState(ORDER_SLECTED);
+            currentOrder.IsAssigned = true;
+            player.AssignOrder(currentOrder);
+
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        currentOrder.IsAssigned = true;
-        player.AssignOrder(currentOrder);
+        if (!currentOrder.IsAssigned && !player.orderAssigned)
+        {
+            ChangeAnimationState(ORDER_SLECTED);
+            currentOrder.IsAssigned = true;
+            player.AssignOrder(currentOrder);
+        }
+       
+    }
+
+    internal Order GetOrder()
+    {
+        return currentOrder;
+    }
+
+    internal void NextStep()
+    {
+        currentOrder.IsAssigned = false;
+        ChangeAnimationState(ORDER_NORMAL);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -43,6 +74,22 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     public void AssignOrder(Order order)
     {
         currentOrder = order;
+        if (foodImage == null)
+        {
+            foodImage = transform.GetChild(1).GetComponent<Image>();
+        }
+        foodImage.sprite = order.GetFoodSprite();
     }
-   
+
+    private void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState)
+        {
+            return;
+        }
+        animator.Play(newState);
+        currentState = newState;
+    }
+
+
 }

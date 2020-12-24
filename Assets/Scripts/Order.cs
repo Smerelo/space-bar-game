@@ -51,11 +51,18 @@ public class Order
     internal float GenerateMealPrice()
     {
         GameAssets.FoodTypeAsset food = GetFoodTypeAsset(FoodType);
+        
         float waitTimeBonus = Customer.GetWaitTimeBonus();
         float moneyPayed = food.Price + (food.Price * waitTimeBonus * 1.5f); //linear function maybe change to sigmoid
         Customer.Pay(moneyPayed);
         Debug.Log($"tip {waitTimeBonus}% | price {food.Price} | moneyPayed {moneyPayed}");
         return moneyPayed;
+    }
+
+    public Sprite GetFoodSprite()
+    {
+        GameAssets.FoodTypeAsset food = GetFoodTypeAsset(FoodType);
+        return food.foodSprite;
     }
 
     internal void ResetBools()

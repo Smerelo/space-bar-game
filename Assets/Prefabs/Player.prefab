@@ -28,7 +28,7 @@ Transform:
   m_LocalPosition: {x: -0.048, y: 2.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3869168036564877586}
+  m_Father: {fileID: 6122746752739317079}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6413489785988542462
@@ -89,13 +89,14 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3869168036564877586}
+  - component: {fileID: 6122746752739317079}
   - component: {fileID: 3869168036564877584}
   - component: {fileID: 3869168036564877585}
   - component: {fileID: 3869168036564877679}
   - component: {fileID: 3869168036564877678}
   - component: {fileID: 3869168036564877677}
   - component: {fileID: 1964281726772959985}
+  - component: {fileID: 7394057724217127901}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -103,21 +104,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3869168036564877586
-Transform:
+--- !u!224 &6122746752739317079
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3869168036564877587}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.57, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3879328529298245332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.57}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: -0}
 --- !u!114 &3869168036564877584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   yellCooldown: 0
+  taskArrow: {fileID: 0}
+  yellButton: {fileID: 0}
 --- !u!212 &3869168036564877585
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -197,6 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   yellCooldown: 0
+  taskArrow: {fileID: 0}
+  yellButton: {fileID: 0}
 --- !u!61 &3869168036564877678
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -263,3 +273,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!223 &7394057724217127901
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869168036564877587}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0

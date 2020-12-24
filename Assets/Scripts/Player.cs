@@ -9,11 +9,18 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float yellCooldown;
     [SerializeField] private Transform taskArrow;
-    [SerializeField] private Image buttonImage;
-
-    private float cooldownTimer = 0;
+    [SerializeField] private YellButton yellButton;
+    [SerializeField] private Slider slider;
+    [HideInInspector] public bool orderAssigned;
     public bool CanYell { get; private set; }
+    private bool IsInWorkStation { get; set; }
+    public bool IsDoingTask { get; private set; }
+    private bool TaskDone {get; set;}
+
+
+
     private Animator animator;
+    private OrderList orderList;
     private float yellDuration = 1;
     private float timer = 0;
     private bool yelling;
@@ -24,33 +31,24 @@ public class Player : MonoBehaviour
     private ZoneManagment preparing;
     private ZoneManagment serving;
     private ZoneManagment cleaning;
+    private Transform input;
+    private Transform output;
     private Workstation workstation;
     private Table table;
+    private float cooldownTimer = 0;
+    private int typeOfTask;
+    private int mode = 0;
+    private int step;
 
 
-    internal void AssignOrder(Order order)
-    {
-        if (currentOrder == null)
-        {
-            currentOrder = order;
-            if (currentOrder.IsBeingPrepared)
-            {
-                workstation = preparing.FindUnoccupiedStation();
-                workstation.InUse = true;
-                Vector3 workpos = workstation.transform.position;
-                Debug.Log(workpos);
-                taskArrow.gameObject.SetActive(true);
-                taskArrow.position = new Vector3(workpos.x, workpos.y + 1, 0);
-            }
-            if (currentOrder.IsReady)
-            {
-                table = currentOrder.Table;
-            }
-        }
-    }
 
     private void Start()
     {
+        orderList = GameObject.Find("OrderList").GetComponent<OrderList>();
+        if (yellButton == null)
+        {
+            yellButton = GameObject.Find("Motivate").GetComponent<YellButton>();
+        }
         preparing = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
         serving = GameObject.Find("Serving").GetComponent<ZoneManagment>();
         cleaning = GameObject.Find("Cleaning").GetComponent<ZoneManagment>();
@@ -62,37 +60,196 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!yelling)
+        if (!yelling && !IsDoingTask)
         {
             Move();
         }
-        Yell();
-        if (Input.GetKeyDown("space"))
+
+        if (IsDoingTask && slider.value < slider.maxValue)
         {
-            ShouldYell();
+            slider.value += Time.deltaTime;
+        }
+        else if(IsDoingTask && slider.value >= slider.maxValue)
+        {
+            workstation.StopAnimation();
+            workstation = null;
+            IsDoingTask = false;
+            TaskDone = true;
+            slider.gameObject.SetActive(false);
+            if (typeOfTask == 0 || typeOfTask == 1)
+            {
+                step = 2;
+                StartNextStep();
+            }
+        }
+        Yell();
+        if (Input.GetKeyDown("space") && !IsDoingTask)
+        {
+            DoAction();
         }
     }
+
+    internal void AssignOrder(Order order)
+    {
+        if (!orderAssigned)
+        {
+            currentOrder = order;
+            if (currentOrder.IsBeingPrepared)
+            {
+                typeOfTask = 0;
+                step = 1;
+                workstation = preparing.FindUnoccupiedStation();
+                workstation.InUse = true;
+                Vector3 workpos = workstation.transform.position;
+                taskArrow.gameObject.SetActive(true);
+                taskArrow.position = new Vector3(workpos.x, workpos.y + 1, 0);
+                SetUpInputOutput();
+                orderAssigned = true;
+            }
+            if (currentOrder.IsReady)
+            {
+                table = currentOrder.Table;
+            }
+        }
+    }
+    private void SetUpInputOutput()
+    {
+        switch (currentOrder.Zone)
+        {
+            case Constants.preparing:
+                input = workstation.transform;
+                output =  preparing.GetOutputPos();
+                break;
+            case Constants.serving:
+                input = serving.GetInputPos();
+                output = currentOrder.Table.GetWaiterZone();
+                break;
+            case Constants.cleaning:
+                input = cleaning.GetInputPos();
+                output = cleaning.GetOutputPos();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void StartNextStep()
+    {
+        if (currentOrder.IsBeingPrepared)
+        {
+            taskArrow.gameObject.SetActive(true);
+            taskArrow.position = new Vector3(output.position.x,
+                output.position.y + 1, 0);
+        }
+        else
+        {
+
+        }
+    }
+
+    public void DoAction()
+    {
+        switch (mode)
+        {
+            case 0:
+                ShouldYell();
+                break;
+            case 1:
+                DoTask();
+                break;
+            case 2:
+                LeaveReadyPlate();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void LeaveReadyPlate()
+    {
+        currentOrder.IsBeingPrepared = false;
+        currentOrder.IsReady = true;
+        orderAssigned = false;
+        orderList.SendOrderToNextStep(currentOrder);
+        preparing.TaskAccomplished(currentOrder);
+    }
+
+    private void DoTask()
+    {
+        switch (mode)
+        {
+            case 1:
+                PrepareFood();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void PrepareFood()
+    {
+        IsDoingTask = true;
+        slider.gameObject.SetActive(true);
+        workstation.Animate();
+        preparing.DrawResource();
+        slider.maxValue = currentOrder.PreparationTime;
+        slider.value = 0;
+    }
+
     private void WhatDirection()
     {
         animator.SetFloat("horizontal", lastHorizontal - 0.001f);
         animator.SetFloat("vertical", lastVertical - 0.0001f);
-        animator.SetBool("isMovingVertically", Mathf.Abs(lastHorizontal) < 1.1f * Mathf.Abs(lastVertical));
+        animator.SetBool("isMovingVertically", Mathf.Abs(lastHorizontal) 
+            < 1.1f * Mathf.Abs(lastVertical));
     }
 
-    internal void CheckCollision(Workstation station)
+    public void CheckCollision(String name)
     {
-        if (workstation != null && workstation == station)
+        if (workstation != null && workstation.name == name)
         {
+            mode = 1;
+            IsInWorkStation = true;
+            taskArrow.gameObject.SetActive(false);
+            yellButton.ChangeSprite(1);
+        }
+        if (step == 2 && currentOrder.IsBeingPrepared &&  name == "ReadyPlates")
+        {
+            mode = 2;
+            yellButton.ChangeSprite(1);
+            taskArrow.gameObject.SetActive(false);
+        }
+    }
 
+    public void ExitCollision(string name)
+    {
+        if (workstation != null && workstation.name == name)
+        {
+            mode = 0;
+            IsInWorkStation = false;
+            if (!TaskDone)
+            {
+                taskArrow.gameObject.SetActive(true);
+            }
+            yellButton.ChangeSprite(0);
+        }
+        if (step == 2 && currentOrder.IsBeingPrepared &&  name == "ReadyPlates")
+        {
+            mode = 0;
+            yellButton.ChangeSprite(0);
+            taskArrow.gameObject.SetActive(true);
         }
     }
 
     private void Move()
     {
-        float horizontalMovement = CrossPlatformInputs.Instance.GetHorizontal() * moveSpeed * Time.deltaTime;
-        float verticalMovement = CrossPlatformInputs.Instance.GetVertical() * moveSpeed * Time.deltaTime;
+        float horizontalMovement = CrossPlatformInputs.Instance.GetHorizontal() 
+            * moveSpeed * Time.deltaTime;
+        float verticalMovement = CrossPlatformInputs.Instance.GetVertical() 
+            * moveSpeed * Time.deltaTime;
         WhatDirection();
-        if (CrossPlatformInputs.Instance.GetAxisHorizontal() != 0 || CrossPlatformInputs.Instance.GetAxisVertical() != 0)
+        if (CrossPlatformInputs.Instance.GetAxisHorizontal() != 0 
+            || CrossPlatformInputs.Instance.GetAxisVertical() != 0)
         {
             lastHorizontal = 10 * CrossPlatformInputs.Instance.GetAxisHorizontal();
             lastVertical = 10 * CrossPlatformInputs.Instance.GetAxisVertical();
@@ -108,6 +265,7 @@ public class Player : MonoBehaviour
 
     public void ShouldYell()
     {
+        Debug.Log("ShouldYell");
         shouldYell = true;
     }
 
@@ -149,11 +307,5 @@ public class Player : MonoBehaviour
             this.transform.parent = other.transform;
         }
     }
-   /* private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Zone"))
-        {
-            this.transform.parent = null;
-        }
-    }*/
+  
 }

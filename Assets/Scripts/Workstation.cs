@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ public class Workstation : MonoBehaviour
             }
             else
             {
-                switch (Random.Range(0, 2))
+                switch (UnityEngine.Random.Range(0, 2))
                 {
                     case 0:
                         animator.SetBool("Wine", true);
@@ -53,7 +54,7 @@ public class Workstation : MonoBehaviour
                         foodRenderer.enabled = false;
                         break;
                 }
-                switch (Random.Range(0, 3))
+                switch (UnityEngine.Random.Range(0, 3))
                 {
                     case 0:
                         animator.SetBool("Yellow", true);
@@ -75,7 +76,14 @@ public class Workstation : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            player.CheckCollision(this);
+            player.CheckCollision(gameObject.name) ;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            player.ExitCollision(gameObject.name);
         }
     }
 
@@ -97,8 +105,21 @@ public class Workstation : MonoBehaviour
         }
     }
 
+    internal void StopAnimation()
+    {
+        InUse = false;
+        ReachedStation = false;
+    }
+
     public Transform GetWorkerPlacement()
     {
         return workerPlacement;
     }
+
+    internal void Animate()
+    {
+        InUse = true;
+        ReachedStation = true;
+    }
+
 }

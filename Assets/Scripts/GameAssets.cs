@@ -27,7 +27,7 @@ public class GameAssets : MonoBehaviour
     public class FoodTypeAsset
     {
         [SerializeField] private Order.FoodTypes type;
-        [SerializeField] private Sprite foodSprite;
+        [SerializeField] public Sprite foodSprite;
         [SerializeField] private float price;
         [SerializeField] private float preparationTime;
 
