@@ -14,6 +14,17 @@ public class HeadEmployee : MonoBehaviour
     public bool IsWaiting { get; private set; }
     private bool IsWorking { get; set; }
     public bool TaskBegun { get; private set; }
+    public bool IsMoving { get; private set; }
+    public bool AnimationChosen { get; private set; }
+    public bool IsPreparingFood { get; private set; }
+
+    private const string IDLE_ = "idle_";
+    private const string IDLEBACK_ = "idleBack_";
+    private const string WALKBACK_ = "walkBack_";
+    private const string WALKFRONT_ = "walkFront_";
+    private const string WALKLEFT_ = "walkLeft_";
+    private const string WALKRIGHT_ = "walkRight_";
+
 
     private EmployeeBehaviour employeeBehaviour;
     private ZoneManagment newZone;
@@ -29,8 +40,15 @@ public class HeadEmployee : MonoBehaviour
     private Transform waitZone;
     private float taskTimer;
     private int step = 0;
-
-
+    private HeadEmployeeCardMenu headEmployeeCardMenu;
+    private Cv curriculum;
+    private string currentState;
+    private Animator animator;
+    private Vector3 movingTo;
+    private Vector3 movingFrom;
+    private float maxY= .2f;
+    private GameObject midPoint;
+   
     void Awake()
     {
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
@@ -39,6 +57,9 @@ public class HeadEmployee : MonoBehaviour
 
     private void Start()
     {
+        midPoint = GameObject.Find("MidPoint");
+        animator = GetComponent<Animator>();
+        headEmployeeCardMenu = GetComponent<HeadEmployeeCardMenu>();
         employeeManager = GameObject.Find("HeadEmployees")
             .GetComponent<HeadEmployeeManager>();
         oldZone = null;
@@ -55,11 +76,16 @@ public class HeadEmployee : MonoBehaviour
         EmployeeNumber = employeeManager.number + 1;
         employeeBehaviour.IsHeadEmployee = true;
         employeeBehaviour.Salary = cv.price;
+        curriculum = cv;
+        if (headEmployeeCardMenu == null)
+        {
+            headEmployeeCardMenu = GetComponent<HeadEmployeeCardMenu>();
+        }
+        headEmployeeCardMenu.FillInfo(cv);
     }
 
     internal void StartOrder(Order order, Workstation station)
     {
-        Debug.Log("START");
         currentOrder = order;
         workstation = station;
         SetUpInputOutput();
@@ -72,7 +98,7 @@ public class HeadEmployee : MonoBehaviour
         switch (currentOrder.Zone)
         {
             case Constants.preparing:
-                input = workstation.transform;
+                input = workstation.GetWorkerPlacement();
                 output = employeeBehaviour.ParentZone.GetOutputPos();
                 break;
             case Constants.serving:
@@ -90,23 +116,89 @@ public class HeadEmployee : MonoBehaviour
 
     private void Update()
     {
+        if (!IsMoving)
+        {
+            if (IsPreparingFood && transform.position.y > midPoint.transform.position.y)
+                ChangeAnimationState(IDLEBACK_ + curriculum.employeeType);
+            else
+                ChangeAnimationState(IDLE_ + curriculum.employeeType);
+        }
+        if (IsMoving && !AnimationChosen)
+        {
+            ChooseAnimation();
+        }
         if (shouldChangeZone && !employeeBehaviour.IsBusy)
         {
             shouldChangeZone = false;
             ChangeZone();
         }
-        if (!employeeBehaviour.IsBusy && currentZone != null && !IsWaiting)
+        if (!employeeBehaviour.IsBusy && currentZone != null && !IsWaiting && !IsMoving)
         {
             IsWaiting = true;
             GoToWaitZone();
         }
-        if (IsWorking && !TaskBegun && currentZone != null)
+        if (IsWorking && !TaskBegun && currentZone != null && !IsMoving)
         {
             TaskBegun = true;
             ChooseTask();
         }
+       
     }
 
+    private void ChooseAnimation()
+    {
+        AnimationChosen = true;
+        float diffY = Mathf.Abs(movingFrom.y - movingTo.y);
+        float diffX = Mathf.Abs(movingFrom.x - movingTo.x);
+        if (movingTo.x > movingFrom.x)
+        {
+            if (diffY  < maxY)
+            {
+                Debug.Log($"right   to: {movingTo}  from: {movingFrom}");
+                ChangeAnimationState(WALKRIGHT_ + curriculum.employeeType);
+            }
+            else
+            {
+                if (movingTo.y > movingFrom.y)
+                {
+                    Debug.Log($"right up   to: {movingTo}  from: {movingFrom}");
+                    
+                    ChangeAnimationState(WALKBACK_ + curriculum.employeeType);
+                }
+                else
+                {
+                    Debug.Log($"right down   to: {movingTo}  from: {movingFrom}");
+
+                    ChangeAnimationState(WALKFRONT_ + curriculum.employeeType);
+                }
+            }
+        }
+     
+        if (movingTo.x < movingFrom.x)
+        {
+            if (diffY < maxY)
+            {
+                Debug.Log($"left   to: {movingTo}  from: {movingFrom}");
+
+                ChangeAnimationState(WALKLEFT_ + curriculum.employeeType);
+            }
+            else
+            {
+                if (movingTo.y > movingFrom.y)
+                {
+                    Debug.Log($"left up   to: {movingTo}  from: {movingFrom}");
+
+                    ChangeAnimationState(WALKBACK_ + curriculum.employeeType);
+                }
+                else
+                {
+                    Debug.Log($"left down   to: {movingTo}  from: {movingFrom}");
+
+                    ChangeAnimationState(WALKFRONT_ + curriculum.employeeType);
+                }
+            }
+        }
+    }
 
     private void ChooseTask()
     {
@@ -142,12 +234,21 @@ public class HeadEmployee : MonoBehaviour
                     Vector3.Distance(input.position, transform.position) / moveSpeed)
                     .setOnComplete(ChangeStep, obj);
                 employeeBehaviour.DrawResource();
+                movingTo = input.position;
+                movingFrom = transform.position;
+                IsMoving = true;
+                AnimationChosen = false;
             }
             if (step == 1)
             {
                 LeanTween.move(gameObject, output.position,
                      Vector3.Distance(output.position, transform.position) / moveSpeed)
                     .setOnComplete(StopWorking);
+                movingTo = output.position;
+                movingFrom = transform.position;
+                IsMoving = true;
+                AnimationChosen = false;
+
             }
         }
     }
@@ -161,18 +262,30 @@ public class HeadEmployee : MonoBehaviour
                 Vector3.Distance(input.position, transform.position) / moveSpeed)
                 .setOnComplete(ChangeStep, obj);
             employeeBehaviour.DrawResource();
+            IsMoving = true;
+            IsPreparingFood = true;
+            movingTo = input.position;
+            movingFrom = transform.position;
+            AnimationChosen = false;
         }
         if (step == 1)
         {
+            workstation.StopAnimation();
+            IsPreparingFood = false;
             LeanTween.move(gameObject, output.position,
                  Vector3.Distance(output.position, transform.position) / moveSpeed)
                 .setOnComplete(StopWorking);
+            IsMoving = true;
+            movingTo = output.position;
+            movingFrom = transform.position;
+            AnimationChosen = false;
         }
     }
 
 
     private void StopWorking()
     {
+        IsMoving = false;
         if (currentZone == Constants.serving)
         {
             currentOrder.Customer.StartEating();
@@ -187,6 +300,11 @@ public class HeadEmployee : MonoBehaviour
 
     private void ChangeStep(object obj)
     {
+        if (IsPreparingFood)
+        {
+            workstation.Animate();
+        }
+        IsMoving = false;
         float timer = (float)obj;
         step++;
         Invoke("ChooseTask", timer);
@@ -195,7 +313,17 @@ public class HeadEmployee : MonoBehaviour
     private void GoToWaitZone()
     {
         LeanTween.move(gameObject, waitZone.position,
-            Vector3.Distance(waitZone.position, transform.position) / moveSpeed);
+            Vector3.Distance(waitZone.position, transform.position) / moveSpeed).setOnComplete(StopMoving);
+        IsMoving = true;
+        movingTo = waitZone.position;
+        AnimationChosen = false;
+
+        movingFrom = transform.position;
+    }
+
+    private void StopMoving()
+    {
+        IsMoving = false;
     }
 
     private void ChangeZone()
@@ -234,6 +362,14 @@ public class HeadEmployee : MonoBehaviour
         newZone = zone;
     }
 
-
+    private void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState)
+        {
+            return;
+        }
+        animator.Play(newState);
+        currentState = newState;
+    }
 
 }

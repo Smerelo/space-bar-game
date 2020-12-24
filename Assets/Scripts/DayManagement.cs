@@ -64,7 +64,12 @@ public class DayManagement : MonoBehaviour
             employeeCards[i].ResetCard();
         }
         PauseGame();
+        PlayTransition();
         ShowEndOfDayMenu();
+    }
+
+    private void PlayTransition()
+    {
     }
 
     private void StartBossFight()

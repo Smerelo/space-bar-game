@@ -25,7 +25,9 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
     private int zoneSelected = -1;
     private ZoneManagment waitingZone;
     private ZoneManagment barZone;
-
+    private Animator photoAnimator;
+    private string currentState;
+    private Cv curriculum;
 
     void Start()
     {
@@ -36,6 +38,7 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
         canvas = transform.GetChild(1).gameObject;
         background = canvas.transform.GetChild(0).gameObject.GetComponent<Image>();
         cardMenu = canvas.transform.GetChild(1).gameObject;
+        photoAnimator = cardMenu.transform.GetChild(0).GetComponent<Animator>();
         button1 = cardMenu.transform.GetChild(4).gameObject.GetComponent<Button>();
         button2 = cardMenu.transform.GetChild(5).gameObject.GetComponent<Button>();
         ligth1 = button1.transform.GetChild(1).gameObject.GetComponent<Animator>();
@@ -45,6 +48,11 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
         headEmployeeScript = this.GetComponent<HeadEmployee>();
         barZone = GameObject.Find("Preparing").GetComponent<ZoneManagment>();
         waitingZone = GameObject.Find("Serving").GetComponent<ZoneManagment>();
+    }
+
+    internal void FillInfo(Cv cv)
+    {
+        curriculum = cv;
     }
 
     public void OnButtonClick(int mod)
@@ -74,8 +82,22 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
             UI.SetActive(true);
             MobileUI.SetActive(true);
         }
+        if (curriculum != null)
+        {
+            ChangeAnimation("Employee_" + curriculum.employeeType);
+
+        }
     }
 
+    private void ChangeAnimation(string newState)
+    {
+        if (!photoAnimator.GetCurrentAnimatorStateInfo(0).IsName(newState))
+        {
+            photoAnimator.Play(newState);
+            currentState = newState;
+        }
+
+    }
 
 
     public void OnPointerClick(PointerEventData eventData)

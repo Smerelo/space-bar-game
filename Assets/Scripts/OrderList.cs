@@ -25,7 +25,6 @@ public class OrderList : MonoBehaviour
 
     internal void AddOrder(Order order)
     {
-        Debug.Log(order.GetFoodSprite());
         orders.Add(Instantiate(orderPrefab, orderSpawn.position, 
             Quaternion.identity, transform).GetComponent<OrderCard>());
         orders[activeOrders].AssignOrder(order);

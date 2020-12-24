@@ -14,28 +14,41 @@ public class EmployeeCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private Button hireButton;
     [SerializeField] private GameObject hireStamp;
-    
+
+    private Animator animator;
     private HeadEmployeeManager headEmployeeManager;
     private GameObject cards;
     private List<EmployeeCard> upgradeCards;
     private TabletMenu tablet;
     private GameObject employee;
-  
+    private bool changeAnimation;
+    private string currentState;
 
     // Start is called before the first frame update
    
     void Start()
     {
+        animator = transform.GetChild(0).GetComponent<Animator>();
         headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
         tablet = GameObject.Find("Tablet").GetComponent<TabletMenu>();
-    }
+        currentState = null;
+    } 
 
     // Update is called once per frame
     void Update()
     {
-        
+        ChangeAnimation("Employee_" + curriculum.employeeType);
     }
 
+    private void ChangeAnimation(string newState)
+    {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(newState))
+        {
+            animator.Play(newState);
+            currentState = newState;
+        }
+
+    }
 
     public void HireHeadEmployee()
     {
@@ -56,6 +69,7 @@ public class EmployeeCard : MonoBehaviour
         mSpeedText.text = $"{cv.moveSpeed.ToString("F2")}";
         priceText.text = $"${cv.price.ToString("F0")}/Hour";
         curriculum = cv;
+        changeAnimation = true;
         employee = hiredEmployee;
     }
 
@@ -68,17 +82,30 @@ public class EmployeeCard : MonoBehaviour
 
     public void GenerateStats()
     {
+        if (animator == null)
+        {
+            animator = transform.GetChild(0).GetComponent<Animator>();
+
+        }
         string name = GetName();
         float price = GetPrice();
         float mSpeed = GetMoveSpeed();
         float taskSpeed = GetTaskSpeed();
-        curriculum = new Cv(name, price, taskSpeed, mSpeed);
+        int employeeType = GetEmployeeType();
+        curriculum = new Cv(name, price, taskSpeed, mSpeed, employeeType);
         nameText.text = name;
         taskSpeedText.text = $"{taskSpeed.ToString("F2")}s";
         mSpeedText.text = $"{mSpeed.ToString("F2")}";
         priceText.text = $"${price.ToString("F0")}/Hour";
+        curriculum.employeeType = employeeType;
+        changeAnimation = true;
     }
-    
+
+    private int GetEmployeeType()
+    {
+        return UnityEngine.Random.Range(1, 4);
+    }
+
     private float GetMoveSpeed()
     {
         return UnityEngine.Random.Range(2f, 4f);

@@ -1769,8 +1769,6 @@ GameObject:
   - component: {fileID: 1009864624256745411}
   - component: {fileID: 1009864624256745410}
   - component: {fileID: 1009864624256745412}
-  - component: {fileID: 1009864624256745414}
-  - component: {fileID: 1009864624256745415}
   - component: {fileID: 1009864624256745433}
   m_Layer: 0
   m_Name: HeadEmployee
@@ -1797,7 +1795,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -2.57, y: -13.87}
+  m_AnchoredPosition: {x: -2.5700073, y: -13.869995}
   m_SizeDelta: {x: 1920.0001, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1009864624256745408
@@ -1921,48 +1919,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1009864624256745414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009864624256745422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 020a96b8605758a4085ff1c99117a9f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitTimesBringFood:
-  - 0.3
-  - 0.3
-  waitTimesBringDirtyPlates:
-  - 0.3
-  - 0.3
-  movementSpeed: 2
-  motivationDuration: 3.5
-  motivatedSpeedMultiplier: 2
-  motivatedTimerMultiplier: 1.5
---- !u!114 &1009864624256745415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009864624256745422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d5b8dd20910f34ea8469d771cf435d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitTimes:
-  - 0.3
-  - 3
-  - 0.3
-  movementSpeed: 3
-  motivationDuration: 3.5
-  motivatedSpeedMultiplier: 2
-  motivatedTimerMultiplier: 1.5
 --- !u!114 &1009864624256745433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2162,7 +2118,7 @@ Animator:
   m_GameObject: {fileID: 1009864624335140464}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 238fc49519f003a4ba180d9a377fc7c7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 516b5dedb1cd21647b3b0948c73b6837, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
