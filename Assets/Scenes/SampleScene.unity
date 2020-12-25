@@ -748,7 +748,7 @@ MonoBehaviour:
   foodPrices: 0
   foodQuantity: 0
   dayStart: 8
-  dayEnd: 1
+  dayEnd: 1111
   timeMultiplier: 3
   text: {fileID: 441139228}
   MobileUi: {fileID: 1424510152}
@@ -13184,7 +13184,7 @@ PrefabInstance:
     - target: {fileID: 3869168036564877679, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}
       propertyPath: moveSpeed
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3869168036564877679, guid: 03f6a2b77b903b74f8a9223966032238,
         type: 3}

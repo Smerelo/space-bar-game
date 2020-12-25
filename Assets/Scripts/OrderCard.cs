@@ -15,6 +15,9 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     private const string ORDER_NORMAL = "Order_Normal";
     private const string ORDER_SLECTED = "Order_Selected";
+    private const string ORDER_2 = "Order_2";
+
+    private bool IsSelected { get; set; }
 
     void Start()
     {
@@ -32,7 +35,8 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         if (!currentOrder.IsAssigned && !player.orderAssigned)
         {
-            ChangeAnimationState(ORDER_SLECTED);
+            IsSelected = true;
+            LeanTween.scale(gameObject, new Vector3(1.1f, 1.1f, 1), 0.1f);
             currentOrder.IsAssigned = true;
             player.AssignOrder(currentOrder);
 
@@ -43,7 +47,8 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         if (!currentOrder.IsAssigned && !player.orderAssigned)
         {
-            ChangeAnimationState(ORDER_SLECTED);
+            IsSelected = true;
+            LeanTween.scale(gameObject, new Vector3(1.1f, 1.1f, 1), 0.1f);
             currentOrder.IsAssigned = true;
             player.AssignOrder(currentOrder);
         }
@@ -57,8 +62,18 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     internal void NextStep()
     {
+        IsSelected = false;
         currentOrder.IsAssigned = false;
-        ChangeAnimationState(ORDER_NORMAL);
+        if (currentOrder.IsReady)
+        {
+            ChangeAnimationState(ORDER_SLECTED);
+
+        }
+        if (currentOrder.IsBeingTakenToClean)
+        {
+            ChangeAnimationState(ORDER_2);
+
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -68,7 +83,11 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
+        if (!IsSelected)
+        {
+            LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
+
+        }
     }
 
     public void AssignOrder(Order order)

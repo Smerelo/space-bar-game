@@ -149,26 +149,20 @@ public class HeadEmployee : MonoBehaviour
     {
         AnimationChosen = true;
         float diffY = Mathf.Abs(movingFrom.y - movingTo.y);
-        float diffX = Mathf.Abs(movingFrom.x - movingTo.x);
         if (movingTo.x > movingFrom.x)
         {
             if (diffY  < maxY)
             {
-                Debug.Log($"right   to: {movingTo}  from: {movingFrom}");
                 ChangeAnimationState(WALKRIGHT_ + curriculum.employeeType);
             }
             else
             {
                 if (movingTo.y > movingFrom.y)
                 {
-                    Debug.Log($"right up   to: {movingTo}  from: {movingFrom}");
-                    
                     ChangeAnimationState(WALKBACK_ + curriculum.employeeType);
                 }
                 else
                 {
-                    Debug.Log($"right down   to: {movingTo}  from: {movingFrom}");
-
                     ChangeAnimationState(WALKFRONT_ + curriculum.employeeType);
                 }
             }
@@ -178,22 +172,16 @@ public class HeadEmployee : MonoBehaviour
         {
             if (diffY < maxY)
             {
-                Debug.Log($"left   to: {movingTo}  from: {movingFrom}");
-
                 ChangeAnimationState(WALKLEFT_ + curriculum.employeeType);
             }
             else
             {
                 if (movingTo.y > movingFrom.y)
                 {
-                    Debug.Log($"left up   to: {movingTo}  from: {movingFrom}");
-
                     ChangeAnimationState(WALKBACK_ + curriculum.employeeType);
                 }
                 else
                 {
-                    Debug.Log($"left down   to: {movingTo}  from: {movingFrom}");
-
                     ChangeAnimationState(WALKFRONT_ + curriculum.employeeType);
                 }
             }

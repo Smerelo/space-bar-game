@@ -109,6 +109,10 @@ public class Player : MonoBehaviour
             if (currentOrder.IsReady)
             {
                 table = currentOrder.Table;
+                taskArrow.gameObject.SetActive(true);
+                SetUpInputOutput();
+                taskArrow.position = new Vector3(input.position.x, output.position.y + 1, 0);
+                orderAssigned = true;
             }
         }
     }
@@ -206,39 +210,72 @@ public class Player : MonoBehaviour
 
     public void CheckCollision(String name)
     {
-        if (workstation != null && workstation.name == name)
+        if (currentOrder != null)
         {
-            mode = 1;
-            IsInWorkStation = true;
-            taskArrow.gameObject.SetActive(false);
-            yellButton.ChangeSprite(1);
-        }
-        if (step == 2 && currentOrder.IsBeingPrepared &&  name == "ReadyPlates")
-        {
-            mode = 2;
-            yellButton.ChangeSprite(1);
-            taskArrow.gameObject.SetActive(false);
+            if (currentOrder.IsBeingPrepared)
+            {
+                if (workstation != null && workstation.name == name)
+                {
+                    mode = 1;
+                    IsInWorkStation = true;
+                    taskArrow.gameObject.SetActive(false);
+                    yellButton.ChangeSprite(1);
+                }
+                if (step == 2 && name == "ReadyPlates")
+                {
+                    mode = 2;
+                    yellButton.ChangeSprite(1);
+                    taskArrow.gameObject.SetActive(false);
+                }
+            }
+            else if (currentOrder.IsReady)
+            {
+                if (name == "ReadyPlates")
+                {
+                    mode = 3;
+                    yellButton.ChangeSprite(1);
+                    taskArrow.gameObject.SetActive(false);
+
+                }
+            }
         }
     }
 
     public void ExitCollision(string name)
     {
-        if (workstation != null && workstation.name == name)
+        if (currentOrder != null)
         {
-            mode = 0;
-            IsInWorkStation = false;
-            if (!TaskDone)
+            if (currentOrder.IsBeingPrepared)
             {
-                taskArrow.gameObject.SetActive(true);
+                if (workstation != null && workstation.name == name)
+                {
+                    mode = 0;
+                    IsInWorkStation = false;
+                    if (!TaskDone)
+                    {
+                        taskArrow.gameObject.SetActive(true);
+                    }
+                    yellButton.ChangeSprite(0);
+                }
+                if (step == 2 && name == "ReadyPlates")
+                {
+                    mode = 0;
+                    yellButton.ChangeSprite(0);
+                    taskArrow.gameObject.SetActive(true);
+                }
             }
-            yellButton.ChangeSprite(0);
+            else if (currentOrder.IsReady)
+            {
+                if (name == "ReadyPlates")
+                {
+                    mode = 0;
+                    yellButton.ChangeSprite(0);
+                    taskArrow.gameObject.SetActive(true);
+
+                }
+            }
         }
-        if (step == 2 && currentOrder.IsBeingPrepared &&  name == "ReadyPlates")
-        {
-            mode = 0;
-            yellButton.ChangeSprite(0);
-            taskArrow.gameObject.SetActive(true);
-        }
+
     }
 
     private void Move()
