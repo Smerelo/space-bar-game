@@ -19,7 +19,6 @@ public class ReadyPlates : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log(gameObject.name);
             player.CheckCollision(gameObject.name);
         }
     }

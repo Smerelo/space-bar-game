@@ -19,6 +19,10 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private EmployeeCard[] employeeCards;
     [SerializeField] private TextMeshProUGUI dayCountText;
     [SerializeField] private Boss currentBoss;
+    [SerializeField] private Animator transition;
+    [SerializeField] private GameObject banner;
+    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject menu2;
     [HideInInspector] public bool dayFinished { get; private set; }
     [HideInInspector] public bool bossActive { get; private set; }
 
@@ -27,7 +31,10 @@ public class DayManagement : MonoBehaviour
     private float dayClock;
     private bool timeStop;
     private float minutes;
+    private AudioManager audio;
     public int dayCounter { get; set; }
+    public bool PlayingCinematic { get; private set; }
+
     private TableManager tableManager;
 
     [SerializeField] private GameObject endOfDayMenu;
@@ -36,6 +43,7 @@ public class DayManagement : MonoBehaviour
 
     void Start()
     {
+        audio = GameObject.Find("Main Camera").GetComponent<AudioManager>();
         dayCounter = 1;
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         CTL = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
@@ -47,12 +55,15 @@ public class DayManagement : MonoBehaviour
     {
         if (!dayFinished)
         {
-            dayClock += timeMultiplier * Time.deltaTime;
-            if (!bossActive && dayClock >= dayEnd)
+            if (!PlayingCinematic)
             {
-                EndDay();
+                dayClock += timeMultiplier * Time.deltaTime;
+                if (!bossActive && dayClock >= dayEnd)
+                {
+                    EndDay();
+                }
+                UpdateClock();
             }
-            UpdateClock();
         }
     }
 
@@ -65,11 +76,13 @@ public class DayManagement : MonoBehaviour
         }
         PauseGame();
         PlayTransition();
-        ShowEndOfDayMenu();
     }
 
     private void PlayTransition()
     {
+        endOfDayMenu.SetActive(true);
+        transition.Play("Transition");
+        Invoke("ShowEndOfDayMenu", 1.3f);
     }
 
     private void StartBossFight()
@@ -89,11 +102,25 @@ public class DayManagement : MonoBehaviour
 
     private void ShowEndOfDayMenu()
     {
-        endOfDayMenu.SetActive(true);
+        audio.PlayMenuMusic();
+        menu.SetActive(true);
+        banner.SetActive(true);
+        transition.Play("Iddle_BackGround");
         endOfDayMenu.GetComponent<EndOfDay>().SetGameStatus(CTL.GetBalance());
     }
 
     public void NextDay()
+    {
+        transition.Play("Inverse_Transition");
+        menu.SetActive(false);
+        menu2.SetActive(false);
+        banner.SetActive(false);
+        Invoke("StartDay", 1.3f);
+
+    }
+
+
+    private void StartDay()
     {
         if (dayCounter == 5)
         {
@@ -104,8 +131,8 @@ public class DayManagement : MonoBehaviour
         CTL.EmployeeClockIn();
         dayFinished = false;
         endOfDayMenu.SetActive(false);
+        audio.ResumeNormalMusic();
     }
-
     private void UpdateClock()
     {
         string hour;

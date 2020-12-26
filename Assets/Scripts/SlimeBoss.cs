@@ -15,6 +15,14 @@ public class SlimeBoss : MonoBehaviour
     [SerializeField] private GameObject sideMenu;
     [SerializeField] private Slider healthBar;
     [SerializeField] private Popularity popularityBar;
+    [SerializeField] private GameObject banner;
+    [SerializeField] private GameObject bossImage;
+    [SerializeField] private GameObject background;
+    [SerializeField] private GameObject text;
+    [SerializeField] private AudioManager audio;
+    
+
+
     private string currentState;
     private int zoneAttacked;
     private Animator animator;
@@ -26,7 +34,6 @@ public class SlimeBoss : MonoBehaviour
     private Animator tentacleAnimator;
     private GameObject tentacleObj;
     private Boss boss;
-
     private const string BOSS_FALLING = "Falling";
     private const string BOSS_IDLE = "Idle";
     private const string BOSS_ANGRY = "Angry";
@@ -186,12 +193,48 @@ public class SlimeBoss : MonoBehaviour
     private void MoveHealthBar()
     {
         ChangeAnimationState(BOSS_IDLE, animator);
-        camera.gameObject.SetActive(false);
+        banner.SetActive(false);
+        bossImage.SetActive(false); ;
+        background.SetActive(false);
+        text.SetActive(false);
         mainUi.SetActive(true);
         mobileUI.SetActive(true);
         sideMenu.SetActive(true);
         LeanTween.moveLocalX(healthBarPosition, 7.41f, .7f);
+        audio.PlayBossMusic();
         boss.isInCinematic = false;
+    }
+
+    private void MoveBossImage()
+    {
+        audio.PlaySfx(2);
+
+        LeanTween.moveLocalX(bossImage, 4.26f, .5f);
+        Invoke("MoveText", .5f);
+    }
+    
+    private void MoveText()
+    {
+        audio.PlaySfx(2);
+        LeanTween.moveLocalY(text, -0.66f, .5f);
+        Invoke("PlaySound", .5f);
+        Invoke("MoveHealthBar", 2f);
+
+    }
+    private void MoveBanner()
+    {
+        camera.gameObject.SetActive(false);
+        banner.SetActive(true);
+        bossImage.SetActive(true);
+        background.SetActive(true);
+        text.SetActive(true);
+        LeanTween.moveLocalX(banner, -0.35f, .3f);
+        Invoke("MoveBossImage", .3f);
+    }
+
+    private void PlaySound()
+    {
+        audio.PlaySfx(2);
     }
 
     // Update is called once per frame
@@ -212,15 +255,17 @@ public class SlimeBoss : MonoBehaviour
     private void Land()
     {
         CameraShake.Instance.ShakeCamera(.3f, 3f);
+        audio.PlaySfx(0);
         animator.Play("Landing");
         Invoke("LandingCompleted", .2f);
     }
 
     private void Scream()
     {
+        audio.PlaySfx(1);
         ChangeAnimationState(BOSS_ATTACK, animator);
-        CameraShake.Instance.ShakeCamera(1f, 2f);
-        Invoke("MoveHealthBar", 1.3f);
+        CameraShake.Instance.ShakeCamera(1.3f, 2f);
+        Invoke("MoveBanner", 1.6f);
     }
 
     private void LandingCompleted()
@@ -231,6 +276,7 @@ public class SlimeBoss : MonoBehaviour
     }
     internal void PlayCinematic()
     {
+        audio.Stop();
         tentacleObj.SetActive(false);
         camera.gameObject.SetActive(true);
         mainUi.SetActive(false);

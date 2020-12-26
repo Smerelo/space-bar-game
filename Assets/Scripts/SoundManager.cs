@@ -13,6 +13,8 @@ public static class SoundManager
     private static float masterVolume;
     private static AudioMixer mixer;
     private static AudioSource musicSource;
+    private static AudioSource sfxSource;
+    private static List<AudioSource> sfxSources;
     public static AudioMixer Mixer
     {
         get
@@ -75,9 +77,21 @@ public static class SoundManager
         {
             musicSource = value;
         }
+    } 
+    
+    public static AudioSource SfxSource
+    {
+        get
+        {
+            CreateSources();
+            return sfxSource;
+        }
+        private set
+        {
+            sfxSource = value;
+        }
     }
 
-    private static List<AudioSource> sfxSources;
     private static GameObject soundAndMusic;
     private static void SetVolume()
     {
@@ -102,7 +116,11 @@ public static class SoundManager
         }
         if (sfxSources == null)
         {
+            GameObject sfx = new GameObject("Sfx");
+            sfx.transform.SetParent(soundAndMusic.transform);
+            sfxSource = sfx.AddComponent<AudioSource>();
             sfxSources = new List<AudioSource>();
+            sfxSource.outputAudioMixerGroup = mixer.FindMatchingGroups("Sfx")[0];
         }
     }
     //form here:https://www.youtube.com/watch?v=QL29aTa7J5Q

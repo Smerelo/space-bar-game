@@ -63,6 +63,7 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     internal void NextStep()
     {
         IsSelected = false;
+        LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
         currentOrder.IsAssigned = false;
         if (currentOrder.IsReady)
         {

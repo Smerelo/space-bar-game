@@ -115,7 +115,7 @@ public class CentralTransactionLogic : MonoBehaviour
 
     internal void SendToNextZone(Order order, string zoneName)
     {
-        order.ResetBools();
+        //order.ResetBools();
         switch (zoneName)
         {
             case Constants.preparing:

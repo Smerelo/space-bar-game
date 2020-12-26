@@ -16,8 +16,7 @@ public class Player : MonoBehaviour
     private bool IsInWorkStation { get; set; }
     public bool IsDoingTask { get; private set; }
     private bool TaskDone {get; set;}
-
-
+    public bool HasPlate { get; private set; }
 
     private Animator animator;
     private OrderList orderList;
@@ -74,6 +73,8 @@ public class Player : MonoBehaviour
             workstation.StopAnimation();
             workstation = null;
             IsDoingTask = false;
+            yellButton.ChangeSprite(0);
+            mode = 0;
             TaskDone = true;
             slider.gameObject.SetActive(false);
             if (typeOfTask == 0 || typeOfTask == 1)
@@ -111,7 +112,7 @@ public class Player : MonoBehaviour
                 table = currentOrder.Table;
                 taskArrow.gameObject.SetActive(true);
                 SetUpInputOutput();
-                taskArrow.position = new Vector3(input.position.x, output.position.y + 1, 0);
+                taskArrow.position = new Vector3(input.position.x, input.position.y + 1, 0);
                 orderAssigned = true;
             }
         }
@@ -164,9 +165,24 @@ public class Player : MonoBehaviour
             case 2:
                 LeaveReadyPlate();
                 break;
+            case 3:
+                TakePlate();
+                break;
+            case 4:
+                DoTask();
+                break;
             default:
                 break;
         }
+    }
+
+    private void TakePlate()
+    {
+        HasPlate = true;
+        serving.DrawResource();
+        taskArrow.position = output.position;
+        yellButton.ChangeSprite(0);
+        mode = 0;
     }
 
     private void LeaveReadyPlate()
@@ -174,6 +190,8 @@ public class Player : MonoBehaviour
         currentOrder.IsBeingPrepared = false;
         currentOrder.IsReady = true;
         orderAssigned = false;
+        yellButton.ChangeSprite(0);
+        mode = 0;
         orderList.SendOrderToNextStep(currentOrder);
         preparing.TaskAccomplished(currentOrder);
     }
@@ -232,6 +250,7 @@ public class Player : MonoBehaviour
             {
                 if (name == "ReadyPlates")
                 {
+                    Debug.Log("here");
                     mode = 3;
                     yellButton.ChangeSprite(1);
                     taskArrow.gameObject.SetActive(false);

@@ -5,6 +5,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] List<AudioClip> backgroundMusic;
+    [SerializeField] List<AudioClip> sfx;
+    [SerializeField] AudioClip MenuMusic;
     private bool stopped;
 
     public int CurrentSong { get; private set; }
@@ -50,6 +52,36 @@ public class AudioManager : MonoBehaviour
         {
             CurrentSong = 0;
         }
+    }
+
+    public void PlayBossMusic()
+    {
+        SoundManager.MusicSource.loop = true;
+        CurrentSong = 3;
+        SoundManager.MusicSource.clip = backgroundMusic[3];
+        SoundManager.MusicSource.Play();
+    }
+    
+    public void ResumeNormalMusic()
+    {
+        int i = UnityEngine.Random.Range(0, 4);
+        SoundManager.MusicSource.loop = false;
+        SoundManager.MusicSource.clip = backgroundMusic[i];
+        CurrentSong = i;
+        SoundManager.MusicSource.Play();
+    }
+
+    public void PlaySfx(int i)
+    {
+        SoundManager.SfxSource.clip = sfx[i];
+        SoundManager.SfxSource.Play();
+    }
+
+    public void PlayMenuMusic()
+    {
+        SoundManager.MusicSource.loop = true;
+        SoundManager.MusicSource.clip = MenuMusic;
+        SoundManager.MusicSource.Play();
     }
 
     public void Stop()
