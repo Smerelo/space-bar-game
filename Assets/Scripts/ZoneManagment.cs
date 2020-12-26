@@ -19,6 +19,7 @@ public class ZoneManagment : MonoBehaviour
     private List<EmployeeBehaviour> employees;
     private List<EmployeeBehaviour> headEmployees;
     private List<Order> orders;
+    private List<Order> waitList;
     private CentralTransactionLogic zoneManager;
     private EmployeeManager employeeManager;
     private int upgradeCount = 0;
@@ -28,6 +29,7 @@ public class ZoneManagment : MonoBehaviour
         startingSalary = employeeSalary;
         zoneManager = GetComponentInParent<CentralTransactionLogic>();
         orders = new List<Order>();
+        waitList = new List<Order>();
         employees = new List<EmployeeBehaviour>();
         headEmployees = new List<EmployeeBehaviour>();
 
@@ -94,11 +96,30 @@ public class ZoneManagment : MonoBehaviour
         {
             CheckCurrentOrders();
         }
-        if (zoneName == Constants.serving)
+        if (zoneName == Constants.serving && waitList.Count > 0)
         {
 
+            CheckWaitList();
         }
 
+    }
+
+    private void CheckWaitList()
+    {
+        foreach (Order order in waitList)
+        {
+            if (order.IsBeingTakenToClean && !order.IsAssigned)
+            {
+                Workstation workstation = order.GetTable();
+                EmployeeBehaviour employee = GetEmployee();
+                if (employee != null)
+                {
+                    order.IsAssigned = true;
+                    employee.BeginTask(workstation, order);
+                }
+
+            }
+        }
     }
 
     private void CheckCurrentOrders()
@@ -294,6 +315,10 @@ public class ZoneManagment : MonoBehaviour
     public void TaskAccomplished(Order order)
     {
         orders.Remove(order);
+        if (order.IsBeingTakenToClean)
+        {
+            waitList.Remove(order);
+        }
         output.AddRessources(1);
         zoneManager.SendToNextZone(order, zoneName);
     }
@@ -318,6 +343,13 @@ public class ZoneManagment : MonoBehaviour
     {
         return DrawRandomAvailable<Workstation>(stations, (Workstation station) => !station.InUse);
     }
+
+    internal void OrderDone(Order currentOrder)
+    {
+        orders.Remove(currentOrder);
+        waitList.Add(currentOrder);
+    }
+
     private Order CheckForOrders()
     {
         return DrawRandomAvailable<Order>(orders, (Order order) => !order.IsBeingPrepared);

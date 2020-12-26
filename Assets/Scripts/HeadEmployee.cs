@@ -46,8 +46,10 @@ public class HeadEmployee : MonoBehaviour
     private Animator animator;
     private Vector3 movingTo;
     private Vector3 movingFrom;
-    private float maxY= .2f;
+    private float maxY= .16f;
     private GameObject midPoint;
+    private OrderList orderList;
+
    
     void Awake()
     {
@@ -57,6 +59,7 @@ public class HeadEmployee : MonoBehaviour
 
     private void Start()
     {
+        orderList = GameObject.Find("OrderList").GetComponent<OrderList>();
         midPoint = GameObject.Find("MidPoint");
         animator = GetComponent<Animator>();
         headEmployeeCardMenu = GetComponent<HeadEmployeeCardMenu>();
@@ -102,8 +105,16 @@ public class HeadEmployee : MonoBehaviour
                 output = employeeBehaviour.ParentZone.GetOutputPos();
                 break;
             case Constants.serving:
-                input = employeeBehaviour.ParentZone.GetInputPos();
-                output = currentOrder.Table.GetWaiterZone();
+                if (currentOrder.IsReady)
+                {
+                    input = employeeBehaviour.ParentZone.GetInputPos();
+                    output = currentOrder.Table.GetWaiterZone();
+                }
+                else if (currentOrder.IsBeingTakenToClean)
+                {
+                    input = currentOrder.Table.GetWaiterZone();
+                    output = employeeBehaviour.ParentZone.GetOutputPos();
+                }
                 break;
             case Constants.cleaning:
                 input = employeeBehaviour.ParentZone.GetInputPos();
@@ -213,7 +224,7 @@ public class HeadEmployee : MonoBehaviour
 
     private void WaiterTask()
     {
-        if (!currentOrder.IsBeingTakenToClean)
+        if (currentOrder.IsReady)
         {
             if (step == 0)
             {
@@ -222,25 +233,40 @@ public class HeadEmployee : MonoBehaviour
                     Vector3.Distance(input.position, transform.position) / moveSpeed)
                     .setOnComplete(ChangeStep, obj);
                 employeeBehaviour.DrawResource();
-                movingTo = input.position;
-                movingFrom = transform.position;
-                IsMoving = true;
-                AnimationChosen = false;
+                StartMoving();
             }
             if (step == 1)
             {
                 LeanTween.move(gameObject, output.position,
                      Vector3.Distance(output.position, transform.position) / moveSpeed)
+                    .setOnComplete(PassOrder);
+                StartMoving();
+            }
+        }
+        else if (currentOrder.IsBeingTakenToClean) 
+        {
+            if (step == 0)
+            {
+                object obj = 1f;
+                LeanTween.move(gameObject, input.position,
+                    Vector3.Distance(input.position, transform.position) / moveSpeed)
+                    .setOnComplete(ChangeStep, obj);
+              
+            }
+            if (step == 1)
+            {
+                currentOrder.Customer.PayAndLeave();
+                currentOrder.GenerateMealPrice();
+                LeanTween.move(gameObject, output.position,
+                     Vector3.Distance(output.position, transform.position) / moveSpeed)
                     .setOnComplete(StopWorking);
-                movingTo = output.position;
-                movingFrom = transform.position;
-                IsMoving = true;
-                AnimationChosen = false;
-
+                StartMoving();
             }
         }
     }
 
+
+  
     private void BarmanTask()
     {
         if (step == 0)
@@ -250,11 +276,8 @@ public class HeadEmployee : MonoBehaviour
                 Vector3.Distance(input.position, transform.position) / moveSpeed)
                 .setOnComplete(ChangeStep, obj);
             employeeBehaviour.DrawResource();
-            IsMoving = true;
-            IsPreparingFood = true;
-            movingTo = input.position;
-            movingFrom = transform.position;
-            AnimationChosen = false;
+            IsPreparingFood = true; 
+            StartMoving();
         }
         if (step == 1)
         {
@@ -263,27 +286,48 @@ public class HeadEmployee : MonoBehaviour
             LeanTween.move(gameObject, output.position,
                  Vector3.Distance(output.position, transform.position) / moveSpeed)
                 .setOnComplete(StopWorking);
-            IsMoving = true;
-            movingTo = output.position;
-            movingFrom = transform.position;
-            AnimationChosen = false;
+            StartMoving();
+            currentOrder.IsReady = true;
         }
     }
 
+    private void StartMoving()
+    {
+        movingTo = output.position;
+        movingFrom = transform.position;
+        IsMoving = true;
+        AnimationChosen = false;
+    }
+
+    private void PassOrder()
+    {
+        orderList.SendOrderToNextStep(currentOrder);
+        employeeBehaviour.IsBusy = false;
+        currentOrder.Customer.StartEating();
+        newZone.OrderDone(currentOrder);
+        IsMoving = false;
+        currentOrder.IsAssigned = false;
+        IsWorking = false;
+        TaskBegun = false;
+        step = 0;
+        currentOrder = null;
+    }
 
     private void StopWorking()
     {
+        orderList.SendOrderToNextStep(currentOrder);
         IsMoving = false;
-        if (currentZone == Constants.serving)
-        {
-            currentOrder.Customer.StartEating();
-        }
         currentOrder.IsAssigned = false;
         employeeBehaviour.TaskAccomplished();
         workstation.InUse = false;
         IsWorking = false;
         TaskBegun = false;
         step = 0;
+        if (currentZone == Constants.serving)
+        {
+            orderList.RemoveOrder(currentOrder);
+        }
+        currentOrder = null;
     }
 
     private void ChangeStep(object obj)

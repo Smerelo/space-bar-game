@@ -33,7 +33,22 @@ public class OrderList : MonoBehaviour
         activeOrders++;
     }
 
-    internal void SendOrderToNextStep(Order order)
+    public void RemoveOrder(Order order)
+    {
+        foreach (OrderCard card in orders)
+        {
+            Order orderTemp = card.GetOrder();
+            if (orderTemp == order)
+            {
+                orders.Remove(card);
+                GameObject.Destroy(card.gameObject);
+                break;
+            }
+        }
+        activeOrders--;
+    }
+
+    public void SendOrderToNextStep(Order order)
     {
         foreach (OrderCard card in orders)
         {

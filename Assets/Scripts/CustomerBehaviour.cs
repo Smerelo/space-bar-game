@@ -127,6 +127,8 @@ public class CustomerBehaviour : MonoBehaviour
                     HasFinishedEating = true;
                     timer = 0;
                     isEating = false;
+                    order.IsReady = false;
+                    order.IsBeingTakenToClean = true;
                     animator.SetBool("isEating", false);
 
                 }

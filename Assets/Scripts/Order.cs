@@ -55,7 +55,6 @@ public class Order
         float waitTimeBonus = Customer.GetWaitTimeBonus();
         float moneyPayed = food.Price + (food.Price * waitTimeBonus * 1.5f); //linear function maybe change to sigmoid
         Customer.Pay(moneyPayed);
-        Debug.Log($"tip {waitTimeBonus}% | price {food.Price} | moneyPayed {moneyPayed}");
         return moneyPayed;
     }
 
