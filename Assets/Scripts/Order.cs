@@ -36,6 +36,9 @@ public class Order
         Customer = customer;
         PreparationTime = Order.GetFoodTypeAsset(FoodType).PreparationTime;
     }
+
+    public bool BossOrder { get; internal set; }
+
     public Order(Table table, CustomerBehaviour customer)
     {
         FoodType = RandomFoodType();

@@ -64,7 +64,7 @@ public class AudioManager : MonoBehaviour
     
     public void ResumeNormalMusic()
     {
-        int i = UnityEngine.Random.Range(0, 4);
+        int i = UnityEngine.Random.Range(0, backgroundMusic.Count);
         SoundManager.MusicSource.loop = false;
         SoundManager.MusicSource.clip = backgroundMusic[i];
         CurrentSong = i;

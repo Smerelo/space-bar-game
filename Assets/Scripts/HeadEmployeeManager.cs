@@ -17,4 +17,13 @@ public class HeadEmployeeManager : MonoBehaviour
     {
         employeeList.Remove(headEmployee);
     }
+
+    internal HeadEmployee GetRandomEmployee()
+    {
+        if (employeeList.Count == 0)
+        {
+            return null;
+        }
+        return employeeList[UnityEngine.Random.Range(0, employeeList.Count)];
+    }
 }

@@ -18,6 +18,7 @@ public class Boss : MonoBehaviour
 
 
 
+    private OrderList orders;
     private Order.FoodTypes foodPreference;
     private CentralTransactionLogic ctl;
     private float AttackTimer;
@@ -32,16 +33,19 @@ public class Boss : MonoBehaviour
     private List<CustomerBehaviour> orderList;
     private bool eating;
 
+    public bool Kill { get; private set; }
+
     void Start()
     {
         // BossCinematic();
+        orders = GameObject.Find("OrderList").GetComponent<OrderList>();
         orderList = new List<CustomerBehaviour>();
         ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         waitZone = transform.GetChild(2).transform;
         table = Instantiate(tablePrefab, new Vector3(100f, 100f, 100f),
             Quaternion.identity, transform).GetComponent<Table>();
         foodPreference = Order.RandomFoodType();
-        startAttackTimer = 10f;
+        startAttackTimer = 15f;
         progressBar.maxValue = startAttackTimer;
         AttackTimer = startAttackTimer;
         orderTimer = 0f;
@@ -56,7 +60,6 @@ public class Boss : MonoBehaviour
         {
             progressBar.gameObject.SetActive(true);
             AttackTimer -= Time.deltaTime;
-
             orderTimer -= Time.deltaTime;
             progressBar.value = AttackTimer;
             if (orderTimer <= 0)
@@ -89,22 +92,32 @@ public class Boss : MonoBehaviour
     {
         orderList.Remove(customer);
         Destroy(customer.gameObject);
-        AttackTimer = startAttackTimer;
+       AttackTimer = AttackTimer + 8 > startAttackTimer ? startAttackTimer 
+            : AttackTimer + 8;
         UpdateHealth(-5);
+
         slimeBoss.Eat();
     }
 
     private void UpdateHealth(int i)
     {
         healthBar.value += i;
+        if (healthBar.value <= 50 && !Kill)
+        {
+            Kill = true;
+            AttackTimer = startAttackTimer;
+            slimeBoss.GetAngry();
+        }
     }
 
    
     private void SendOrder()
     {
+        foodPreference = Order.RandomFoodType();
         orderList.Add(Instantiate(customerPrefab, new Vector3(1000f,1000f, 1000f ), 
             Quaternion.identity, transform).GetComponent<CustomerBehaviour>());
         order = new Order(foodPreference, table, orderList[orderList.Count - 1]);
+        order.BossOrder = true;
         ctl.AddOrder(order);
     }
 
@@ -112,7 +125,6 @@ public class Boss : MonoBehaviour
     {
         isInCinematic = true;
         bossIsActive = true;
-        Debug.Log(table);
         table.SetUpBossTable(waitZone);
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         tableManager.AddTable(table);

@@ -44,7 +44,7 @@ public class DayManagement : MonoBehaviour
     void Start()
     {
         audio = GameObject.Find("Main Camera").GetComponent<AudioManager>();
-        dayCounter = 1;
+        dayCounter = 4;
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         CTL = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         dayClock = dayStart;
@@ -80,6 +80,7 @@ public class DayManagement : MonoBehaviour
 
     private void PlayTransition()
     {
+        //Cursor.visible = true;
         endOfDayMenu.SetActive(true);
         transition.Play("Transition");
         Invoke("ShowEndOfDayMenu", 1.3f);
@@ -111,6 +112,7 @@ public class DayManagement : MonoBehaviour
 
     public void NextDay()
     {
+       // Cursor.visible = false;
         transition.Play("Inverse_Transition");
         menu.SetActive(false);
         menu2.SetActive(false);
@@ -131,7 +133,10 @@ public class DayManagement : MonoBehaviour
         CTL.EmployeeClockIn();
         dayFinished = false;
         endOfDayMenu.SetActive(false);
-        audio.ResumeNormalMusic();
+        if (!bossActive)
+        {
+            audio.ResumeNormalMusic();
+        }
     }
     private void UpdateClock()
     {

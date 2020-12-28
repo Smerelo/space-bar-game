@@ -90,6 +90,11 @@ public class CustomerBehaviour : MonoBehaviour
         eatingTime = 3f;
     }
 
+    internal Order GetOrder()
+    {
+        return order;
+    }
+
     public void AssignTable(Table table)
     {
         assignedTable = table;
@@ -99,9 +104,12 @@ public class CustomerBehaviour : MonoBehaviour
     public void StartEating()
     {
         waitingForOrder = false;
-        food.ShowFood(eatingTime);
+        if (order != null && !order.BossOrder)
+        {
+            food.ShowFood(eatingTime);
+            animator.SetBool("isEating", true);
+        }
         isEating = true;
-        animator.SetBool("isEating", true);
     }
     public void PayAndLeave()
     {

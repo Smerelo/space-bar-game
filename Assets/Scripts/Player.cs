@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class Player : MonoBehaviour
     [SerializeField] private YellButton yellButton;
     [SerializeField] private Slider slider;
     [HideInInspector] public bool orderAssigned;
+    [SerializeField] private CinemachineVirtualCamera camera;
+    [SerializeField] private GameObject ui;
+    [SerializeField] private GameObject ui2;
+
+
     public bool CanYell { get; private set; }
     private bool IsInWorkStation { get; set; }
     public bool IsDoingTask { get; private set; }
@@ -35,9 +41,13 @@ public class Player : MonoBehaviour
     private Workstation workstation;
     private Table table;
     private float cooldownTimer = 0;
+
+  
+
     private int typeOfTask;
     private int mode = 0;
     private int step;
+    private float taskSpeed = 1f;
 
 
 
@@ -57,6 +67,11 @@ public class Player : MonoBehaviour
         shouldYell = false;
     }
 
+    internal void UpgradeTaskSpeed(float currentSpeed)
+    {
+        taskSpeed = currentSpeed;
+    }
+
     void Update()
     {
         if (!yelling && !IsDoingTask)
@@ -66,7 +81,7 @@ public class Player : MonoBehaviour
 
         if (IsDoingTask && slider.value < slider.maxValue)
         {
-            slider.value += Time.deltaTime;
+            slider.value += Time.deltaTime * taskSpeed;
         }
         else if(IsDoingTask && slider.value >= slider.maxValue)
         {
@@ -88,6 +103,22 @@ public class Player : MonoBehaviour
         {
             DoAction();
         }
+    }
+
+    internal void UpgradeSpeed(float currentSpeed)
+    {
+        moveSpeed = currentSpeed;
+    }
+
+
+    internal float GetCurrentSpeed()
+    {
+        return moveSpeed;
+    }
+
+    internal float GetCurrentTaskSpeed()
+    {
+        return taskSpeed;
     }
 
     internal void AssignOrder(Order order)
@@ -321,7 +352,6 @@ public class Player : MonoBehaviour
 
     public void ShouldYell()
     {
-        Debug.Log("ShouldYell");
         shouldYell = true;
     }
 

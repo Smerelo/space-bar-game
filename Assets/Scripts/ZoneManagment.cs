@@ -60,11 +60,11 @@ public class ZoneManagment : MonoBehaviour
 
     internal GameObject GetRandomEmployee()
     {
-        if (employees.Count == 0)
+        if (headEmployees.Count == 0)
         {
             return null;
         }
-        return employees[UnityEngine.Random.Range(0, employees.Count)].gameObject;
+        return headEmployees[UnityEngine.Random.Range(0, employees.Count)].gameObject;
     }
 
     public void CashIn(float amount)
@@ -175,7 +175,7 @@ public class ZoneManagment : MonoBehaviour
 
     internal void RemoveEmployee(GameObject employee)
     {
-        employees.Remove(employee.GetComponent<EmployeeBehaviour>());
+        headEmployees.Remove(employee.GetComponent<EmployeeBehaviour>());
         Destroy(employee);
         UpdateNumbers();
     }
@@ -377,6 +377,11 @@ public class ZoneManagment : MonoBehaviour
         return default(T);
     }
 
+    internal void DiscardOrder(Order currentOrder)
+    {
+        orders.Remove(currentOrder);
+    }
+
     public void HireEmployee()
     {
         GameObject newEmployee = Instantiate(workerPrefab, spawnZone.position, Quaternion.identity, transform);
@@ -467,7 +472,7 @@ public class ZoneManagment : MonoBehaviour
 
     public void Yell()
     {
-        foreach (EmployeeBehaviour employee in employees)
+        foreach (EmployeeBehaviour employee in headEmployees)
         {
             employee.GotYelledAt = true;
         }

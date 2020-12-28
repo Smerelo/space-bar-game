@@ -8,7 +8,8 @@ using TMPro;
 public class EndOfDay : MonoBehaviour
 {
 
-    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] public TextMeshProUGUI moneyText;
+    public double balance;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class EndOfDay : MonoBehaviour
     public void SetGameStatus(double moneyBalance)
     {
 
+        balance = moneyBalance;
         if (moneyBalance >= 0)
         {
             moneyText.color = Colors.Instance.positiveBalance;
@@ -37,5 +39,14 @@ public class EndOfDay : MonoBehaviour
         int decimals = Mathf.Abs((int)Math.Round(100.0 * (moneyBalance - Math.Truncate(moneyBalance))));
         moneyText.text = $"${Math.Truncate(moneyBalance)}<size=-14>{decimals.ToString("D2")}</size>";
 
+    }
+
+    internal void UpdateBalance(float m)
+    {
+        balance -= m;
+        balance = balance;
+      
+        int decimals = Mathf.Abs((int)Math.Round(100.0 * (balance - Math.Truncate(balance))));
+        moneyText.text = $"${Math.Truncate(balance)}<size=-14>{decimals.ToString("D2")}</size>";
     }
 }

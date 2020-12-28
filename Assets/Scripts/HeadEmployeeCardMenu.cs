@@ -76,12 +76,6 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if (!isMenuActive && !UI.activeSelf && timer > .5f)
-        {
-            UI.SetActive(true);
-            MobileUI.SetActive(true);
-        }
         if (curriculum != null)
         {
             ChangeAnimation("Employee_" + curriculum.employeeType);
@@ -119,6 +113,13 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
         LeanTween.scale(cardMenu, new Vector3(0, 0, 0), 0.4f);
         isMenuActive = false;
         background.enabled = false;
+        Invoke("ShowUI", 0.5f);
+    }
+
+    private void ShowUI()
+    {
+        UI.SetActive(true);
+        MobileUI.SetActive(true);
     }
 
     public void ShowCardMenu()
@@ -135,8 +136,14 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        ShowCardMenu();
-
+        if (isMenuActive == false)
+        {
+            ShowCardMenu();
+        }
+        else if (isMenuActive == true && eventData.lastPress == background)
+        {
+            HideCardMenu();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
