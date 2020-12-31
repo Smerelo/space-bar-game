@@ -5,7 +5,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using UnityEngine.AI;
 public class HeadEmployee : MonoBehaviour
 {
     [HideInInspector] public string currentZone;
@@ -20,6 +20,8 @@ public class HeadEmployee : MonoBehaviour
     public bool AnimationChosen { get; private set; }
     public bool IsPreparingFood { get; private set; }
     public bool IsStunned { get; private set; }
+    public bool HeadingToInput { get; private set; }
+    public bool HeadingToOutput { get; private set; }
 
     private const string IDLE_ = "idle_";
     private const string IDLEBACK_ = "idleBack_";
@@ -48,7 +50,7 @@ public class HeadEmployee : MonoBehaviour
     private Animator animator;
     private Vector3 movingTo;
     private Vector3 movingFrom;
-    private float maxY = .16f;
+    private float maxY = 1f;
     private GameObject midPoint;
     private OrderList orderList;
     private LTDescr currentTween;
@@ -56,7 +58,10 @@ public class HeadEmployee : MonoBehaviour
     private float motivationTimer = 0;
     private float motivationDuration = 4;
     private float motivation = 1;
+    private NavMeshAgent agent;
+    private bool waitFrame;
 
+    //Main
     void Awake()
     {
         employeeBehaviour = GetComponent<EmployeeBehaviour>();
@@ -74,12 +79,54 @@ public class HeadEmployee : MonoBehaviour
         oldZone = null;
         employeeBehaviour.Salary = Salary;
     }
+    private void Update()
+    {
+        if (!IsStunned)
+        {
+            CheckMotivation();
+            if (!IsMoving)
+            {
+                if (IsPreparingFood && transform.position.y > midPoint.transform.position.y)
+                    ChangeAnimationState(IDLEBACK_ + curriculum.employeeType);
+                else
+                    ChangeAnimationState(IDLE_ + curriculum.employeeType);
+            }
+            if (IsMoving && !AnimationChosen)
+            {
+                ChooseAnimation();
+            }
+            if (IsMoving)
+            {
+                CheckMovement();
+            }
+            if (shouldChangeZone && !employeeBehaviour.IsBusy)
+            {
+                shouldChangeZone = false;
+                ChangeZone();
+            }
+            if (!employeeBehaviour.IsBusy && newZone != null && !IsWaiting)
+            {
+                GoToWaitZone();
+            }
+            if (IsWorking && !TaskBegun && currentZone != null && !IsMoving && !IsWaiting)
+            {
+                TaskBegun = true;
+                ChooseTask();
+            }
+        }
+    }
+
+
 
     public void InstantiateEmployee(Cv cv)
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         employeeManager = GameObject.Find("HeadEmployees")
             .GetComponent<HeadEmployeeManager>();
         moveSpeed = cv.moveSpeed;
+        agent.speed = cv.moveSpeed;
         taskSpeed = cv.taskSpeed;
         Salary = cv.price;
         EmployeeNumber = employeeManager.number + 1;
@@ -133,49 +180,244 @@ public class HeadEmployee : MonoBehaviour
         }
     }
 
-    internal void Stop()
+   
+
+   
+
+    private void CheckMovement()
     {
-        if (currentTween != null)
+
+        if (IsWaiting)
         {
-            currentTween.pause();
+            if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                StopMoving();
+            }
+            if (!waitFrame)
+            {
+                waitFrame = true;
+            }
         }
-        IsStunned = true;
+        else
+        {
+            if (currentOrder != null && currentOrder.IsBeingPrepared)
+            {
+                if (HeadingToInput)
+                {
+                    object obj = currentOrder.PreparationTime;
+                    if (!waitFrame)
+                    {
+                        waitFrame = true;
+                    }
+                    if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        ChangeStep(obj);
+                        employeeBehaviour.DrawResource();
+                        HeadingToInput = false;
+                        waitFrame = false;
+                    }
+                }
+                if (HeadingToOutput)
+                {
+                    if (!waitFrame)
+                    {
+                        waitFrame = true;
+                    }
+                    if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        HeadingToOutput = false;
+                        waitFrame = false;
+                        currentOrder.IsReady = true;
+                        StopWorking();
+                    }
+                }
+            }
+            else if (currentOrder != null && currentOrder.IsReady)
+            {
+                if (HeadingToInput)
+                {
+                    object obj = .5f;
+                    if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        ChangeStep(obj);
+                        employeeBehaviour.DrawResource();
+                        HeadingToInput = false;
+                        waitFrame = false;
+                    }
+                    if (!waitFrame)
+                    {
+                        waitFrame = true;
+                    }
+
+                }
+                if (HeadingToOutput)
+                {
+                    HeadingToOutput = true;
+                    if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        waitFrame = false;
+                        HeadingToOutput = false;
+                        PassOrder();
+                    }
+                    if (!waitFrame)
+                    {
+                        waitFrame = true;
+                    }
+                }
+            }
+            else if (currentOrder != null && currentOrder.IsBeingTakenToClean)
+            {
+                if (HeadingToInput)
+                {
+                    object obj = 1.5f;
+                    if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        ChangeStep(obj);
+                        employeeBehaviour.DrawResource();
+                        HeadingToInput = false;
+                        waitFrame = false;
+                    }
+                    if (!waitFrame)
+                    {
+                        waitFrame = true;
+                    }
+
+                }
+                if (HeadingToOutput)
+                {
+                    HeadingToOutput = true;
+                    if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        waitFrame = false;
+                        HeadingToOutput = false;
+                        StopWorking();
+                    }
+                    if (!waitFrame)
+                    {
+                        waitFrame = true;
+                    }
+                }
+            }
+        }
     }
 
-    private void Update()
+    //Tasks
+    private void ChooseTask()
     {
-        if (!IsStunned)
+        switch (currentZone)
         {
+            case Constants.preparing:
+                BarmanTask();
+                break;
+            case Constants.serving:
+                WaiterTask();
+                break;
+            case Constants.cleaning:
+                CleanerTask();
+                break;
+            default:
+                break;
+        }
+    }
 
-            CheckMotivation();
-            if (!IsMoving)
-            {
-                if (IsPreparingFood && transform.position.y > midPoint.transform.position.y)
-                    ChangeAnimationState(IDLEBACK_ + curriculum.employeeType);
-                else
-                    ChangeAnimationState(IDLE_ + curriculum.employeeType);
-            }
-            if (IsMoving && !AnimationChosen)
-            {
-                ChooseAnimation();
-            }
-            if (shouldChangeZone && !employeeBehaviour.IsBusy)
-            {
-                shouldChangeZone = false;
-                ChangeZone();
-            }
-            if (!employeeBehaviour.IsBusy && newZone != null && !IsWaiting && !IsMoving)
-            {
+    private void CleanerTask()
+    {
+        throw new NotImplementedException();
+    }
 
-                IsWaiting = true;
-                GoToWaitZone();
-            }
-            if (IsWorking && !TaskBegun && currentZone != null && !IsMoving)
+
+    private void BarmanTask()
+    {
+        if (step == 0)
+        {
+            agent.SetDestination(input.position);
+            HeadingToInput = true;
+            IsPreparingFood = true;
+            StartMoving();
+        }
+        if (step == 1)
+        {
+            workstation.StopAnimation();
+            IsPreparingFood = false;
+            StartMoving();
+            agent.SetDestination(output.position);
+            HeadingToOutput = true;
+        }
+    }
+    private void WaiterTask()
+    {
+        if (currentOrder.IsReady)
+        {
+            if (step == 0)
             {
-                TaskBegun = true;
-                ChooseTask();
+                agent.SetDestination(input.position);
+                HeadingToInput = true;
+             
+                StartMoving();
+            }
+            if (step == 1)
+            {
+                HeadingToOutput = true;
+        
+                agent.SetDestination(output.position);
+                StartMoving();
             }
         }
+        else if (currentOrder.IsBeingTakenToClean)
+        {
+            if (step == 0)
+            {
+                agent.SetDestination(input.position);
+                StartMoving();
+                HeadingToInput = true;
+            }
+            if (step == 1)
+            {
+                currentOrder.Customer.PayAndLeave();
+                currentOrder.GenerateMealPrice();
+                agent.SetDestination(output.position);
+                HeadingToOutput = true;
+                StartMoving();
+            }
+        }
+    }
+
+   
+    //Stun
+    internal void Stop()
+    {
+        agent.isStopped = true;
+    }
+
+    internal void Stun()
+    {
+        Invoke("RemoveStun", 3f);
+    }
+
+
+    private void RemoveStun()
+    {
+        agent.isStopped = false;
+        IsStunned = false;
+    }
+
+
+    //Movement
+    private void GoToWaitZone()
+    {
+        agent.SetDestination(waitZone.position);
+        IsWaiting = true;
+        IsMoving = true;
+        AnimationChosen = false;
+        movingTo = waitZone.position;
+        movingFrom = transform.position;
+    }
+
+    private void StopMoving()
+    {
+        IsWaiting = true;
+        currentTween = null;
+        IsMoving = false;
     }
 
     private void CheckMotivation()
@@ -185,56 +427,10 @@ public class HeadEmployee : MonoBehaviour
         {
             employeeBehaviour.GotYelledAt = false;
             isMotivated = true;
-            moveSpeed += 1.5f;
-            if (currentTween != null)
-            {
-                currentTween.pause();
-                if (IsWaiting)
-                {
-                    currentTween = LeanTween.move(gameObject, waitZone.position,
-                           Vector3.Distance(waitZone.position, transform.position) / moveSpeed)
-                           .setOnComplete(StopMoving);
-                }
-                else
-                {
-                    if (currentZone == Constants.serving)
-                    {
-                        if (step == 0)
-                        {
-                            object obj = 1f;
-                            currentTween = LeanTween.move(gameObject, input.position,
-                                Vector3.Distance(input.position, transform.position) / moveSpeed)
-                                .setOnComplete(ChangeStep, obj);
-                        }
-                        if (step == 1)
-                        {
-                            currentTween = LeanTween.move(gameObject, output.position,
-                                 Vector3.Distance(output.position, transform.position) / moveSpeed)
-                                 .setOnComplete(PassOrder);
-                        }
-                    }if (currentZone == Constants.preparing)
-                    {
-                        if (step == 0)
-                        {
-                            object obj = currentOrder.PreparationTime;
-                            currentTween = LeanTween.move(gameObject, input.position,
-                                Vector3.Distance(input.position, transform.position) / moveSpeed)
-                                .setOnComplete(ChangeStep, obj);
-
-                        }
-                        if (step == 1)
-                        {
-                            currentTween = LeanTween.move(gameObject, output.position,
-                                 Vector3.Distance(output.position, transform.position) / moveSpeed)
-                                .setOnComplete(StopWorking);
-                        }
-                    }
-                }
-            }
+            agent.speed += 1.5f;
         }
         if (isMotivated)
         {
-            Debug.Log(moveSpeed);
             motivationTimer += Time.deltaTime;
             motivation = 1.3f;
             if (motivationTimer >= motivationDuration)
@@ -242,24 +438,10 @@ public class HeadEmployee : MonoBehaviour
                 motivationTimer = 0;
                 motivation = 1;
                 isMotivated = false;
-                moveSpeed = curriculum.moveSpeed;
+                agent.speed = curriculum.moveSpeed;
             }
 
         }
-    }
-
-    internal void Stun()
-    {
-        Invoke("RemoveStun", 3f);
-    }
-
-    private void RemoveStun()
-    {
-        if (currentTween != null)
-        {
-            currentTween.resume();
-        }
-        IsStunned = false;
     }
 
     private void ChooseAnimation()
@@ -270,12 +452,14 @@ public class HeadEmployee : MonoBehaviour
         {
             if (diffY < maxY)
             {
+
                 ChangeAnimationState(WALKRIGHT_ + curriculum.employeeType);
             }
             else
             {
                 if (movingTo.y > movingFrom.y)
                 {
+
                     ChangeAnimationState(WALKBACK_ + curriculum.employeeType);
                 }
                 else
@@ -305,98 +489,6 @@ public class HeadEmployee : MonoBehaviour
         }
     }
 
-    private void ChooseTask()
-    {
-        switch (currentZone)
-        {
-            case Constants.preparing:
-                BarmanTask();
-                break;
-            case Constants.serving:
-                WaiterTask();
-                break;
-            case Constants.cleaning:
-                CleanerTask();
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void CleanerTask()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void WaiterTask()
-    {
-        if (currentOrder.IsReady)
-        {
-            if (step == 0)
-            {
-                object obj = 1f;
-                currentTween = LeanTween.move(gameObject, input.position,
-                    Vector3.Distance(input.position, transform.position) / moveSpeed)
-                    .setOnComplete(ChangeStep, obj);
-                employeeBehaviour.DrawResource();
-                StartMoving();
-            }
-            if (step == 1)
-            {
-                currentTween = LeanTween.move(gameObject, output.position,
-                     Vector3.Distance(output.position, transform.position) / moveSpeed)
-                    .setOnComplete(PassOrder);
-                StartMoving();
-            }
-        }
-        else if (currentOrder.IsBeingTakenToClean)
-        {
-            if (step == 0)
-            {
-                object obj = 1f;
-                currentTween = LeanTween.move(gameObject, input.position,
-                    Vector3.Distance(input.position, transform.position) / moveSpeed)
-                    .setOnComplete(ChangeStep, obj);
-
-            }
-            if (step == 1)
-            {
-                currentOrder.Customer.PayAndLeave();
-                currentOrder.GenerateMealPrice();
-                currentTween = LeanTween.move(gameObject, output.position,
-                     Vector3.Distance(output.position, transform.position) / moveSpeed)
-                    .setOnComplete(StopWorking);
-                StartMoving();
-            }
-        }
-    }
-
-
-
-    private void BarmanTask()
-    {
-        if (step == 0)
-        {
-            object obj = currentOrder.PreparationTime;
-            currentTween = LeanTween.move(gameObject, input.position,
-                Vector3.Distance(input.position, transform.position) / moveSpeed)
-                .setOnComplete(ChangeStep, obj);
-            employeeBehaviour.DrawResource();
-            IsPreparingFood = true;
-            StartMoving();
-        }
-        if (step == 1)
-        {
-            workstation.StopAnimation();
-            IsPreparingFood = false;
-            currentTween = LeanTween.move(gameObject, output.position,
-                 Vector3.Distance(output.position, transform.position) / moveSpeed)
-                .setOnComplete(StopWorking);
-            StartMoving();
-            currentOrder.IsReady = true;
-        }
-    }
-
     private void StartMoving()
     {
         movingTo = output.position;
@@ -407,6 +499,7 @@ public class HeadEmployee : MonoBehaviour
 
     private void PassOrder()
     {
+        AnimationChosen = false;
         currentTween = null;
         if (!currentOrder.BossOrder)
         {
@@ -430,6 +523,8 @@ public class HeadEmployee : MonoBehaviour
 
     private void StopWorking()
     {
+        AnimationChosen = false;
+        agent.isStopped = false;
         orderList.SendOrderToNextStep(currentOrder);
         IsMoving = false;
         currentOrder.IsAssigned = false;
@@ -475,26 +570,10 @@ public class HeadEmployee : MonoBehaviour
 
     }
 
-    private void GoToWaitZone()
-    {
-        currentTween = LeanTween.move(gameObject, waitZone.position,
-            Vector3.Distance(waitZone.position, transform.position) / moveSpeed).setOnComplete(StopMoving);
-        IsMoving = true;
-        movingTo = waitZone.position;
-        AnimationChosen = false;
-
-        movingFrom = transform.position;
-    }
-
-    private void StopMoving()
-    {
-        currentTween = null;
-        IsMoving = false;
-    }
+    
 
     private void ChangeZone()
     {
-        IsWaiting = false;
         this.transform.parent = newZone.transform;
         employeeBehaviour.ParentZone = newZone;
         if (oldZone != null)

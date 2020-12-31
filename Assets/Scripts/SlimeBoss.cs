@@ -95,10 +95,13 @@ public class SlimeBoss : MonoBehaviour
 
     public void GetAngry()
     {
-        ChangeAnimationState(BOSS_ANGRY, animator);
-        StartCoroutine(PlayNextAnimation(animator, "Attack"));
         employeeAttacked = employees.GetRandomEmployee();
-        employeeAttacked.Stop();
+        if (employeeAttacked != null)
+        {
+            ChangeAnimationState(BOSS_ANGRY, animator);
+            StartCoroutine(PlayNextAnimation(animator, "Attack"));
+            employeeAttacked.Stop();
+        }
 
     }
 

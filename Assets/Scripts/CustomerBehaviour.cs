@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.AI;
 public class CustomerBehaviour : MonoBehaviour
 {
     private Table assignedTable;
@@ -39,10 +40,10 @@ public class CustomerBehaviour : MonoBehaviour
     [SerializeField] private Color negativeColor;
     private CentralTransactionLogic ctl;
     private Popularity popularity;
-
+    private NavMeshAgent agent;
+    private bool waitFrame;
     internal void Pay(float mealprice)
     {
-       
         GameObject money =  Instantiate(moneyPrefab, moneyPos.position, Quaternion.identity, this.transform).transform.GetChild(0).gameObject;
         money.transform.position = moneyPos.position;
         TextMeshProUGUI m_text = money.GetComponent<TextMeshProUGUI>();
@@ -67,6 +68,7 @@ public class CustomerBehaviour : MonoBehaviour
     }
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
         ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         maxPatience = Order.GetFoodTypeAsset(foodPreference).PreparationTime * patienceMultiplier;
         waitTiimer = maxPatience;
@@ -88,6 +90,8 @@ public class CustomerBehaviour : MonoBehaviour
         foodPreference = Order.RandomFoodType();
         // eatingTime = manager.GetEatingTime();
         eatingTime = 3f;
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     internal Order GetOrder()
@@ -229,8 +233,25 @@ public class CustomerBehaviour : MonoBehaviour
 
     private bool MoveToTableAndCheck()
     {
-        if (!(Vector3.Distance(assignedTable.GetSittingZone(), transform.position) < 0.1f))
+        Vector3 sittingZone = new Vector3(assignedTable.GetSittingZone().x,
+           assignedTable.GetSittingZone().y - .3f, transform.position.z);
+        agent.SetDestination(sittingZone);
+
+        if (agent.remainingDistance >= agent.stoppingDistance || float.IsInfinity(agent.remainingDistance))
         {
+            return false;
+        }
+        if (!waitFrame)
+        {
+            waitFrame = true;
+            return false;
+        }
+        return true;
+        /*Vector3 sittingZone = new Vector3(assignedTable.GetSittingZone().x,
+           assignedTable.GetSittingZone().y - .3f, assignedTable.GetSittingZone().z);
+        if (!(Vector3.Distance(sittingZone, transform.position) < 1f))
+        {
+            Debug.Log(Vector3.Distance(sittingZone, transform.position));
             isWalking = true;
             animator.SetBool("isWalking", true);
 
@@ -242,12 +263,12 @@ public class CustomerBehaviour : MonoBehaviour
             {
                 animator.SetFloat("direction", -1);
             }
-            transform.position = Vector3.MoveTowards(transform.position, assignedTable.GetSittingZone(), movementSpeed * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, sittingZone, movementSpeed * Time.deltaTime);
             return false;
         }
         animator.SetBool("isWalking", false);
         isWalking = false;
-        return true; 
+        return true; */
     }
 
     internal void WaitForTable()

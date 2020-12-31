@@ -72,12 +72,17 @@ public class Player : MonoBehaviour
         taskSpeed = currentSpeed;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         if (!yelling && !IsDoingTask)
         {
             Move();
         }
+    }
+
+    void Update()
+    {
+      
 
         if (IsDoingTask && slider.value < slider.maxValue)
         {
