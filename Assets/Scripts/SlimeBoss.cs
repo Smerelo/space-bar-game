@@ -271,7 +271,7 @@ public class SlimeBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("e"))
         {
             GetAngry();
         }

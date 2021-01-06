@@ -24,8 +24,9 @@ public class Order
     public bool IsReady { get; set; }
     public bool IsAssigned { get; set;}
     public string Zone { get; set;}
-
+    public GameObject assignedTo;
     public float PreparationTime { get; set; }
+    public OrderCard card;
 
     public Transform input;
     public Transform output;

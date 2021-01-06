@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public bool IsDoingTask { get; private set; }
     private bool TaskDone {get; set;}
     public bool HasPlate { get; private set; }
+    public bool HasDishesToClean { get; private set; }
 
     private Animator animator;
     private OrderList orderList;
@@ -41,13 +42,10 @@ public class Player : MonoBehaviour
     private Workstation workstation;
     private Table table;
     private float cooldownTimer = 0;
-
-  
-
     private int typeOfTask;
     private int mode = 0;
     private int step;
-    private float taskSpeed = 1f;
+    private float taskSpeed = 1.5f;
 
 
 
@@ -82,16 +80,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-      
-
+        if (!orderAssigned)
+        {
+            taskArrow.gameObject.SetActive(false);
+        }
         if (IsDoingTask && slider.value < slider.maxValue)
         {
             slider.value += Time.deltaTime * taskSpeed;
         }
         else if(IsDoingTask && slider.value >= slider.maxValue)
         {
-            workstation.StopAnimation();
-            workstation = null;
             IsDoingTask = false;
             yellButton.ChangeSprite(0);
             mode = 0;
@@ -126,11 +124,13 @@ public class Player : MonoBehaviour
         return taskSpeed;
     }
 
-    internal void AssignOrder(Order order)
+    internal bool AssignOrder(Order order)
     {
-        if (!orderAssigned)
+        if (!orderAssigned && !HasDishesToClean)
         {
+
             currentOrder = order;
+            currentOrder.assignedTo = gameObject;
             if (currentOrder.IsBeingPrepared)
             {
                 typeOfTask = 0;
@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
                 SetUpInputOutput();
                 orderAssigned = true;
             }
-            if (currentOrder.IsReady)
+            if (currentOrder.IsReady || currentOrder.IsBeingTakenToClean)
             {
                 table = currentOrder.Table;
                 taskArrow.gameObject.SetActive(true);
@@ -151,8 +151,29 @@ public class Player : MonoBehaviour
                 taskArrow.position = new Vector3(input.position.x, input.position.y + 1, 0);
                 orderAssigned = true;
             }
+           
+            return true;
         }
+        return false;
     }
+
+    internal void RemoveOrder()
+    {
+        taskArrow.gameObject.SetActive(false);
+
+        slider.maxValue = 0f;
+        slider.value = 0;
+        slider.gameObject.SetActive(true);
+        HasPlate = false;
+        step = 0;
+        mode = 0;
+        orderAssigned = false;
+        IsDoingTask = false;
+        orderList.RemoveOrder(currentOrder);
+        currentOrder.IsAssigned = false;
+        currentOrder = null;
+    }
+
     private void SetUpInputOutput()
     {
         switch (currentOrder.Zone)
@@ -162,8 +183,16 @@ public class Player : MonoBehaviour
                 output =  preparing.GetOutputPos();
                 break;
             case Constants.serving:
-                input = serving.GetInputPos();
-                output = currentOrder.Table.GetWaiterZone();
+                if (currentOrder.IsReady)
+                {
+                    input = serving.GetInputPos();
+                    output = currentOrder.Table.GetWaiterZone();
+                }
+                else if (currentOrder.IsBeingTakenToClean)
+                {
+                    input = currentOrder.Table.GetWaiterZone();
+                    output = serving.GetOutputPos();
+                }
                 break;
             case Constants.cleaning:
                 input = cleaning.GetInputPos();
@@ -178,13 +207,21 @@ public class Player : MonoBehaviour
     {
         if (currentOrder.IsBeingPrepared)
         {
+            workstation.StopAnimation();
+            workstation = null;
             taskArrow.gameObject.SetActive(true);
             taskArrow.position = new Vector3(output.position.x,
                 output.position.y + 1, 0);
         }
-        else
+        else if (currentOrder.IsBeingTakenToClean)
         {
-
+            HasPlate = true;
+            serving.CashIn(currentOrder.GenerateMealPrice());
+            currentOrder.Customer.PayAndLeave();
+            currentOrder.GenerateMealPrice();
+            taskArrow.gameObject.SetActive(true);
+            taskArrow.position = new Vector3(output.position.x,
+                output.position.y + 1, 0);
         }
     }
 
@@ -196,7 +233,7 @@ public class Player : MonoBehaviour
                 ShouldYell();
                 break;
             case 1:
-                DoTask();
+                PrepareFood();
                 break;
             case 2:
                 LeaveReadyPlate();
@@ -205,45 +242,113 @@ public class Player : MonoBehaviour
                 TakePlate();
                 break;
             case 4:
-                DoTask();
+                ServePlate();
+                break;
+            case 5:
+                TakeDirtyPlate();
+                break;
+
+            case 6:
+                LeaveDirtyPlate();
+                break;
+            case 7:
+                TakeDishes();
                 break;
             default:
                 break;
         }
+    }
+
+    private void TakeDirtyPlate()
+    {
+        IsDoingTask = true;
+        slider.gameObject.SetActive(true);
+        slider.maxValue = 1f;
+        slider.value = 0;
+    }
+
+    private void LeaveDirtyPlate()
+    {
+        taskArrow.gameObject.SetActive(false);
+        HasPlate = false;
+        step = 0;
+        mode = 0;
+        orderAssigned = false;
+        serving.TaskAccomplished(currentOrder);
+        orderList.RemoveOrder(currentOrder);
+        currentOrder.IsAssigned = false;
+        currentOrder.assignedTo = null;
+        currentOrder = null;
+    }
+
+    private void ServePlate()
+    {
+        HasPlate = false;
+        currentOrder.Customer.StartEating();
+        currentOrder.IsReady = false;
+        orderAssigned = false;
+        yellButton.ChangeSprite(0);
+        mode = 0;
+        step = 0;
+        if (!currentOrder.BossOrder)
+        {
+            serving.OrderDone(currentOrder);
+        }
+        else
+        {
+            orderList.RemoveOrder(currentOrder);
+            serving.DiscardOrder(currentOrder);
+        }
+        currentOrder.assignedTo = null;
+        currentOrder = null;
+    }
+
+    private void TakeDishes()
+    {
+        if (currentOrder != null)
+        {
+            currentOrder.IsAssigned = false;
+            if (workstation != null)
+            {
+                workstation.InUse = false;
+                workstation = null;
+            }
+            currentOrder = null;
+        }
+        taskArrow.position = new Vector3(cleaning.GetInputPos().position.x,
+              cleaning.GetInputPos().position.y + 1, 0);
+        cleaning.DrawResource();
+        HasDishesToClean = true;
     }
 
     private void TakePlate()
     {
         HasPlate = true;
         serving.DrawResource();
-        taskArrow.position = output.position;
+        taskArrow.gameObject.SetActive(true);
+        taskArrow.position = new Vector3(output.position.x,
+              output.position.y + 1, 0);
         yellButton.ChangeSprite(0);
         mode = 0;
     }
 
     private void LeaveReadyPlate()
     {
+        currentOrder.Zone = Constants.serving;
         currentOrder.IsBeingPrepared = false;
         currentOrder.IsReady = true;
+        currentOrder.IsAssigned = false;
+        currentOrder.assignedTo = null;
         orderAssigned = false;
         yellButton.ChangeSprite(0);
         mode = 0;
+        step = 0;
         orderList.SendOrderToNextStep(currentOrder);
         preparing.TaskAccomplished(currentOrder);
+        currentOrder = null;
     }
 
-    private void DoTask()
-    {
-        switch (mode)
-        {
-            case 1:
-                PrepareFood();
-                break;
-            default:
-                break;
-        }
-    }
-
+ 
     private void PrepareFood()
     {
         IsDoingTask = true;
@@ -264,6 +369,13 @@ public class Player : MonoBehaviour
 
     public void CheckCollision(String name)
     {
+        if (name == "DirtyPlates" && cleaning.GetRessourceQuantity() > 0 && !HasDishesToClean && !HasPlate)
+        {
+            mode = 7;
+            yellButton.ChangeSprite(1);
+
+        }
+
         if (currentOrder != null)
         {
             if (currentOrder.IsBeingPrepared)
@@ -284,13 +396,33 @@ public class Player : MonoBehaviour
             }
             else if (currentOrder.IsReady)
             {
-                if (name == "ReadyPlates")
+                if (!HasPlate && name == "ReadyPlates")
                 {
-                    Debug.Log("here");
                     mode = 3;
                     yellButton.ChangeSprite(1);
                     taskArrow.gameObject.SetActive(false);
+                }
+                if (HasPlate && name == table.name)
+                {
+                    mode = 4;
+                    yellButton.ChangeSprite(1);
+                    taskArrow.gameObject.SetActive(false);
+                }
+            }
+            else if (currentOrder.IsBeingTakenToClean)
+            {
+                if (!HasPlate && name == table.name)
+                {
+                    mode = 5;
+                    yellButton.ChangeSprite(1);
+                    taskArrow.gameObject.SetActive(false);
+                }
 
+                if (HasPlate && name == "DirtyPlates")
+                {
+                    mode = 6;
+                    yellButton.ChangeSprite(1);
+                    taskArrow.gameObject.SetActive(false);
                 }
             }
         }
@@ -298,6 +430,12 @@ public class Player : MonoBehaviour
 
     public void ExitCollision(string name)
     {
+        if (name == "DirtyPlates")
+        {
+            mode = 0;
+            yellButton.ChangeSprite(0);
+        }
+
         if (currentOrder != null)
         {
             if (currentOrder.IsBeingPrepared)
@@ -321,12 +459,34 @@ public class Player : MonoBehaviour
             }
             else if (currentOrder.IsReady)
             {
-                if (name == "ReadyPlates")
+                if (!HasPlate && name == "ReadyPlates")
                 {
                     mode = 0;
                     yellButton.ChangeSprite(0);
                     taskArrow.gameObject.SetActive(true);
 
+                }
+                if (HasPlate && name == currentOrder.Table.name)
+                {
+                    mode = 0;
+                    yellButton.ChangeSprite(0);
+                    taskArrow.gameObject.SetActive(false);
+                }
+            }
+            else if (currentOrder.IsBeingTakenToClean)
+            {
+                if (HasPlate && name == "DirtyPlates")
+                {
+                    mode = 0;
+                    yellButton.ChangeSprite(0);
+                    taskArrow.gameObject.SetActive(true);
+
+                }
+                if (!HasPlate && name == currentOrder.Table.name)
+                {
+                    mode = 0;
+                    yellButton.ChangeSprite(0);
+                    taskArrow.gameObject.SetActive(false);
                 }
             }
         }

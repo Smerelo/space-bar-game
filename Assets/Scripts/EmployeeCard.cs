@@ -113,7 +113,7 @@ public class EmployeeCard : MonoBehaviour
 
     private float GetTaskSpeed()
     {
-        return UnityEngine.Random.Range(0.3f, 1f);
+        return UnityEngine.Random.Range(0.6f, 1.1f);
     }
 
     private float GetPrice()

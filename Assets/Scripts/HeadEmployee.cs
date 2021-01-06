@@ -21,6 +21,9 @@ public class HeadEmployee : MonoBehaviour
     public bool IsPreparingFood { get; private set; }
     public bool IsStunned { get; private set; }
     public bool HeadingToInput { get; private set; }
+
+   
+
     public bool HeadingToOutput { get; private set; }
 
     private const string IDLE_ = "idle_";
@@ -108,7 +111,7 @@ public class HeadEmployee : MonoBehaviour
             {
                 GoToWaitZone();
             }
-            if (IsWorking && !TaskBegun && currentZone != null && !IsMoving && !IsWaiting)
+            if (IsWorking && !TaskBegun && currentZone != null && !IsMoving )
             {
                 TaskBegun = true;
                 ChooseTask();
@@ -145,11 +148,16 @@ public class HeadEmployee : MonoBehaviour
     internal void StartOrder(Order order, Workstation station)
     {
         currentOrder = order;
+        order.card.ChangeOwner(employeeType);
+        currentOrder.assignedTo = gameObject;
         workstation = station;
         SetUpInputOutput();
         IsWorking = true;
         IsWaiting = false;
+        IsMoving = false;
     }
+
+
 
     private void SetUpInputOutput()
     {
@@ -180,9 +188,27 @@ public class HeadEmployee : MonoBehaviour
         }
     }
 
-   
-
-   
+    internal bool CheckAndRemove(Order order)
+    {
+        if (order == currentOrder)
+        {
+            AnimationChosen = false;
+            agent.isStopped = false;
+            IsMoving = false;
+            currentOrder.IsAssigned = false;
+            if (workstation != null)
+            {
+                workstation.InUse = false;
+                workstation.StopAnimation();
+            }
+            IsWorking = false;
+            TaskBegun = false;
+            step = 0;
+            orderList.RemoveOrder(currentOrder);
+            currentOrder = null;
+        }
+        return false;
+    }
 
     private void CheckMovement()
     {
@@ -252,6 +278,7 @@ public class HeadEmployee : MonoBehaviour
                 }
                 if (HeadingToOutput)
                 {
+
                     HeadingToOutput = true;
                     if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
                     {
@@ -273,7 +300,6 @@ public class HeadEmployee : MonoBehaviour
                     if (waitFrame && agent.remainingDistance <= agent.stoppingDistance)
                     {
                         ChangeStep(obj);
-                        employeeBehaviour.DrawResource();
                         HeadingToInput = false;
                         waitFrame = false;
                     }
@@ -375,6 +401,7 @@ public class HeadEmployee : MonoBehaviour
             {
                 currentOrder.Customer.PayAndLeave();
                 currentOrder.GenerateMealPrice();
+                employeeBehaviour.ParentZone.CashIn(currentOrder.GenerateMealPrice());
                 agent.SetDestination(output.position);
                 HeadingToOutput = true;
                 StartMoving();
@@ -387,16 +414,21 @@ public class HeadEmployee : MonoBehaviour
     internal void Stop()
     {
         agent.isStopped = true;
+        ChangeAnimationState(IDLE_ + curriculum.employeeType);
+        IsMoving = false;
+        IsStunned = true;
     }
 
     internal void Stun()
     {
+
         Invoke("RemoveStun", 3f);
     }
 
 
     private void RemoveStun()
     {
+        IsMoving = true;
         agent.isStopped = false;
         IsStunned = false;
     }
@@ -503,7 +535,6 @@ public class HeadEmployee : MonoBehaviour
         currentTween = null;
         if (!currentOrder.BossOrder)
         {
-            orderList.SendOrderToNextStep(currentOrder);
             newZone.OrderDone(currentOrder);
         }
         else

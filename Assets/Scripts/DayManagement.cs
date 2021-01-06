@@ -44,7 +44,7 @@ public class DayManagement : MonoBehaviour
     void Start()
     {
         audio = GameObject.Find("Main Camera").GetComponent<AudioManager>();
-        dayCounter = 2;
+        dayCounter = 1;
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         CTL = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         dayClock = dayStart;

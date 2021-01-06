@@ -20,7 +20,7 @@ public class CustomerBehaviour : MonoBehaviour
     private float eatingTime;
     private CustomerManager manager;
     [SerializeField] private float movementSpeed;
-    [SerializeField] private float patienceMultiplier = 3f;
+    [SerializeField] private float patienceMultiplier = 4f;
     private bool isSitting;
     private Vector3 waitZone;
     private Vector3 waitPosition;
@@ -42,30 +42,10 @@ public class CustomerBehaviour : MonoBehaviour
     private Popularity popularity;
     private NavMeshAgent agent;
     private bool waitFrame;
-    internal void Pay(float mealprice)
-    {
-        GameObject money =  Instantiate(moneyPrefab, moneyPos.position, Quaternion.identity, this.transform).transform.GetChild(0).gameObject;
-        money.transform.position = moneyPos.position;
-        TextMeshProUGUI m_text = money.GetComponent<TextMeshProUGUI>();
-        int decimals = Mathf.Abs((int)Math.Round(100.0 * (mealprice - Math.Truncate(mealprice))));
-        m_text.text = $"${Math.Truncate(mealprice)}<size=-14>{decimals.ToString("D2")}</size>";
-        if (mealprice < 0)
-        {
-            m_text.color = negativeColor;
-        }
-        Destroy(money, 1f);
-    }
-
-    internal float GetWaitTimeBonus()
-    {
-        return waitTiimer / maxPatience;
-    }
+    private OrderList orderList;
 
 
-    private void Awake()
-    {
-
-    }
+   
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -89,9 +69,28 @@ public class CustomerBehaviour : MonoBehaviour
         manager = GetComponentInParent<CustomerManager>();
         foodPreference = Order.RandomFoodType();
         // eatingTime = manager.GetEatingTime();
-        eatingTime = 3f;
+        eatingTime = 7f;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+    }
+
+    internal void Pay(float mealprice)
+    {
+        GameObject money = Instantiate(moneyPrefab, moneyPos.position, Quaternion.identity, this.transform).transform.GetChild(0).gameObject;
+        money.transform.position = moneyPos.position;
+        TextMeshProUGUI m_text = money.GetComponent<TextMeshProUGUI>();
+        int decimals = Mathf.Abs((int)Math.Round(100.0 * (mealprice - Math.Truncate(mealprice))));
+        m_text.text = $"${Math.Truncate(mealprice)}<size=-14>{decimals.ToString("D2")}</size>";
+        if (mealprice < 0)
+        {
+            m_text.color = negativeColor;
+        }
+        Destroy(money, 1f);
+    }
+
+    internal float GetWaitTimeBonus()
+    {
+        return waitTiimer / maxPatience;
     }
 
     internal Order GetOrder()
@@ -141,6 +140,8 @@ public class CustomerBehaviour : MonoBehaviour
                     isEating = false;
                     order.IsReady = false;
                     order.IsBeingTakenToClean = true;
+                    orderList = GameObject.Find("OrderList").GetComponent<OrderList>();
+                    orderList.SendOrderToNextStep(order);
                     animator.SetBool("isEating", false);
 
                 }
@@ -247,28 +248,7 @@ public class CustomerBehaviour : MonoBehaviour
             return false;
         }
         return true;
-        /*Vector3 sittingZone = new Vector3(assignedTable.GetSittingZone().x,
-           assignedTable.GetSittingZone().y - .3f, assignedTable.GetSittingZone().z);
-        if (!(Vector3.Distance(sittingZone, transform.position) < 1f))
-        {
-            Debug.Log(Vector3.Distance(sittingZone, transform.position));
-            isWalking = true;
-            animator.SetBool("isWalking", true);
-
-            if (assignedTable.GetSittingZone().x > transform.position.x)
-            {
-                animator.SetFloat("direction", 1);
-            }
-            else
-            {
-                animator.SetFloat("direction", -1);
-            }
-            //transform.position = Vector3.MoveTowards(transform.position, sittingZone, movementSpeed * Time.deltaTime);
-            return false;
-        }
-        animator.SetBool("isWalking", false);
-        isWalking = false;
-        return true; */
+  
     }
 
     internal void WaitForTable()

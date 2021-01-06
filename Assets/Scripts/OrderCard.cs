@@ -12,17 +12,26 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     private Animator animator;
     private string currentState;
     private Image foodImage;
+    private Animator animator2;
+    private GameObject ownerImage;
 
     private const string ORDER_NORMAL = "Order_Normal";
     private const string ORDER_SLECTED = "Order_Selected";
     private const string ORDER_2 = "Order_2";
 
+    private const string W_ = "w_";
+    private const string P = "p";
+
+
+
     private bool IsSelected { get; set; }
 
     void Start()
     {
+        ownerImage = transform.GetChild(2).gameObject;
         foodImage = transform.GetChild(1).GetComponent<Image>();
         animator = transform.GetChild(0).GetComponent<Animator>();
+        animator2 = transform.GetChild(2).GetComponent<Animator>();
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
@@ -35,11 +44,13 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         if (!currentOrder.IsAssigned && !player.orderAssigned)
         {
+            ownerImage.SetActive(true);
+            animator2.Play("p");
+            Debug.Log(currentOrder.IsAssigned);
             IsSelected = true;
             LeanTween.scale(gameObject, new Vector3(1.1f, 1.1f, 1), 0.1f);
             currentOrder.IsAssigned = true;
             player.AssignOrder(currentOrder);
-
         }
     }
 
@@ -49,6 +60,9 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         if (!currentOrder.IsAssigned && !player.orderAssigned)
         {
+            ownerImage.SetActive(true);
+            animator2.Play("p");
+            Debug.Log(currentOrder.IsAssigned);
             IsSelected = true;
             LeanTween.scale(gameObject, new Vector3(1.1f, 1.1f, 1), 0.1f);
             currentOrder.IsAssigned = true;
@@ -64,6 +78,7 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     internal void NextStep()
     {
+        ownerImage.SetActive(false);
         IsSelected = false;
         LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
         currentOrder.IsAssigned = false;
@@ -96,12 +111,15 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     public void AssignOrder(Order order)
     {
         currentOrder = order;
+        order.card = this;
         if (foodImage == null)
         {
             foodImage = transform.GetChild(1).GetComponent<Image>();
         }
         foodImage.sprite = order.GetFoodSprite();
     }
+
+
 
     private void ChangeAnimationState(string newState)
     {
@@ -113,5 +131,9 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         currentState = newState;
     }
 
-
+    internal void ChangeOwner(int employeeType)
+    {
+        ownerImage.SetActive(true);
+        animator2.Play(W_ + (employeeType));
+    }
 }

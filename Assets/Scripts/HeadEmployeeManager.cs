@@ -26,4 +26,15 @@ public class HeadEmployeeManager : MonoBehaviour
         }
         return employeeList[UnityEngine.Random.Range(0, employeeList.Count)];
     }
+
+    internal void RemoveOrder(Order order)
+    {
+        foreach (HeadEmployee headEmployee in employeeList)
+        {
+            if (headEmployee.CheckAndRemove(order))
+            {
+                break;
+            }
+        }
+    }
 }

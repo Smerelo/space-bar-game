@@ -22,9 +22,13 @@ public class CentralTransactionLogic : MonoBehaviour
     private GameObject gO;
     private bool ended;
     private DayManagement dayManagement;
+    private GameObject player;
+    private HeadEmployeeManager employeeManager;
 
     private void Awake()
     {
+        employeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
+        player = GameObject.Find("Player");
         zones = new Dictionary<string, ZoneManagment>();
         foreach (Transform child in transform)
         {
@@ -139,6 +143,17 @@ public class CentralTransactionLogic : MonoBehaviour
 
     internal void DestroyOrder(Order order)
     {
+        if (order.IsAssigned)
+        {
+            if (order.assignedTo = player)
+            {
+                player.GetComponent<Player>().RemoveOrder();
+            }
+            else
+            {
+                employeeManager.RemoveOrder(order);
+            }
+        }
         foreach (ZoneManagment zone in zones.Values)
         {
             zone.CheckAndRemoveOrder(order);

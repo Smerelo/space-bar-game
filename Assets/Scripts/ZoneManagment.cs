@@ -177,27 +177,15 @@ public class ZoneManagment : MonoBehaviour
     {
         headEmployees.Remove(employee.GetComponent<EmployeeBehaviour>());
         Destroy(employee);
-        UpdateNumbers();
     }
 
-
-    public void UpdateNumbers()
-    {
-        /*employeeManager.UpdateCount();
-        employeeManager.UpdateSalary();
-        employeeManager.UpdateSalaryText();
-        employeeManager.UpdateTotal();*/
-
-    }
 
     internal void RemoveSuperEmployee(EmployeeBehaviour superEmployee)
     {
-        UpdateNumbers();
         headEmployees.Remove(superEmployee);
     }
     internal void AddSuperEmployee(EmployeeBehaviour superEmployee)
     {
-        UpdateNumbers();
         headEmployees.Add(superEmployee);
     }
 
@@ -298,6 +286,11 @@ public class ZoneManagment : MonoBehaviour
         return true;
     }
 
+    public int GetRessourceQuantity()
+    {
+        return input.RessourceQuantity;
+    }
+
     public float GetEmployeeSalary(int mod)
     {
         if (mod == 0)
@@ -320,7 +313,10 @@ public class ZoneManagment : MonoBehaviour
             waitList.Remove(order);
         }
         output.AddRessources(1);
-        zoneManager.SendToNextZone(order, zoneName);
+        if (!order.IsBeingTakenToClean)
+        {
+            zoneManager.SendToNextZone(order, zoneName);
+        }
     }
     internal void DrawResource()
     {
