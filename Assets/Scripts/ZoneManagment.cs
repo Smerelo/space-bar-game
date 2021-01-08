@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class ZoneManagment : MonoBehaviour
 {
-    [SerializeField] private RessourceZone input;
-    [SerializeField] private RessourceZone output;
+    [SerializeField] public RessourceZone input;
+    [SerializeField] public RessourceZone output;
     [SerializeField] private string zoneName;
     [SerializeField] private Transform stationsTrasform;
     [SerializeField] private Transform waitingZone;
     [SerializeField] private Transform spawnZone;
     [SerializeField] public float employeeSalary;
+    [SerializeField] private AlertArrow arrow;
     private float startingSalary;
     [SerializeField] private bool test;
     [SerializeField] GameObject workerPrefab;
@@ -23,9 +24,13 @@ public class ZoneManagment : MonoBehaviour
     private CentralTransactionLogic zoneManager;
     private EmployeeManager employeeManager;
     private int upgradeCount = 0;
-    
+
+    public bool SoundStopped { get; private set; }
+    public bool SoundPlayed { get; private set; }
+
     void Start()
     {
+        SoundStopped = true;
         startingSalary = employeeSalary;
         zoneManager = GetComponentInParent<CentralTransactionLogic>();
         orders = new List<Order>();
@@ -69,7 +74,7 @@ public class ZoneManagment : MonoBehaviour
 
     public void CashIn(float amount)
     {
-        zoneManager.CashIn(amount);
+        zoneManager.CashIn(amount + 5);
     }
     public float GiveSalary()
     {
@@ -101,7 +106,40 @@ public class ZoneManagment : MonoBehaviour
 
             CheckWaitList();
         }
+        if (zoneName == Constants.cleaning)
+        {
+            CheckForDishes();
+        }
 
+    }
+
+    private void CheckForDishes()
+    {
+        if (output.RessourceQuantity == 0 && input.RessourceQuantity > 0 && !SoundPlayed)
+        {
+            SoundPlayed = true;
+            SoundStopped = false; 
+            arrow.gameObject.SetActive(true);
+            arrow.PlaySound();
+        }
+    }
+
+    public void PlaySound()
+    {
+        arrow.gameObject.SetActive(true);
+        arrow.PlaySound();
+        SoundStopped = false;
+    }
+
+    public void StopSound()
+    {
+        if (zoneName == Constants.cleaning && !SoundStopped)
+        {
+            Debug.Log("here");  
+            arrow.gameObject.SetActive(false);
+            arrow.StopSound();
+            SoundStopped = true;
+        }
     }
 
     private void CheckWaitList()

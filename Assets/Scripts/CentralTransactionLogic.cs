@@ -65,7 +65,7 @@ public class CentralTransactionLogic : MonoBehaviour
         {
             foreach (ZoneManagment zone in zones.Values)
             {
-                moneyBalance -= zone.GiveSalary();
+               // moneyBalance -= zone.GiveSalary();
             }
         }
         if (moneyBalance >= 0)

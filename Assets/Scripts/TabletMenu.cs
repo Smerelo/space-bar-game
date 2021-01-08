@@ -13,6 +13,7 @@ public class TabletMenu : MonoBehaviour
     [SerializeField] private Transform employeeCards;
     [SerializeField] private EmployeeCard[] hiringCards;
     [SerializeField] private List<EmployeeCard> upgradeCards;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     private TabGroup tabGroup;
     private int menuPos1 = 2;
@@ -20,9 +21,12 @@ public class TabletMenu : MonoBehaviour
     public bool moving = false;
     private HeadEmployeeManager headEmployeeManager;
     public GameObject headEmployee;
+    private CentralTransactionLogic ctl;
+
 
     void Start()
     {
+        ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         tabGroup = transform.GetComponentInChildren( typeof(TabGroup),true) as TabGroup;
         UpdateButtons();
         headEmployeeManager = GameObject.Find("HeadEmployees").
@@ -32,6 +36,7 @@ public class TabletMenu : MonoBehaviour
     private void Update()
     {
         UpdateButtons();
+        moneyText.text = "Balance: " + ctl.GetBalance().ToString("F2");
     }
     public void GenerateNewCards()
     {

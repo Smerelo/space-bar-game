@@ -113,7 +113,6 @@ public class HeadEmployee : MonoBehaviour
             }
             if (IsWorking && !TaskBegun && currentZone != null && !IsMoving )
             {
-                TaskBegun = true;
                 ChooseTask();
             }
         }
@@ -354,8 +353,9 @@ public class HeadEmployee : MonoBehaviour
 
     private void BarmanTask()
     {
-        if (step == 0)
+        if (step == 0 && newZone.input.RessourceQuantity > 0)
         {
+            TaskBegun = true;
             agent.SetDestination(input.position);
             HeadingToInput = true;
             IsPreparingFood = true;
@@ -376,6 +376,7 @@ public class HeadEmployee : MonoBehaviour
         {
             if (step == 0)
             {
+                TaskBegun = true;
                 agent.SetDestination(input.position);
                 HeadingToInput = true;
              
@@ -393,6 +394,7 @@ public class HeadEmployee : MonoBehaviour
         {
             if (step == 0)
             {
+                TaskBegun = true;
                 agent.SetDestination(input.position);
                 StartMoving();
                 HeadingToInput = true;

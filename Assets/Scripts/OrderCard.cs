@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using UnityEngine.Audio;
 public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private Order currentOrder;
@@ -14,6 +14,7 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     private Image foodImage;
     private Animator animator2;
     private GameObject ownerImage;
+    private AudioSource audio;
 
     private const string ORDER_NORMAL = "Order_Normal";
     private const string ORDER_SLECTED = "Order_Selected";
@@ -28,6 +29,7 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         ownerImage = transform.GetChild(2).gameObject;
         foodImage = transform.GetChild(1).GetComponent<Image>();
         animator = transform.GetChild(0).GetComponent<Animator>();
@@ -54,7 +56,10 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         }
     }
 
- 
+    internal void PlaySound()
+    {
+        audio.Play();
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {

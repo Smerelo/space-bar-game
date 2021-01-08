@@ -73,8 +73,22 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySfx(int i)
     {
+        if (i == 3)
+        {
+            SoundManager.SfxSource.loop = true;
+        }
+        else
+        {
+            SoundManager.SfxSource.loop = false;
+
+        }
         SoundManager.SfxSource.clip = sfx[i];
         SoundManager.SfxSource.Play();
+    }
+
+    public void StopSfx()
+    {
+        SoundManager.SfxSource.Stop();
     }
 
     public void PlayMenuMusic()

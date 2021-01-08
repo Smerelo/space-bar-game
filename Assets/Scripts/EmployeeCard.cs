@@ -23,11 +23,13 @@ public class EmployeeCard : MonoBehaviour
     private GameObject employee;
     private bool changeAnimation;
     private string currentState;
+    private CentralTransactionLogic ctl;
 
     // Start is called before the first frame update
    
     void Start()
     {
+        ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         animator = transform.GetChild(0).GetComponent<Animator>();
         headEmployeeManager = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
         tablet = GameObject.Find("Tablet").GetComponent<TabletMenu>();
@@ -52,7 +54,13 @@ public class EmployeeCard : MonoBehaviour
 
     public void HireHeadEmployee()
     {
-        tablet.HireHeadEmployee(curriculum);
+        if (ctl.GetBalance() >= curriculum.price && headEmployeeManager.employeeList.Count < 2)
+        {
+            tablet.HireHeadEmployee(curriculum);
+            hireStamp.SetActive(true);
+            hireButton.interactable = false;
+            ctl.CashIn(-curriculum.price);
+        }
     }
 
     public void FireEmployee()
@@ -94,9 +102,9 @@ public class EmployeeCard : MonoBehaviour
         int employeeType = GetEmployeeType();
         curriculum = new Cv(name, price, taskSpeed, mSpeed, employeeType);
         nameText.text = name;
-        taskSpeedText.text = $"{taskSpeed.ToString("F2")}s";
+        taskSpeedText.text = $"{taskSpeed.ToString("F2")}";
         mSpeedText.text = $"{mSpeed.ToString("F2")}";
-        priceText.text = $"${price.ToString("F0")}/Hour";
+        priceText.text = $"${price.ToString("F0")}";
         curriculum.employeeType = employeeType;
         changeAnimation = true;
     }
@@ -118,7 +126,7 @@ public class EmployeeCard : MonoBehaviour
 
     private float GetPrice()
     {
-        return UnityEngine.Random.Range(5, 10);
+        return UnityEngine.Random.Range(100, 180);
     }
 
     private string GetName()

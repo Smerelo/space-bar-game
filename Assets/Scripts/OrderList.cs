@@ -50,9 +50,14 @@ public class OrderList : MonoBehaviour
                 Quaternion.identity, transform).GetComponent<OrderCard>());
             orders[activeOrders].AssignOrder(order);
             LeanTween.moveLocalX(orders[activeOrders].gameObject,
-                orderPos.localPosition.x + 70 * activeOrders, 1f);
+                orderPos.localPosition.x + 70 * activeOrders, 1f).setOnComplete(PlaySound);
             activeOrders++;
         }
+    }
+
+    private void PlaySound()
+    {
+        orders[activeOrders - 1].PlaySound();
     }
 
     public void RemoveOrder(Order order)

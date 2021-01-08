@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     private int mode = 0;
     private int step;
     private float taskSpeed = 1.5f;
-
+    private Workstation cleaningStation;
 
 
     private void Start()
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!orderAssigned)
+        if (!orderAssigned && !HasDishesToClean)
         {
             taskArrow.gameObject.SetActive(false);
         }
@@ -205,7 +205,13 @@ public class Player : MonoBehaviour
 
     private void StartNextStep()
     {
-        if (currentOrder.IsBeingPrepared)
+        if (currentOrder == null && HasDishesToClean)
+        {
+            cleaningStation.StopAnimation();
+            HasDishesToClean = false;
+            cleaning.output.AddRessources(1);
+        }
+        else if (currentOrder.IsBeingPrepared)
         {
             workstation.StopAnimation();
             workstation = null;
@@ -254,9 +260,20 @@ public class Player : MonoBehaviour
             case 7:
                 TakeDishes();
                 break;
+            case 8:
+                CleanDishes();
+                break;
             default:
                 break;
         }
+    }
+
+    private void CleanDishes()
+    {
+        IsDoingTask = true;
+        slider.gameObject.SetActive(true);
+        slider.maxValue = 1f;
+        slider.value = 0;
     }
 
     private void TakeDirtyPlate()
@@ -305,6 +322,10 @@ public class Player : MonoBehaviour
 
     private void TakeDishes()
     {
+        if (cleaningStation == null)
+        {
+            cleaningStation = cleaning.GetFreeWorkStation();
+        }
         if (currentOrder != null)
         {
             currentOrder.IsAssigned = false;
@@ -313,10 +334,15 @@ public class Player : MonoBehaviour
                 workstation.InUse = false;
                 workstation = null;
             }
+            orderAssigned = false;
             currentOrder = null;
         }
-        taskArrow.position = new Vector3(cleaning.GetInputPos().position.x,
-              cleaning.GetInputPos().position.y + 1, 0);
+        yellButton.ChangeSprite(0);
+        mode = 0;
+        taskArrow.gameObject.SetActive(true);
+        Debug.Log(cleaningStation);
+        taskArrow.position = new Vector3(cleaningStation.GetWorkerPlacement().position.x,
+              cleaningStation.GetWorkerPlacement().position.y + 1, 0);
         cleaning.DrawResource();
         HasDishesToClean = true;
     }
@@ -351,12 +377,15 @@ public class Player : MonoBehaviour
  
     private void PrepareFood()
     {
-        IsDoingTask = true;
-        slider.gameObject.SetActive(true);
-        workstation.Animate();
-        preparing.DrawResource();
-        slider.maxValue = currentOrder.PreparationTime;
-        slider.value = 0;
+        if (preparing.input.RessourceQuantity > 0)
+        {
+            IsDoingTask = true;
+            slider.gameObject.SetActive(true);
+            workstation.Animate();
+            preparing.DrawResource();
+            slider.maxValue = currentOrder.PreparationTime;
+            slider.value = 0;
+        }
     }
 
     private void WhatDirection()
@@ -373,9 +402,14 @@ public class Player : MonoBehaviour
         {
             mode = 7;
             yellButton.ChangeSprite(1);
-
+            cleaning.StopSound();
         }
-
+        if (HasDishesToClean && name == "CleanStation")
+        {
+            mode = 8;
+            yellButton.ChangeSprite(1);
+            taskArrow.gameObject.SetActive(false);
+        }
         if (currentOrder != null)
         {
             if (currentOrder.IsBeingPrepared)
@@ -432,10 +466,24 @@ public class Player : MonoBehaviour
     {
         if (name == "DirtyPlates")
         {
+
             mode = 0;
             yellButton.ChangeSprite(0);
+            if (!HasDishesToClean && cleaning.output.RessourceQuantity == 0)
+            {
+                cleaning.PlaySound();
+            }
         }
+        if (name == "CleanStation")
+        {
 
+            mode = 0;
+            yellButton.ChangeSprite(0);
+            if (HasDishesToClean)
+            {
+                taskArrow.gameObject.SetActive(true);
+            }
+        }
         if (currentOrder != null)
         {
             if (currentOrder.IsBeingPrepared)
