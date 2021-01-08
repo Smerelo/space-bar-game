@@ -45,6 +45,7 @@ public class EmployeeBehaviour : MonoBehaviour
     {
         currentOrder = null;
         IsBusy = false;
+        headEmployee.StopOrder();
         destinations = null;
         currentDestIndex = 0;
     }

@@ -36,6 +36,8 @@ public class HeadEmployee : MonoBehaviour
 
     private EmployeeBehaviour employeeBehaviour;
     private ZoneManagment newZone;
+
+
     private ZoneManagment oldZone;
     public bool shouldChangeZone = false;
     private Transform input;
@@ -634,6 +636,22 @@ public class HeadEmployee : MonoBehaviour
         oldZone = newZone;
     }
 
+
+    internal void StopOrder()
+    {
+        AnimationChosen = false;
+        agent.isStopped = false;
+        IsMoving = false;
+        IsPreparingFood = false;
+        HeadingToInput = false;
+        HeadingToOutput = false;
+        employeeBehaviour.IsBusy = false;
+        workstation.InUse = false;
+        IsWorking = false;
+        TaskBegun = false;
+        step = 0;
+        currentOrder = null;        
+    }
     internal void GetNewZone(ZoneManagment zone)
     {
         shouldChangeZone = true;

@@ -33,6 +33,7 @@ public class HeadEmployeeManager : MonoBehaviour
         {
             if (headEmployee.CheckAndRemove(order))
             {
+
                 break;
             }
         }

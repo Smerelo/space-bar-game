@@ -160,18 +160,20 @@ public class Player : MonoBehaviour
     internal void RemoveOrder()
     {
         taskArrow.gameObject.SetActive(false);
-
         slider.maxValue = 0f;
         slider.value = 0;
-        slider.gameObject.SetActive(true);
+        slider.gameObject.SetActive(false) ;
         HasPlate = false;
         step = 0;
         mode = 0;
-        orderAssigned = false;
         IsDoingTask = false;
-        orderList.RemoveOrder(currentOrder);
-        currentOrder.IsAssigned = false;
-        currentOrder = null;
+        if (orderAssigned)
+        {
+            orderAssigned = false;
+            orderList.RemoveOrder(currentOrder);
+            currentOrder.IsAssigned = false;
+            currentOrder = null;
+        }
     }
 
     private void SetUpInputOutput()
@@ -403,12 +405,14 @@ public class Player : MonoBehaviour
             mode = 7;
             yellButton.ChangeSprite(1);
             cleaning.StopSound();
+            CanYell = true;
         }
         if (HasDishesToClean && name == "CleanStation")
         {
             mode = 8;
             yellButton.ChangeSprite(1);
             taskArrow.gameObject.SetActive(false);
+            CanYell = true;
         }
         if (currentOrder != null)
         {
@@ -420,11 +424,15 @@ public class Player : MonoBehaviour
                     IsInWorkStation = true;
                     taskArrow.gameObject.SetActive(false);
                     yellButton.ChangeSprite(1);
+                    CanYell = true;
+                    
                 }
                 if (step == 2 && name == "ReadyPlates")
                 {
                     mode = 2;
                     yellButton.ChangeSprite(1);
+                    CanYell = true;
+
                     taskArrow.gameObject.SetActive(false);
                 }
             }
@@ -434,11 +442,13 @@ public class Player : MonoBehaviour
                 {
                     mode = 3;
                     yellButton.ChangeSprite(1);
+                    CanYell = true;
                     taskArrow.gameObject.SetActive(false);
                 }
                 if (HasPlate && name == table.name)
                 {
                     mode = 4;
+                    CanYell = true;
                     yellButton.ChangeSprite(1);
                     taskArrow.gameObject.SetActive(false);
                 }
@@ -448,6 +458,7 @@ public class Player : MonoBehaviour
                 if (!HasPlate && name == table.name)
                 {
                     mode = 5;
+                    CanYell = true;
                     yellButton.ChangeSprite(1);
                     taskArrow.gameObject.SetActive(false);
                 }
@@ -456,6 +467,7 @@ public class Player : MonoBehaviour
                 {
                     mode = 6;
                     yellButton.ChangeSprite(1);
+                    CanYell = true;
                     taskArrow.gameObject.SetActive(false);
                 }
             }

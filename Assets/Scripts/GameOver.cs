@@ -6,11 +6,6 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
-
-    [SerializeField] private TextMeshProUGUI timeText;
-    [SerializeField] private TextMeshProUGUI moneyText;
-
-
     void Start()
     {
         

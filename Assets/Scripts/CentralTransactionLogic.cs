@@ -108,6 +108,7 @@ public class CentralTransactionLogic : MonoBehaviour
         {
             zone.ClockOut();
         }
+        player.GetComponent<Player>().RemoveOrder();
     }
     public void EmployeeClockIn()
     {

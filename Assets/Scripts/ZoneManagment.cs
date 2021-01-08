@@ -279,7 +279,7 @@ public class ZoneManagment : MonoBehaviour
 
     internal void ClockOut()
     {
-        foreach (EmployeeBehaviour employee in employees)
+        foreach (EmployeeBehaviour employee in headEmployees)
         {
             employee.AbortOrder();
         }

@@ -23,6 +23,7 @@ public class DayManagement : MonoBehaviour
     [SerializeField] private GameObject banner;
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject menu2;
+    [SerializeField] private GameObject endOfDayMenu;
     [HideInInspector] public bool dayFinished { get; private set; }
     [HideInInspector] public bool bossActive { get; private set; }
 
@@ -32,27 +33,32 @@ public class DayManagement : MonoBehaviour
     private bool timeStop;
     private float minutes;
     private AudioManager audio;
+    private OrderList orders;
     public int dayCounter { get; set; }
     public bool PlayingCinematic { get; private set; }
 
     private TableManager tableManager;
 
-    [SerializeField] private GameObject endOfDayMenu;
     private CentralTransactionLogic CTL;
 
 
     void Start()
     {
         audio = GameObject.Find("Main Camera").GetComponent<AudioManager>();
-        dayCounter = 1;
+        dayCounter = 0;
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
         CTL = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         dayClock = dayStart;
         endOfDayMenu.SetActive(false);
+        orders = GameObject.Find("OrderList").GetComponent<OrderList>();
     }
 
     void Update()
     {
+        if (dayCounter == 0)
+        {
+            EndDay();
+        }
 
         if (Input.GetKeyDown("q"))
         {
@@ -98,12 +104,13 @@ public class DayManagement : MonoBehaviour
 
   
 
-    private void PauseGame()
+    public void PauseGame()
     {
+        CTL.EmployeeClockOut();
+        orders.ClearOrders();
         tableManager.FreeTables();
        // MobileUi.SetActive(false);
         dayFinished = true;
-        CTL.EmployeeClockOut();
     }
 
     private void ShowEndOfDayMenu()

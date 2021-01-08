@@ -8,10 +8,12 @@ public class Popularity : MonoBehaviour
 {
     [SerializeField] private GameOver gameOverScreen;
 
+    private DayManagement day;
     private Slider slider;
     // Start is called before the first frame update
     void Start()
     {
+        day = GameObject.Find("DayManager").GetComponent<DayManagement>();
         slider = GetComponent<Slider>();
     }
 
@@ -31,6 +33,7 @@ public class Popularity : MonoBehaviour
 
     private void GameOver()
     {
+        day.PauseGame();
         gameOverScreen.gameObject.SetActive(true);
     }
 }
