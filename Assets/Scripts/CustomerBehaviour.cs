@@ -20,7 +20,7 @@ public class CustomerBehaviour : MonoBehaviour
     private float eatingTime;
     private CustomerManager manager;
     [SerializeField] private float movementSpeed;
-    [SerializeField] private float patienceMultiplier = 4f;
+    [SerializeField] private float patienceMultiplier = 10f;
     private bool isSitting;
     private Vector3 waitZone;
     private Vector3 waitPosition;
@@ -52,6 +52,7 @@ public class CustomerBehaviour : MonoBehaviour
         ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         maxPatience = Order.GetFoodTypeAsset(foodPreference).PreparationTime * patienceMultiplier;
         waitTiimer = maxPatience;
+        Debug.Log(maxPatience);
         moneyPos = transform.GetChild(1);
         UI = GameObject.Find("UI").transform; ;
         foreach (Transform t in transform)

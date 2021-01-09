@@ -10,10 +10,11 @@ public class EndOfDay : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI moneyText;
     public double balance;
+    private CentralTransactionLogic ctl;
     // Start is called before the first frame update
     void Start()
     {
-        
+        ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
     }
 
     // Update is called once per frame
@@ -26,7 +27,6 @@ public class EndOfDay : MonoBehaviour
 
     public void SetGameStatus(double moneyBalance)
     {
-
         balance = moneyBalance;
         if (moneyBalance >= 0)
         {
@@ -44,9 +44,9 @@ public class EndOfDay : MonoBehaviour
     internal void UpdateBalance(float m)
     {
         balance -= m;
-        balance = balance;
-      
         int decimals = Mathf.Abs((int)Math.Round(100.0 * (balance - Math.Truncate(balance))));
         moneyText.text = $"${Math.Truncate(balance)}<size=-14>{decimals.ToString("D2")}</size>";
+        ctl.CashIn(-m);
+        
     }
 }

@@ -23,7 +23,7 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private float endMaxCustomers = 10;
     [SerializeField] private GameObject customerPrefab;
     private float minClientDealy;
-    public float dayLenght = 8;
+    public float dayLenght = 6;
     private float maxClientDelay;
     private float maxDifficultyIncrease;
     private float minDifficultyIncrease;
@@ -36,7 +36,7 @@ public class CustomerManager : MonoBehaviour
     private float maxCustomers;
     private float globalTimer;
     private float timer = 0f;
-    public float minutes = 8 * 60;
+    public float minutes = 6 * 60;
     private CentralTransactionLogic spaceCantina;
     public Transform waitZone;
     private bool difficultyIncreased = false;
@@ -46,23 +46,19 @@ public class CustomerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
         maxDifficultyIncrease = (startMaxClientDelay - endMaxClientDelay) / dayLenght;
         minDifficultyIncrease = (startMinClientDelay - endMinClientDelay) / dayLenght;
         clientDifficultyIncrease = (endMaxCustomers - startMaxCustomers) / dayLenght;
         maxEatingSpeedIncrease = (startMaxEatingTime - endMaxEatingTime) / dayLenght;
         minEatingSpeedIncrease = (startMinEatingTime - endMinEatingTime) / dayLenght;
-        minClientDealy = startMinClientDelay;
-        maxClientDelay = startMaxClientDelay;
-        maxCustomers = startMaxCustomers;
-        minEatingTime = startMinEatingTime;
-        maxEatingTime = startMaxEatingTime;
+        ResetDifficulty();
         spaceCantina = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         queue = new List<CustomerBehaviour>();
         clientFrequency = UnityEngine.Random.Range(startMinClientDelay, startMaxClientDelay);
         customers = new List<CustomerBehaviour>();
         tables = new List<Table>();
         tableManager = GameObject.Find("TableManager").GetComponent<TableManager>();
-        dayManagement = GameObject.Find("DayManager").GetComponent<DayManagement>();
 
     }
 
@@ -93,8 +89,19 @@ public class CustomerManager : MonoBehaviour
         foreach (CustomerBehaviour customer in customers)
         {
             customer.GoHome();
+            ResetDifficulty();
         }
         customers.Clear();
+    }
+
+    private void ResetDifficulty()
+    {
+
+        minClientDealy = startMinClientDelay;
+        maxClientDelay = startMaxClientDelay + dayManagement.dayCounter;
+        maxCustomers = startMaxCustomers + dayManagement.dayCounter;
+        minEatingTime = startMinEatingTime;
+        maxEatingTime = startMaxEatingTime;
     }
 
     private void IncreaseDifficulty()

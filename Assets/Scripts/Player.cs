@@ -400,6 +400,7 @@ public class Player : MonoBehaviour
 
     public void CheckCollision(String name)
     {
+        Debug.Log(name);
         if (name == "DirtyPlates" && cleaning.GetRessourceQuantity() > 0 && !HasDishesToClean && !HasPlate)
         {
             mode = 7;
@@ -445,7 +446,7 @@ public class Player : MonoBehaviour
                     CanYell = true;
                     taskArrow.gameObject.SetActive(false);
                 }
-                if (HasPlate && name == table.name)
+                if (HasPlate && name == table.name || name== "TablePos")
                 {
                     mode = 4;
                     CanYell = true;

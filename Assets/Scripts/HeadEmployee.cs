@@ -113,7 +113,7 @@ public class HeadEmployee : MonoBehaviour
             {
                 GoToWaitZone();
             }
-            if (IsWorking && !TaskBegun && currentZone != null && !IsMoving )
+            if (IsWorking && !TaskBegun && currentZone != null && !IsMoving && !IsWaiting )
             {
                 ChooseTask();
             }
@@ -331,19 +331,22 @@ public class HeadEmployee : MonoBehaviour
     //Tasks
     private void ChooseTask()
     {
-        switch (currentZone)
+        if (!IsWaiting)
         {
-            case Constants.preparing:
-                BarmanTask();
-                break;
-            case Constants.serving:
-                WaiterTask();
-                break;
-            case Constants.cleaning:
-                CleanerTask();
-                break;
-            default:
-                break;
+            switch (currentZone)
+            {
+                case Constants.preparing:
+                    BarmanTask();
+                    break;
+                case Constants.serving:
+                    WaiterTask();
+                    break;
+                case Constants.cleaning:
+                    CleanerTask();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -639,18 +642,16 @@ public class HeadEmployee : MonoBehaviour
 
     internal void StopOrder()
     {
-        AnimationChosen = false;
-        agent.isStopped = false;
-        IsMoving = false;
         IsPreparingFood = false;
         HeadingToInput = false;
         HeadingToOutput = false;
         employeeBehaviour.IsBusy = false;
-        workstation.InUse = false;
+        if (workstation != null)
+            workstation.InUse = false;
         IsWorking = false;
         TaskBegun = false;
         step = 0;
-        currentOrder = null;        
+        currentOrder = null;
     }
     internal void GetNewZone(ZoneManagment zone)
     {

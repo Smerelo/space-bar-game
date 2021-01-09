@@ -27,7 +27,7 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     private bool IsSelected { get; set; }
 
-    void Start()
+    private void Awake()
     {
         audio = GetComponent<AudioSource>();
         ownerImage = transform.GetChild(2).gameObject;
@@ -35,6 +35,10 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         animator = transform.GetChild(0).GetComponent<Animator>();
         animator2 = transform.GetChild(2).GetComponent<Animator>();
         player = GameObject.Find("Player").GetComponent<Player>();
+    }
+    void Start()
+    {
+        
     }
 
     void Update()
@@ -138,6 +142,11 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     internal void ChangeOwner(int employeeType)
     {
+        if (ownerImage == null)
+        {
+            ownerImage = transform.GetChild(2).gameObject;
+
+        }
         ownerImage.SetActive(true);
         animator2.Play(W_ + (employeeType));
     }
