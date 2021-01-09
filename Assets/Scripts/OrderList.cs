@@ -12,6 +12,7 @@ public class OrderList : MonoBehaviour
     private List<OrderCard> orders;
     private int activeOrders = 0;
     private List<Order> backLog;
+    private float gap = 100f;
 
     public bool Moving { get; private set; }
 
@@ -19,6 +20,7 @@ public class OrderList : MonoBehaviour
     {
         backLog = new List<Order>();
         orders = new List<OrderCard>();
+
     }
 
     // Update is called once per frame
@@ -27,6 +29,31 @@ public class OrderList : MonoBehaviour
         if (!Moving && backLog.Count > 0)
         {
             CheckBacklog();
+        }
+      
+    }
+
+
+    private void CheckOrdersPos()
+    {
+        int i = 0;
+        foreach (OrderCard order in orders)
+        {
+            if (order.orderNb != i)
+            {
+                order.orderNb = i;
+            }
+            if (order.Moving)
+            {
+                Debug.Log(order.orderNb);
+            }
+            if (!order.Moving && order.gameObject.transform.localPosition.x != orderPos.localPosition.x + gap * i)
+            {
+                Debug.Log("change");
+                LeanTween.moveLocalX(order.gameObject,
+                orderPos.localPosition.x + gap * i, 1f).setOnComplete(PlaySound);
+            }
+            i++;
         }
     }
 
@@ -48,9 +75,11 @@ public class OrderList : MonoBehaviour
         {
             orders.Add(Instantiate(orderPrefab, orderSpawn.position,
                 Quaternion.identity, transform).GetComponent<OrderCard>());
+            orders[activeOrders].orderNb = activeOrders;
             orders[activeOrders].AssignOrder(order);
             LeanTween.moveLocalX(orders[activeOrders].gameObject,
-                orderPos.localPosition.x + 100 * activeOrders, 1f).setOnComplete(PlaySound);
+                orderPos.localPosition.x + gap * activeOrders, 1f).setOnComplete(PlaySound);
+            orders[activeOrders].Moving = true;
             activeOrders++;
         }
     }
@@ -58,6 +87,8 @@ public class OrderList : MonoBehaviour
     private void PlaySound()
     {
         orders[activeOrders - 1].PlaySound();
+        orders[activeOrders - 1].Moving = false;
+
     }
 
     public void RemoveOrder(Order order)
@@ -89,7 +120,8 @@ public class OrderList : MonoBehaviour
             if (hasReachOrder)
             {
                 LeanTween.moveLocalX(tCard.gameObject,
-                    tCard.transform.localPosition.x - 70, .1f);
+                    tCard.transform.localPosition.x - gap, .1f);
+                tCard.orderNb--;
             }
         }
         Moving = false;

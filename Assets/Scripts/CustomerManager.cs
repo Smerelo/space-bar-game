@@ -23,7 +23,7 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private float endMaxCustomers = 10;
     [SerializeField] private GameObject customerPrefab;
     private float minClientDealy;
-    public float dayLenght = 6;
+    public float dayLenght = 8;
     private float maxClientDelay;
     private float maxDifficultyIncrease;
     private float minDifficultyIncrease;
@@ -36,7 +36,7 @@ public class CustomerManager : MonoBehaviour
     private float maxCustomers;
     private float globalTimer;
     private float timer = 0f;
-    public float minutes = 6 * 60;
+    public float minutes = 8 * 60;
     private CentralTransactionLogic spaceCantina;
     public Transform waitZone;
     private bool difficultyIncreased = false;
@@ -98,8 +98,8 @@ public class CustomerManager : MonoBehaviour
     {
 
         minClientDealy = startMinClientDelay;
-        maxClientDelay = startMaxClientDelay + dayManagement.dayCounter;
-        maxCustomers = startMaxCustomers + dayManagement.dayCounter;
+        maxClientDelay = startMaxClientDelay + dayManagement.dayCounter - 1;
+        maxCustomers = startMaxCustomers + dayManagement.dayCounter - 1;
         minEatingTime = startMinEatingTime;
         maxEatingTime = startMaxEatingTime;
     }

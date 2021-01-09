@@ -52,7 +52,6 @@ public class CustomerBehaviour : MonoBehaviour
         ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
         maxPatience = Order.GetFoodTypeAsset(foodPreference).PreparationTime * patienceMultiplier;
         waitTiimer = maxPatience;
-        Debug.Log(maxPatience);
         moneyPos = transform.GetChild(1);
         UI = GameObject.Find("UI").transform; ;
         foreach (Transform t in transform)
@@ -120,6 +119,7 @@ public class CustomerBehaviour : MonoBehaviour
         food.HideFood();
         HasFinishedEating = false;
         isSitting = false;
+        assignedTable.InUse = false;
         manager.customers.Remove(this);
         animator.SetBool("isSitting", false);
         isLeaving = true;
@@ -201,6 +201,8 @@ public class CustomerBehaviour : MonoBehaviour
 
     private void Leave()
     {
+        orderList = GameObject.Find("OrderList").GetComponent<OrderList>();
+        orderList.RemoveOrder(order);
         popularity = GameObject.Find("PopularityBar").GetComponent<Popularity>();
         ctl.DestroyOrder(order);
         popularity.UpdatePopularity(-1);

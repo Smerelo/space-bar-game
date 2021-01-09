@@ -414,6 +414,7 @@ public class ZoneManagment : MonoBehaviour
     internal void DiscardOrder(Order currentOrder)
     {
         orders.Remove(currentOrder);
+        output.AddRessources(1);
     }
 
     public void HireEmployee()

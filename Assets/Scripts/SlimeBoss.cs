@@ -34,7 +34,9 @@ public class SlimeBoss : MonoBehaviour
     private HeadEmployee employeeAttacked;
     private Animator tentacleAnimator;
     private GameObject tentacleObj;
+    private Player player;
     private Boss boss;
+
     private const string BOSS_FALLING = "Falling";
     private const string BOSS_IDLE = "Idle";
     private const string BOSS_ANGRY = "Angry";
@@ -56,6 +58,8 @@ public class SlimeBoss : MonoBehaviour
     private const string SHADOW_BD_RETURN = "ShadowBDReturn";
     private const string SHADOW_BW_SPAWN = "ShadowBWSpawn";
     private const string SHADOW_BW_RETURN = "ShadowBWReturn";
+
+    public bool AttackingPlayer { get; private set; }
 
 
 
@@ -80,6 +84,7 @@ public class SlimeBoss : MonoBehaviour
 
             }
         }
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     internal void Eat()
@@ -95,25 +100,35 @@ public class SlimeBoss : MonoBehaviour
 
     public void GetAngry()
     {
-        employeeAttacked = employees.GetRandomEmployee();
-        if (employeeAttacked != null)
+        int i =  UnityEngine.Random.Range(0, 4);
+        if (i == 3 || employees.employeeList.Count == 0)
         {
+            AttackingPlayer = true;
             ChangeAnimationState(BOSS_ANGRY, animator);
             StartCoroutine(PlayNextAnimation(animator, "Attack"));
-            employeeAttacked.Stop();
+            player.StopPlayer();
         }
-
+        else
+        {
+            employeeAttacked = employees.GetRandomEmployee();
+            if (employeeAttacked != null)
+            {
+                ChangeAnimationState(BOSS_ANGRY, animator);
+                StartCoroutine(PlayNextAnimation(animator, "Attack"));
+                employeeAttacked.Stop();
+            }
+        }
     }
 
     internal void Attack()
     {
         tentacleObj.SetActive(true);
         ChangeAnimationState(BOSS_ATTACK, animator);
-        if (employeeAttacked != null)
+        if (AttackingPlayer)
         {
-            tentacleObj.transform.position = new Vector3(employeeAttacked.transform.position.x
-                + 0.8f, employeeAttacked.transform.position.y - 0.9f, 0);
-            if (employeeAttacked.currentZone == Constants.cleaning || employeeAttacked.currentZone == Constants.preparing)
+            tentacleObj.transform.position = new Vector3(player.transform.position.x
+                    + 0.8f, player.transform.position.y - 0.9f, 0);
+            if (player.transform.parent.name == Constants.cleaning || player.transform.parent.name == Constants.preparing)
             {
                 zoneAttacked = 0;
                 ChangeAnimationState(SHADOW_BD_SPAWN, tentacleAnimator);
@@ -124,6 +139,26 @@ public class SlimeBoss : MonoBehaviour
                 ChangeAnimationState(SHADOW_BW_SPAWN, tentacleAnimator);
             }
             StartCoroutine(PlayNextAnimation(tentacleAnimator, "SpawnTentacle"));
+
+        }
+        else
+        {
+            if (employeeAttacked != null)
+            {
+                tentacleObj.transform.position = new Vector3(employeeAttacked.transform.position.x
+                    + 0.8f, employeeAttacked.transform.position.y - 0.9f, 0);
+                if (employeeAttacked.currentZone == Constants.cleaning || employeeAttacked.currentZone == Constants.preparing)
+                {
+                    zoneAttacked = 0;
+                    ChangeAnimationState(SHADOW_BD_SPAWN, tentacleAnimator);
+                }
+                else
+                {
+                    zoneAttacked = 1;
+                    ChangeAnimationState(SHADOW_BW_SPAWN, tentacleAnimator);
+                }
+                StartCoroutine(PlayNextAnimation(tentacleAnimator, "SpawnTentacle"));
+            }
         }
     }
 
@@ -147,35 +182,32 @@ public class SlimeBoss : MonoBehaviour
     private void StunEmployee()
     {
         if (zoneAttacked == 0)
-        {
             ChangeAnimationState(TENTACLE_ATTACK, tentacleAnimator);
 
-        }
         else
             ChangeAnimationState(TENTACLE_ATTACK_2, tentacleAnimator);
-        employeeAttacked.GetComponent<HeadEmployee>().Stun();
+        if (AttackingPlayer)
+            player.GetStunned();
+        else
+            employeeAttacked.GetComponent<HeadEmployee>().Stun();
         StartCoroutine(PlayNextAnimation(tentacleAnimator, "TentacleReturn"));
     }
 
-    IEnumerator PlayNextAnimation(Animator anim, string method)
-    {
-        yield return new WaitForEndOfFrame();
-        Invoke(method, anim.GetCurrentAnimatorStateInfo(0).length);
-    }
+
 
     private void YeetEmployee()
     {
-        if (employeeAttacked.employeeType == 0)
+        if (employeeAttacked.employeeType == 1)
         {
             ChangeAnimationState(ATTACK_BARMAN, tentacleAnimator);
 
         }
-        else if (employeeAttacked.employeeType == 1)
+        else if (employeeAttacked.employeeType == 2)
         {
             ChangeAnimationState(ATTACK_WAITER, tentacleAnimator);
 
         }
-        else if (employeeAttacked.employeeType == 2)
+        else if (employeeAttacked.employeeType == 3)
         {
             ChangeAnimationState(ATTACK_CLEANER, tentacleAnimator);
 
@@ -183,6 +215,7 @@ public class SlimeBoss : MonoBehaviour
         StartCoroutine(PlayNextAnimation(tentacleAnimator, "TentacleReturn"));
         Invoke("DestroyEmployee", 0.03f);
     }
+
     private void TentacleReturn()
     {
         if (zoneAttacked == 0)
@@ -209,18 +242,35 @@ public class SlimeBoss : MonoBehaviour
 
     private void DestroyEmployee()
     {
+        if (employeeAttacked.GetComponent<EmployeeBehaviour>().IsBusy)
+        {
+            employeeAttacked.StopOrder();
+        }
         zones[zoneAttacked].RemoveEmployee(employeeAttacked.gameObject);
     }
 
 
-  
+
     private void HideTentacle()
     {
+        AttackingPlayer = false;
         tentacleObj.SetActive(false);
         ChangeAnimationState(BOSS_IDLE, animator);
         popularityBar.UpdatePopularity(-1);
         boss.attacking = false;
     }
+
+
+    IEnumerator PlayNextAnimation(Animator anim, string method)
+    {
+        yield return new WaitForEndOfFrame();
+        Invoke(method, anim.GetCurrentAnimatorStateInfo(0).length);
+    }
+
+  
+    
+
+   
     private void MoveHealthBar()
     {
         ChangeAnimationState(BOSS_IDLE, animator);

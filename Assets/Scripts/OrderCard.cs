@@ -15,6 +15,8 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     private Animator animator2;
     private GameObject ownerImage;
     private AudioSource audio;
+    public int orderNb;
+    public bool Moving;
 
     private const string ORDER_NORMAL = "Order_Normal";
     private const string ORDER_SLECTED = "Order_Selected";
@@ -71,7 +73,6 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         {
             ownerImage.SetActive(true);
             animator2.Play("p");
-            Debug.Log(currentOrder.IsAssigned);
             IsSelected = true;
             LeanTween.scale(gameObject, new Vector3(1.1f, 1.1f, 1), 0.1f);
             currentOrder.IsAssigned = true;

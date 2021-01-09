@@ -102,7 +102,7 @@ MonoBehaviour:
   numberInQueue: 0
   isEating: 0
   movementSpeed: 6
-  patienceMultiplier: 15
+  patienceMultiplier: 1
   bubbleUptime: 1
   moneyPrefab: {fileID: 3852401137864573119, guid: eb8d6671e5ca946449f048851974ec47,
     type: 3}

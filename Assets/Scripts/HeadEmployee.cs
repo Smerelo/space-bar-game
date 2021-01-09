@@ -647,7 +647,10 @@ public class HeadEmployee : MonoBehaviour
         HeadingToOutput = false;
         employeeBehaviour.IsBusy = false;
         if (workstation != null)
+        {
+            workstation.StopAnimation();
             workstation.InUse = false;
+        }
         IsWorking = false;
         TaskBegun = false;
         step = 0;

@@ -15,6 +15,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject tablePrefab;
     [HideInInspector] public bool attacking;
     [HideInInspector] public bool isInCinematic;
+    [SerializeField] private GameObject endScreen;
 
 
 
@@ -32,12 +33,13 @@ public class Boss : MonoBehaviour
     private float orderTimer;
     private List<CustomerBehaviour> orderList;
     private bool eating;
+    private DayManagement day;
+    private HeadEmployeeManager manager;
 
     public bool Kill { get; private set; }
 
     void Start()
     {
-        // BossCinematic();
         orders = GameObject.Find("OrderList").GetComponent<OrderList>();
         orderList = new List<CustomerBehaviour>();
         ctl = GameObject.Find("SpaceCantina").GetComponent<CentralTransactionLogic>();
@@ -49,6 +51,8 @@ public class Boss : MonoBehaviour
         progressBar.maxValue = startAttackTimer;
         AttackTimer = startAttackTimer;
         orderTimer = 0f;
+        manager = GameObject.Find("HeadEmployees").GetComponent < HeadEmployeeManager >();
+        day = GameObject.Find("DayManager").GetComponent<DayManagement>();
     }
 
   
@@ -56,6 +60,23 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (manager.employeeList.Count ==2)
+        {
+            startAttackTimer = 14f;
+            progressBar.maxValue = startAttackTimer;
+
+        }
+        if (manager.employeeList.Count == 1)
+        {
+            startAttackTimer = 17f;
+            progressBar.maxValue = startAttackTimer;
+        }
+        if (manager.employeeList.Count == 0)
+        {
+            startAttackTimer = 25f;
+            progressBar.maxValue = startAttackTimer;
+        }
+
         if (!attacking  && !isInCinematic && bossIsActive)
         {
             progressBar.gameObject.SetActive(true);
@@ -64,7 +85,7 @@ public class Boss : MonoBehaviour
             progressBar.value = AttackTimer;
             if (orderTimer <= 0)
             {
-                orderTimer = 5f;
+                orderTimer = 12f;
                 SendOrder();
             }
             if (AttackTimer <= 0)
@@ -102,15 +123,27 @@ public class Boss : MonoBehaviour
     private void UpdateHealth(int i)
     {
         healthBar.value += i;
-        if (healthBar.value <= 50 && !Kill)
+        if (healthBar.value <= 50 && !Kill && manager.employeeList.Count >0)
         {
             Kill = true;
             AttackTimer = startAttackTimer;
             slimeBoss.GetAngry();
         }
+        if (healthBar.value == 0)
+        {
+            EndGame();
+        }
     }
 
-   
+    private void EndGame()
+    {
+        endScreen.SetActive(true);
+        day.PauseGame();
+        GameObject.Destroy(this.gameObject);
+        healthBar.gameObject.SetActive(false);
+        progressBar.gameObject.SetActive(false);
+    }
+
     private void SendOrder()
     {
         foodPreference = Order.RandomFoodType();

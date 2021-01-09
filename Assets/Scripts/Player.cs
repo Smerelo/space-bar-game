@@ -24,6 +24,16 @@ public class Player : MonoBehaviour
     private bool TaskDone {get; set;}
     public bool HasPlate { get; private set; }
     public bool HasDishesToClean { get; private set; }
+    public bool Stunned { get; set; }
+
+    private const int YELLING = 0;
+    private const int COOK = 1;
+    private const int READYPLATE = 2;
+    private const int TAKEPLATE = 3;
+    private const int RETURNPLATE = 4;
+    private const int CLEAN = 5;
+
+
 
     private Animator animator;
     private OrderList orderList;
@@ -45,6 +55,8 @@ public class Player : MonoBehaviour
     private int typeOfTask;
     private int mode = 0;
     private int step;
+    private float stunnedTimer = 3.5f;
+    private float tempTimer = 0;
     private float taskSpeed = 1.5f;
     private Workstation cleaningStation;
 
@@ -72,7 +84,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!yelling && !IsDoingTask)
+        if (!yelling && !IsDoingTask && !Stunned)
         {
             Move();
         }
@@ -80,31 +92,45 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!orderAssigned && !HasDishesToClean)
+        Debug.Log(Stunned);
+        if (Stunned)
         {
-            taskArrow.gameObject.SetActive(false);
-        }
-        if (IsDoingTask && slider.value < slider.maxValue)
-        {
-            slider.value += Time.deltaTime * taskSpeed;
-        }
-        else if(IsDoingTask && slider.value >= slider.maxValue)
-        {
-            IsDoingTask = false;
-            yellButton.ChangeSprite(0);
-            mode = 0;
-            TaskDone = true;
-            slider.gameObject.SetActive(false);
-            if (typeOfTask == 0 || typeOfTask == 1)
+            tempTimer += Time.deltaTime;
+            if (tempTimer >= stunnedTimer)
             {
-                step = 2;
-                StartNextStep();
+                animator.SetBool("IsStunned", false);
+                Stunned = false;
+                tempTimer = 0f;
             }
         }
-        Yell();
-        if (Input.GetKeyDown("space") && !IsDoingTask)
+        if (!Stunned)
         {
-            DoAction();
+            if (!orderAssigned && !HasDishesToClean)
+            {
+                taskArrow.gameObject.SetActive(false);
+            }
+            if (IsDoingTask && slider.value < slider.maxValue)
+            {
+                slider.value += Time.deltaTime * taskSpeed;
+            }
+            else if (IsDoingTask && slider.value >= slider.maxValue)
+            {
+                IsDoingTask = false;
+                yellButton.ChangeSprite(0);
+                mode = 0;
+                TaskDone = true;
+                slider.gameObject.SetActive(false);
+                if (typeOfTask == 0 || typeOfTask == 1)
+                {
+                    step = 2;
+                    StartNextStep();
+                }
+            }
+            Yell();
+            if (Input.GetKeyDown("space") && !IsDoingTask)
+            {
+                DoAction();
+            }
         }
     }
 
@@ -155,6 +181,11 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    internal void StopPlayer()
+    {
+        Stunned = true;
     }
 
     internal void RemoveOrder()
@@ -231,6 +262,12 @@ public class Player : MonoBehaviour
             taskArrow.position = new Vector3(output.position.x,
                 output.position.y + 1, 0);
         }
+    }
+
+    internal void GetStunned()
+    {
+        animator.SetBool("IsStunned", true);
+
     }
 
     public void DoAction()
@@ -400,18 +437,17 @@ public class Player : MonoBehaviour
 
     public void CheckCollision(String name)
     {
-        Debug.Log(name);
         if (name == "DirtyPlates" && cleaning.GetRessourceQuantity() > 0 && !HasDishesToClean && !HasPlate)
         {
             mode = 7;
-            yellButton.ChangeSprite(1);
+            yellButton.ChangeSprite(CLEAN);
             cleaning.StopSound();
             CanYell = true;
         }
         if (HasDishesToClean && name == "CleanStation")
         {
             mode = 8;
-            yellButton.ChangeSprite(1);
+            yellButton.ChangeSprite(CLEAN);
             taskArrow.gameObject.SetActive(false);
             CanYell = true;
         }
@@ -424,14 +460,14 @@ public class Player : MonoBehaviour
                     mode = 1;
                     IsInWorkStation = true;
                     taskArrow.gameObject.SetActive(false);
-                    yellButton.ChangeSprite(1);
+                    yellButton.ChangeSprite(COOK);
                     CanYell = true;
                     
                 }
                 if (step == 2 && name == "ReadyPlates")
                 {
                     mode = 2;
-                    yellButton.ChangeSprite(1);
+                    yellButton.ChangeSprite(READYPLATE);
                     CanYell = true;
 
                     taskArrow.gameObject.SetActive(false);
@@ -442,7 +478,7 @@ public class Player : MonoBehaviour
                 if (!HasPlate && name == "ReadyPlates")
                 {
                     mode = 3;
-                    yellButton.ChangeSprite(1);
+                    yellButton.ChangeSprite(TAKEPLATE);
                     CanYell = true;
                     taskArrow.gameObject.SetActive(false);
                 }
@@ -450,7 +486,7 @@ public class Player : MonoBehaviour
                 {
                     mode = 4;
                     CanYell = true;
-                    yellButton.ChangeSprite(1);
+                    yellButton.ChangeSprite(READYPLATE);
                     taskArrow.gameObject.SetActive(false);
                 }
             }
@@ -460,14 +496,14 @@ public class Player : MonoBehaviour
                 {
                     mode = 5;
                     CanYell = true;
-                    yellButton.ChangeSprite(1);
+                    yellButton.ChangeSprite(RETURNPLATE);
                     taskArrow.gameObject.SetActive(false);
                 }
 
                 if (HasPlate && name == "DirtyPlates")
                 {
                     mode = 6;
-                    yellButton.ChangeSprite(1);
+                    yellButton.ChangeSprite(READYPLATE);
                     CanYell = true;
                     taskArrow.gameObject.SetActive(false);
                 }
@@ -531,7 +567,7 @@ public class Player : MonoBehaviour
                 {
                     mode = 0;
                     yellButton.ChangeSprite(0);
-                    taskArrow.gameObject.SetActive(false);
+                    taskArrow.gameObject.SetActive(true);
                 }
             }
             else if (currentOrder.IsBeingTakenToClean)
