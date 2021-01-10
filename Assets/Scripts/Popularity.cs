@@ -18,6 +18,11 @@ public class Popularity : MonoBehaviour
         slider = GetComponent<Slider>();
     }
 
+    internal float GetScore()
+    {
+        return slider.value;
+    }
+
     // Update is called once per frame
     void Update()
     {

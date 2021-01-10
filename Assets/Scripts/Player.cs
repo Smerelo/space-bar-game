@@ -92,7 +92,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Stunned);
         if (Stunned)
         {
             tempTimer += Time.deltaTime;
@@ -348,6 +347,8 @@ public class Player : MonoBehaviour
         step = 0;
         if (!currentOrder.BossOrder)
         {
+            orderList.SendOrderToNextStep(currentOrder);
+            currentOrder.card.ChangeOwner(-1);
             serving.OrderDone(currentOrder);
         }
         else
@@ -379,7 +380,6 @@ public class Player : MonoBehaviour
         yellButton.ChangeSprite(0);
         mode = 0;
         taskArrow.gameObject.SetActive(true);
-        Debug.Log(cleaningStation);
         taskArrow.position = new Vector3(cleaningStation.GetWorkerPlacement().position.x,
               cleaningStation.GetWorkerPlacement().position.y + 1, 0);
         cleaning.DrawResource();

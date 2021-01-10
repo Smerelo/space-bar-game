@@ -36,7 +36,7 @@ public class Boss : MonoBehaviour
     private DayManagement day;
     private HeadEmployeeManager manager;
 
-    public bool Kill { get; private set; }
+    public bool Kill { get;  set; }
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class Boss : MonoBehaviour
         table = Instantiate(tablePrefab, new Vector3(100f, 100f, 100f),
             Quaternion.identity, transform).GetComponent<Table>();
         foodPreference = Order.RandomFoodType();
-        startAttackTimer = 15f;
+        startAttackTimer = 25f;
         progressBar.maxValue = startAttackTimer;
         AttackTimer = startAttackTimer;
         orderTimer = 0f;
@@ -60,9 +60,9 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (manager.employeeList.Count ==2)
+        if (manager.employeeList.Count == 2)
         {
-            startAttackTimer = 14f;
+            startAttackTimer = 12f;
             progressBar.maxValue = startAttackTimer;
 
         }
@@ -85,7 +85,7 @@ public class Boss : MonoBehaviour
             progressBar.value = AttackTimer;
             if (orderTimer <= 0)
             {
-                orderTimer = 12f;
+                orderTimer = 6f;
                 SendOrder();
             }
             if (AttackTimer <= 0)
@@ -113,8 +113,8 @@ public class Boss : MonoBehaviour
     {
         orderList.Remove(customer);
         Destroy(customer.gameObject);
-       AttackTimer = AttackTimer + 8 > startAttackTimer ? startAttackTimer 
-            : AttackTimer + 8;
+       AttackTimer = AttackTimer + 5 > startAttackTimer ? startAttackTimer 
+            : AttackTimer + 5;
         UpdateHealth(-5);
 
         slimeBoss.Eat();
@@ -123,9 +123,12 @@ public class Boss : MonoBehaviour
     private void UpdateHealth(int i)
     {
         healthBar.value += i;
-        if (healthBar.value <= 50 && !Kill && manager.employeeList.Count >0)
+        if (healthBar.value == 50 && !Kill)
         {
-            Kill = true;
+            if (manager.employeeList.Count > 0)
+            {
+                Kill = true;
+            }
             AttackTimer = startAttackTimer;
             slimeBoss.GetAngry();
         }
@@ -138,6 +141,7 @@ public class Boss : MonoBehaviour
     private void EndGame()
     {
         endScreen.SetActive(true);
+        endScreen.GetComponent<Score>().ShowScore();
         day.PauseGame();
         GameObject.Destroy(this.gameObject);
         healthBar.gameObject.SetActive(false);

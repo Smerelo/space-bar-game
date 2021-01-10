@@ -135,7 +135,6 @@ public class ZoneManagment : MonoBehaviour
     {
         if (zoneName == Constants.cleaning && !SoundStopped)
         {
-            Debug.Log("here");  
             arrow.gameObject.SetActive(false);
             arrow.StopSound();
             SoundStopped = true;

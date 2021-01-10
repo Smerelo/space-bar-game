@@ -79,7 +79,10 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            SoundManager.SfxSource.loop = false;
+            if (SoundManager.SfxSource != null)
+            {
+                SoundManager.SfxSource.loop = false;
+            }
 
         }
         SoundManager.SfxSource.clip = sfx[i];

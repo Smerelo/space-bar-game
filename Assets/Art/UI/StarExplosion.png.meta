@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: 154084c8ba873ea48ad8d87567911773
+guid: 96eae2e1939cee649a515f0b43acb4a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5985113476833756028
-    second: C1_IdleFront_0
+      213: -8078138138740013161
+    second: StarExplosion_0
   - first:
-      213: 428405905885381521
-    second: C1_IdleFront_1
+      213: -8180938282071206139
+    second: StarExplosion_1
   - first:
-      213: -4252159744446540014
-    second: C1_IdleFront_2
+      213: 461495148509674014
+    second: StarExplosion_2
   - first:
-      213: 7040845386312203322
-    second: C1_IdleFront_3
+      213: -4815266410266137312
+    second: StarExplosion_3
   - first:
-      213: -3338036751430932981
-    second: C1_IdleFront_0
+      213: 6669600054587449035
+    second: StarExplosion_4
   - first:
-      213: -6771640431067896791
-    second: C1_IdleFront_1
-  - first:
-      213: 1402569831419756402
-    second: C1_IdleFront_2
-  - first:
-      213: 5463351152329376505
-    second: C1_IdleFront_3
+      213: 515561040400182762
+    second: StarExplosion_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -108,7 +102,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: C1_IdleFront_0
+      name: StarExplosion_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,41 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b06a2cf9249eca1d0800000000000000
-      internalID: -3338036751430932981
+      spriteID: 797cdd1a920b4ef80800000000000000
+      internalID: -8078138138740013161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: C1_IdleFront_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9246687d7ec4602a0800000000000000
-      internalID: -6771640431067896791
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: C1_IdleFront_2
+      name: StarExplosion_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27f347e94dde67310800000000000000
-      internalID: 1402569831419756402
+      spriteID: 50750c71af7777e80800000000000000
+      internalID: -8180938282071206139
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: C1_IdleFront_3
+      name: StarExplosion_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,8 +173,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f240dd4de8b1db40800000000000000
-      internalID: 5463351152329376505
+      spriteID: e1a3c78746f876600800000000000000
+      internalID: 461495148509674014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarExplosion_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02d673556bcbc2db0800000000000000
+      internalID: -4815266410266137312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarExplosion_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bce5c9f99ed2f8c50800000000000000
+      internalID: 6669600054587449035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarExplosion_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aed6511e804a72700800000000000000
+      internalID: 515561040400182762
       vertices: []
       indices: 
       edges: []

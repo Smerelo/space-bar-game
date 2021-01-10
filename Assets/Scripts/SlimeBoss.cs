@@ -61,9 +61,6 @@ public class SlimeBoss : MonoBehaviour
 
     public bool AttackingPlayer { get; private set; }
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         employees = GameObject.Find("HeadEmployees").GetComponent<HeadEmployeeManager>();
@@ -86,6 +83,12 @@ public class SlimeBoss : MonoBehaviour
         }
         player = GameObject.Find("Player").GetComponent<Player>();
     }
+
+    void Update()
+    {
+
+    }
+
 
     internal void Eat()
     {
@@ -127,7 +130,7 @@ public class SlimeBoss : MonoBehaviour
         if (AttackingPlayer)
         {
             tentacleObj.transform.position = new Vector3(player.transform.position.x
-                    + 0.8f, player.transform.position.y - 0.9f, 0);
+                    + 0.6f, player.transform.position.y - 0.6f, 0);
             if (player.transform.parent.name == Constants.cleaning || player.transform.parent.name == Constants.preparing)
             {
                 zoneAttacked = 0;
@@ -258,6 +261,7 @@ public class SlimeBoss : MonoBehaviour
         ChangeAnimationState(BOSS_IDLE, animator);
         popularityBar.UpdatePopularity(-1);
         boss.attacking = false;
+        boss.Kill = false;
     }
 
 
@@ -318,14 +322,7 @@ public class SlimeBoss : MonoBehaviour
         audio.PlaySfx(2);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown("e"))
-        {
-            GetAngry();
-        }
-    }
+    
 
    
 

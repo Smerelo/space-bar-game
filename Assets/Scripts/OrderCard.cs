@@ -17,7 +17,7 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     private AudioSource audio;
     public int orderNb;
     public bool Moving;
-
+    public int  tweenId;
     private const string ORDER_NORMAL = "Order_Normal";
     private const string ORDER_SLECTED = "Order_Selected";
     private const string ORDER_2 = "Order_2";
@@ -149,6 +149,17 @@ public class OrderCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
         }
         ownerImage.SetActive(true);
-        animator2.Play(W_ + (employeeType));
+        if (employeeType == -1)
+        {
+            Debug.Log("here");
+            animator2.Play("c");
+            currentOrder.IsAssigned = true;
+        }
+        else if (employeeType == -2)
+        {
+            ownerImage.SetActive(false);
+        }
+        else
+            animator2.Play(W_ + (employeeType));
     }
 }

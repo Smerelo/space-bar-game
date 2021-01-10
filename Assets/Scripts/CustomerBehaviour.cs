@@ -142,6 +142,8 @@ public class CustomerBehaviour : MonoBehaviour
                     order.IsReady = false;
                     order.IsBeingTakenToClean = true;
                     orderList = GameObject.Find("OrderList").GetComponent<OrderList>();
+                    order.IsAssigned = false;
+                    order.card.ChangeOwner(0);
                     orderList.SendOrderToNextStep(order);
                     animator.SetBool("isEating", false);
 

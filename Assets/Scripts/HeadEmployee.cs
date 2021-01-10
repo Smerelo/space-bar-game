@@ -542,7 +542,9 @@ public class HeadEmployee : MonoBehaviour
         currentTween = null;
         if (!currentOrder.BossOrder)
         {
+            orderList.SendOrderToNextStep(currentOrder);
             newZone.OrderDone(currentOrder);
+            currentOrder.card.ChangeOwner(-1);
         }
         else
         {
@@ -646,6 +648,11 @@ public class HeadEmployee : MonoBehaviour
         HeadingToInput = false;
         HeadingToOutput = false;
         employeeBehaviour.IsBusy = false;
+        if (currentOrder != null)
+        {
+            currentOrder.IsAssigned = false;
+            currentOrder.card.ChangeOwner(-2);
+        }
         if (workstation != null)
         {
             workstation.StopAnimation();

@@ -8,7 +8,7 @@ public class OrderList : MonoBehaviour
     [SerializeField] private GameObject orderPrefab;
     [SerializeField] private Transform orderSpawn;
     [SerializeField] private Transform orderPos;
-
+    private List<LTDescr> tweens;
     private List<OrderCard> orders;
     private int activeOrders = 0;
     private List<Order> backLog;
@@ -18,6 +18,7 @@ public class OrderList : MonoBehaviour
 
     void Start()
     {
+        tweens = new List<LTDescr>();
         backLog = new List<Order>();
         orders = new List<OrderCard>();
 
@@ -30,7 +31,7 @@ public class OrderList : MonoBehaviour
         {
             CheckBacklog();
         }
-      
+        CheckOrdersPos();
     }
 
 
@@ -43,20 +44,23 @@ public class OrderList : MonoBehaviour
             {
                 order.orderNb = i;
             }
-            if (order.Moving)
-            {
-                Debug.Log(order.orderNb);
-            }
             if (!order.Moving && order.gameObject.transform.localPosition.x != orderPos.localPosition.x + gap * i)
             {
-                Debug.Log("change");
-                LeanTween.moveLocalX(order.gameObject,
-                orderPos.localPosition.x + gap * i, 1f).setOnComplete(PlaySound);
+                object obj = order;
+                order.Moving = true;
+                order.tweenId = LeanTween.moveLocalX(order.gameObject,
+                orderPos.localPosition.x + gap * i, 1f).setOnComplete(StopMoving).setOnCompleteParam(obj).id;
             }
             i++;
         }
     }
 
+    private void StopMoving(object obj)
+    {
+        OrderCard order = (OrderCard)obj;
+        order.Moving = false;
+        LeanTween.cancel(order.tweenId);
+    }
     private void CheckBacklog()
     {
         foreach (Order order in backLog)
@@ -77,8 +81,10 @@ public class OrderList : MonoBehaviour
                 Quaternion.identity, transform).GetComponent<OrderCard>());
             orders[activeOrders].orderNb = activeOrders;
             orders[activeOrders].AssignOrder(order);
-            LeanTween.moveLocalX(orders[activeOrders].gameObject,
-                orderPos.localPosition.x + gap * activeOrders, 1f).setOnComplete(PlaySound);
+            orders[activeOrders].PlaySound();
+            object obj = orders[activeOrders];
+            orders[activeOrders].tweenId = LeanTween.moveLocalX(orders[activeOrders].gameObject,
+            orderPos.localPosition.x + gap * activeOrders, 1f).setOnComplete(StopMoving).setOnCompleteParam(obj).id;
             orders[activeOrders].Moving = true;
             activeOrders++;
         }
@@ -86,7 +92,6 @@ public class OrderList : MonoBehaviour
 
     private void PlaySound()
     {
-        orders[activeOrders - 1].PlaySound();
         orders[activeOrders - 1].Moving = false;
 
     }
