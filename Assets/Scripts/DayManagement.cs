@@ -59,6 +59,10 @@ public class DayManagement : MonoBehaviour
         {
             EndDay();
         }
+       /* if (Input.GetKeyDown("q"))
+        {
+            EndDay();
+        }*/
         if (!dayFinished)
         {
             if (!PlayingCinematic)

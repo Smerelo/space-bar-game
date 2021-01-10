@@ -35,6 +35,7 @@ public class Boss : MonoBehaviour
     private bool eating;
     private DayManagement day;
     private HeadEmployeeManager manager;
+    internal bool kill;
 
     public bool Kill { get;  set; }
 

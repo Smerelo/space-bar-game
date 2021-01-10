@@ -65,6 +65,7 @@ public class HeadEmployee : MonoBehaviour
     private float motivation = 1;
     private NavMeshAgent agent;
     private bool waitFrame;
+    private HeadEmployeeCardMenu cardMenu;
 
     //Main
     void Awake()
@@ -75,6 +76,7 @@ public class HeadEmployee : MonoBehaviour
 
     private void Start()
     {
+        cardMenu = GetComponent<HeadEmployeeCardMenu>();
         orderList = GameObject.Find("OrderList").GetComponent<OrderList>();
         midPoint = GameObject.Find("MidPoint");
         animator = GetComponent<Animator>();
@@ -326,6 +328,16 @@ public class HeadEmployee : MonoBehaviour
                 }
             }
         }
+    }
+
+    internal void DisableCamera()
+    {
+        cardMenu.DisableCamera();
+    }
+
+    internal void EnableCamera()
+    {
+        cardMenu.EnableCamera();
     }
 
     //Tasks

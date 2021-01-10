@@ -159,4 +159,14 @@ public class HeadEmployeeCardMenu : MonoBehaviour, IPointerClickHandler, IPointe
         LeanTween.scale(gameObject, new Vector3(1f, 1f, 1), 0.1f);
     }
 
+    internal void EnableCamera()
+    {
+        camera.gameObject.SetActive(true);
+    }
+
+    internal void DisableCamera()
+    {
+
+        camera.gameObject.SetActive(false);
+    }
 }

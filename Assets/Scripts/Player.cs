@@ -274,7 +274,10 @@ public class Player : MonoBehaviour
         switch (mode)
         {
             case 0:
-                ShouldYell();
+                if (!shouldYell)
+                {
+                    ShouldYell();
+                }
                 break;
             case 1:
                 PrepareFood();
@@ -627,14 +630,16 @@ public class Player : MonoBehaviour
         {
             CanYell = true;
             cooldownTimer = 0;
+            shouldYell = false;
         }
         if (CanYell && shouldYell && this.transform.parent != null)
         {
-            shouldYell = false;
             CanYell = false;
             yelling = true;
             animator.SetBool("yelling", true);
-            this.transform.parent.gameObject.GetComponent<ZoneManagment>().Yell();
+            cleaning.Yell();
+            preparing.Yell();
+            serving.Yell();
         }
         if (yelling)
         {

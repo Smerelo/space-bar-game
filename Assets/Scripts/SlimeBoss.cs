@@ -103,12 +103,17 @@ public class SlimeBoss : MonoBehaviour
 
     public void GetAngry()
     {
+        camera.gameObject.SetActive(true);
+        if (boss.Kill)
+        {
+            audio.PlaySfx(1);
+
+        }
+        ChangeAnimationState(BOSS_ANGRY, animator);
         int i =  UnityEngine.Random.Range(0, 4);
-        if (i == 3 || employees.employeeList.Count == 0)
+        if (!boss.Kill  && (i == 3 || employees.employeeList.Count == 0))
         {
             AttackingPlayer = true;
-            ChangeAnimationState(BOSS_ANGRY, animator);
-            StartCoroutine(PlayNextAnimation(animator, "Attack"));
             player.StopPlayer();
         }
         else
@@ -116,11 +121,10 @@ public class SlimeBoss : MonoBehaviour
             employeeAttacked = employees.GetRandomEmployee();
             if (employeeAttacked != null)
             {
-                ChangeAnimationState(BOSS_ANGRY, animator);
-                StartCoroutine(PlayNextAnimation(animator, "Attack"));
                 employeeAttacked.Stop();
             }
         }
+        StartCoroutine(PlayNextAnimation(animator, "Attack"));
     }
 
     internal void Attack()
@@ -200,6 +204,8 @@ public class SlimeBoss : MonoBehaviour
 
     private void YeetEmployee()
     {
+        camera.gameObject.SetActive(false);
+        employeeAttacked.EnableCamera();
         if (employeeAttacked.employeeType == 1)
         {
             ChangeAnimationState(ATTACK_BARMAN, tentacleAnimator);
@@ -245,6 +251,7 @@ public class SlimeBoss : MonoBehaviour
 
     private void DestroyEmployee()
     {
+        employeeAttacked.DisableCamera();
         if (employeeAttacked.GetComponent<EmployeeBehaviour>().IsBusy)
         {
             employeeAttacked.StopOrder();
@@ -259,7 +266,10 @@ public class SlimeBoss : MonoBehaviour
         AttackingPlayer = false;
         tentacleObj.SetActive(false);
         ChangeAnimationState(BOSS_IDLE, animator);
-        popularityBar.UpdatePopularity(-1);
+        if (!boss.Kill)
+        {
+            popularityBar.UpdatePopularity(-1);
+        }
         boss.attacking = false;
         boss.Kill = false;
     }
